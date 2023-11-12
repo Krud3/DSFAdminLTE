@@ -1,2 +1,7 @@
 venv/
 mientornovirtual/
+
+adminlte/__pycache__/
+*.pyc
+*.pyo
+*.pyd

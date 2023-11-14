@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 
 # Create your views here.
 def index(request):
@@ -8,6 +9,6 @@ def login(request):
         #logica de autenticacion va aqui
         #username = request.POST.get('username')
         #password = request.POST.get('password')
-        return redirect('index')
-    return render(request, 'adminlte/login.html')
+        return redirect(reverse('index'))
+    return render(request, 'adminlte/gestion_login/login.html')
 

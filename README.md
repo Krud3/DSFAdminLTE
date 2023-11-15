@@ -5,3 +5,7 @@ Tutorial de instalacion: https://www.youtube.com/watch?v=vndGHvTkeGg
 Repositorio original: https://github.com/colorlibhq/AdminLTE
 Para correr el localhost usar comando "py manage.py runserver" (windows) / "python3 manage.py runserver" (linux)
 Para generar el startapp "py manage.py startapp 'exampleName'" (windows) / "python3 manage.py startapp 'exampleName'" (linux)
+Para instalar el postgres "pip install psycopg2"
+Para generar los models.py "py manage.py inspectdb > adminlte/models.py" (tener cuidado con el UTF-8)
+Para migrar "py manage.py makemigrations", luego "py manage.py migrate"
+Para usar el shell de django "py manage.py shell"

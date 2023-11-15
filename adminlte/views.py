@@ -7,6 +7,7 @@ from .models import Gerente
 # Create your views here.
 def index(request):
     return render(request, 'adminlte/gerente/index.html')
+
 def login(request):
     if request.method == 'POST':
         username = request.POST.get("username")
@@ -24,6 +25,30 @@ def login(request):
             return render(request, 'adminlte/gestion_login/login.html', {'error': 'Usuario no existe'})
         
     return render(request, 'adminlte/gestion_login/login.html')
+
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+def forgot_password_view(request):
+    return render(request, 'adminlte/gestion_login/recover_password.html')
+
+def recover_password_view(request):
+    if request.method == 'POST':
+        return render(request, 'adminlte/gestion_login/recover_password.html')
+    return render(request, 'login')
+
+def recover_password(request):
+    if request.method == 'POST':
+        new_password = request.POST.get("new_password")
+        confirm_password = request.POST.get("confirm_password")
+        gerente = Gerente.objects.get(id_gerente="GER0001")
+        
+        if new_password == confirm_password:
+            gerente.pass_field = new_password
+            gerente.save()
+            return redirect('login')
+        else:
+            return render(request, 'adminlte/gestion_login/recover_password.html', {'error': 'Las contraseñas no coinciden'})
+
+    return render(request, 'adminlte/gestion_login/recover_password.html')

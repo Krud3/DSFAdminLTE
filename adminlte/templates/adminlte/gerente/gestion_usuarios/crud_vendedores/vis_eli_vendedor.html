@@ -1,0 +1,68 @@
+{% extends "adminlte/gerente/base_gerente.html" %}
+{% load static %}
+{% block body %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Vendedores</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Visualizar/Eliminar</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="card">
+        
+        <!-- /.card-header -->
+        <div class="container mt-4">
+          <h2>Visualizar/Eliminar Vendedores</h2>
+          <table class="table table-bordered table-striped">
+              <thead>
+                  <tr>
+                      <th>id_vendedor</th>
+                      <th>Nombre Vendedor</th>
+                      <th>Direccion Vendedor</th>
+                      <th>Email Vendedor</th>
+                      <th>Telefono Vendedor</th>
+                      <th>Acciones</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <!-- Los datos de la tabla van aquí -->
+                  <tr>
+                      <td>001</td>
+                      <td>Ervin Carabali</td>
+                      <td>Carrera 11 # 12-19</td>
+                      <td>jalasso2017@gmail.com</td>
+                      <td>3128601589</td>
+                      <td>
+                          <button class="btn btn-danger btn-sm">Eliminar</button>
+                      </td>
+                  </tr>
+                  <!-- Repite filas similares para más datos -->
+              </tbody>
+          </table>
+      </div>
+        <!-- /.card-body -->
+
+      </div>
+      
+      
+    </section>
+    <!-- /.content -->
+  </div>
+{% endblock %}   
+
+
+

@@ -220,63 +220,125 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
+                <a href="{% url 'add_automovil' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Crear Automovil</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar Automovil</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
+                <a href="{% url 'edit_automovil' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Modificar Automovil</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
+                <a href="{% url 'vis_eli' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Eliminar Automovil</p>
+                  <p>Consultar/Eliminar Automovil</p>
                 </a>
               </li>
             </ul>
           </li>
+          <!----------------------->
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-circle"></i>
               <p>
-                Gestion de Usuarios
+                Gestion Usuarios
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Crear Vendedor/Jefe</p>
+                  <p>
+                    Jefe taller
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Agregar</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Modificar</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Visualizar/Eliminar</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
+            </ul>
+            <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar Vendedor/Jefe</p>
+                  <p>
+                    Vendedor
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{% url 'add_vendedor' %}" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Agregar</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{% url 'edit_vendedor' %}" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Modificar</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{% url 'vis_eli_vendedor' %}" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Visualizar/Eliminar</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
+            </ul>
+            <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Modificar Vendedor/Jefe</p>
+                  <p>
+                    Clientes
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Eliminar Vendedor/Jefe</p>
-                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{% url 'add_cliente' %}" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Agregar</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{% url 'edit_cliente' %}" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Modificar</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{% url 'vis_eli_cliente' %}" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Visualizar/Eliminar</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
             </ul>
           </li>
@@ -302,7 +364,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
+                <a href="{% url 'gra_repuestos' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Generar repuestos</p>
                 </a>
@@ -510,6 +572,8 @@
 <script src="{% static 'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
 <!-- AdminLTE App -->
 <script src="{% static 'dist/js/adminlte.js' %}"></script>
+
+<script src="{% static 'dist/js/adminlte.min.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'dist/js/demo.js' %}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->

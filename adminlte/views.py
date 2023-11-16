@@ -52,3 +52,34 @@ def recover_password(request):
             return render(request, 'adminlte/gestion_login/recover_password.html', {'error': 'Las contraseñas no coinciden'})
 
     return render(request, 'adminlte/gestion_login/recover_password.html')
+
+def add_automovil(request):
+    return render(request, 'adminlte/gerente/automoviles/project_add.html')
+
+def edit_automovil(request):
+    return render(request, 'adminlte/gerente/automoviles/project_edit.html')
+
+def vis_eli(request):
+    return render(request, 'adminlte/gerente/automoviles/vis_eli.html')
+
+def add_cliente(request):
+    return render(request, 'adminlte/gerente/gestion_usuarios/crud_clientes/project_add.html')
+
+def edit_cliente(request):
+    return render(request, 'adminlte/gerente/gestion_usuarios/crud_clientes/project_edit.html')
+
+def vis_eli_cliente(request):
+    return render(request, 'adminlte/gerente/gestion_usuarios/crud_clientes/vis_eli_cliente.html')
+
+def gra_repuestos(request):
+    return render(request, 'adminlte/gerente/reportes_graficos/gra_repuestos.html')
+
+def add_vendedor(request):
+    return render(request, 'adminlte/gerente/gestion_usuarios/crud_vendedores/project_add.html')
+
+def edit_vendedor(request):
+    return render(request, 'adminlte/gerente/gestion_usuarios/crud_vendedores/project_edit.html')   
+
+def vis_eli_vendedor(request):
+    return render(request, 'adminlte/gerente/gestion_usuarios/crud_vendedores/vis_eli_vendedor.html')
+

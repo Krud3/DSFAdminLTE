@@ -226,59 +226,50 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'edit_automovil' %}" class="nav-link">
+                <a href="" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Modificar Automovil</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'vis_eli' %}" class="nav-link">
+                <a href="{% url 'vis_eli_mod_aut' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar/Eliminar Automovil</p>
+                  <p>Consultar/Modificar/Eliminar Automovil</p>
                 </a>
               </li>
             </ul>
           </li>
-          <!----------------------->
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>
-                Gestion Usuarios
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Jefe taller
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Agregar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Modificar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Visualizar/Eliminar</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Jefe Taller 
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{% url 'jefe_taller_add' %}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Crear jefe taller</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'vis_eli_mod_jefe' %}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Consultar/Modificar/Eliminar jefe taller</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Consultar/Eliminar Automovil</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            
+              
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -370,7 +361,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
+                <a href="{% url 'gra_rep_add' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Consultar repuestos</p>
                 </a>
@@ -387,25 +378,25 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
+                <a href="{% url 'reporte_add' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Generar automoviles</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
+                <a href="{% url 'reporte_text' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Consultar automoviles</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
+                <a href="{% url 'reporte_repu_add' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Generar repuestos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
+                <a href="{% url 'reporte_inve' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Consultar repuestos</p>
                 </a>
@@ -422,15 +413,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
+                <a href="{% url 'repuestos_add' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Crear Repuesto</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
+                <a href="{% url 'vis_eli_mod' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar Repuesto</p>
+                  <p>Consultar/Modificar/Elimar</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -457,27 +448,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
+                <a href="{% url 'sucursal_add' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Crear Sucursal</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
+                <a href="{% url 'vis_eli_mod_suc' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar Sucursal</p>
+                  <p>Consultar/Modificar/Eliminar</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Modificar Sucursal</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Eliminar Sucursal</p>
+                  <p>Consultar/Eliminar</p>
                 </a>
               </li>
 

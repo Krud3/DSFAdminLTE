@@ -56,11 +56,8 @@ def recover_password(request):
 def add_automovil(request):
     return render(request, 'adminlte/gerente/automoviles/project_add.html')
 
-def edit_automovil(request):
-    return render(request, 'adminlte/gerente/automoviles/project_edit.html')
-
-def vis_eli(request):
-    return render(request, 'adminlte/gerente/automoviles/vis_eli.html')
+def vis_eli_mod_aut(request):
+    return render(request, 'adminlte/gerente/automoviles/vis_eli_mod_aut.html')
 
 def add_cliente(request):
     return render(request, 'adminlte/gerente/gestion_usuarios/crud_clientes/project_add.html')
@@ -82,4 +79,48 @@ def edit_vendedor(request):
 
 def vis_eli_vendedor(request):
     return render(request, 'adminlte/gerente/gestion_usuarios/crud_vendedores/vis_eli_vendedor.html')
+
+def sucursal_add(request):
+    return render(request, 'adminlte/gerente/sucursales/sucursal_add.html')
+
+def vis_eli_mod_suc(request):
+    return render(request, 'adminlte/gerente/sucursales/vis_eli_mod_suc.html')
+
+def repuestos_add(request):
+    return render(request, 'adminlte/gerente/repuestos/repuestos_add.html')
+
+def vis_eli_mod(request):
+    return render(request, 'adminlte/gerente/repuestos/vis_eli_mod.html')
+
+def jefe_taller_add(request):
+    return render(request, 'adminlte/jefe_taller/jefe_taller_add.html')
+
+def vis_eli_mod_jefe(request):
+    return render(request, 'adminlte/jefe_taller/vis_eli_mod_jefe.html')
+
+def reporte_text(request):
+    return render(request, 'adminlte/gerente/reportes_texto/reporte_text.html')
+
+def reporte_add(request):
+    return render(request, 'adminlte/gerente/reportes_texto/reporte_add.html')
+
+def reporte_repu_add(request):
+    return render(request, 'adminlte/gerente/reportes_texto/reporte_repu_add.html')
+
+def reporte_inve(request):
+    return render(request, 'adminlte/gerente/reportes_texto/reporte_inve.html')
+
+def gra_rep_add(request):
+    return render(request, 'adminlte/gerente/reportes_graficos/gra_rep_add.html')
+
+
+
+
+
+
+
+
+
+
+
 

@@ -1,0 +1,78 @@
+{% extends "adminlte/gerente/base_gerente.html" %}
+{% load static %}
+{% block body %}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Inventario de Repuestos por Mes</h2>
+
+    <!-- Formulario para ingresar datos -->
+    <form id="formularioInventario" class="mb-4">
+        <div class="form-group">
+            <label for="mes">Mes:</label>
+            <select class="form-control" id="mes">
+                <option value="0">Enero</option>
+                <option value="1">Febrero</option>
+                <option value="2">Marzo</option>
+                <option value="3">Abril</option>
+                <option value="4">Mayo</option>
+                <option value="5">Junio</option>
+                <option value="6">Julio</option>
+                <option value="7">Agosto</option>
+                <option value="8">Septiembre</option>
+                <option value="9">Octubre</option>
+                <option value="10">Noviembre</option>
+                <option value="11">Diciembre</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="cantidad">Cantidad de Repuestos:</label>
+            <input type="number" class="form-control" id="cantidad" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar</button>
+    </form>
+
+    <!-- Gráfico de Barras -->
+    <canvas id="graficoInventarioRepuestos"></canvas>
+</div>
+
+<script>
+    var ctx = document.getElementById('graficoInventarioRepuestos').getContext('2d');
+    var datosInventario = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // Datos iniciales, todos en cero
+
+    var graficoInventarioRepuestos = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            datasets: [{
+                label: 'Cantidad de Repuestos',
+                data: datosInventario,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Función para manejar la adición de datos al gráfico
+    document.getElementById('formularioInventario').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var mes = document.getElementById('mes').value;
+        var cantidad = parseInt(document.getElementById('cantidad').value);
+        datosInventario[mes] = cantidad;
+        graficoInventarioRepuestos.update();
+    });
+</script>
+
+<!-- Bootstrap y jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.5/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}

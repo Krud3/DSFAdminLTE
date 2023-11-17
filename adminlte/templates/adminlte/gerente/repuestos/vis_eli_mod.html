@@ -1,0 +1,67 @@
+{% extends "adminlte/gerente/base_gerente.html" %}
+{% load static %}
+{% block body %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper ">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Repuestos</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Visualizar/Eliminar/Modificar</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="card">
+        
+        <!-- /.card-header -->
+        <div class="container mt-4">
+          <h2>Visualizar/Eliminar/Modificar Repuestos</h2>
+          <input class="form-control mb-3" id="buscador" type="text" placeholder="Buscar...">
+          <table class="table table-bordered table-striped">
+              <thead>
+                  <tr>
+                      <th>Código Repuesto</th>
+                      <th>Precio Repuesto</th>
+                      <th>Descripcion Repuesto</th>
+                      <th>Acciones</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <!-- Los datos de la tabla van aquí -->
+                  <tr>
+                      <td>001</td>
+                      <td>18.000</td>
+                      <td>Repuesto para frenos de BMW</td>
+                      <td>
+                          <button class="btn btn-danger btn-sm">Eliminar</button>
+                          <button class="btn btn-primary btn-sm">Modificar</button>
+                      </td>
+                  </tr>
+                  <!-- Repite filas similares para más datos -->
+              </tbody>
+          </table>
+      </div>
+        <!-- /.card-body -->
+
+      </div>
+      
+      
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+{% endblock %}   
+
+
+

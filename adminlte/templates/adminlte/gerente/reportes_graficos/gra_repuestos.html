@@ -1,0 +1,48 @@
+{% extends "adminlte/gerente/base_gerente.html" %}
+{% load static %}
+{% block body %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+    
+    graficoInventarioRepuestos {
+        max-width: 800px;
+        margin: auto;
+    }
+</style>
+
+<div class="container mt-5">
+  <h2 class="text-center">Inventario de Repuestos por Mes</h2>
+  <!-- Gráfico de Barras -->
+  <canvas id="graficoInventarioRepuestos"></canvas>
+</div>
+
+<script>
+  var ctx = document.getElementById('graficoInventarioRepuestos').getContext('2d');
+  var graficoInventarioRepuestos = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], // Meses del año
+          datasets: [{
+              label: 'Cantidad de Repuestos',
+              data: [120, 150, 180, 160, 200, 170, 190, 210, 200, 180, 160, 140], // Cantidades de repuestos por mes
+              backgroundColor: 'rgba(54, 162, 235, 0.6)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+</script>
+
+<!-- Bootstrap y jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.5/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}

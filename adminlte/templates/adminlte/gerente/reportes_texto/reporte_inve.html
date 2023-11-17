@@ -1,0 +1,64 @@
+{% extends "adminlte/gerente/base_gerente.html" %}
+{% load static %}
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="container mt-5">
+    <h2> Reporte texto inventario repuestos</h2>
+    
+    <input class="form-control mb-3" id="buscador" type="text" placeholder="Buscar...">
+    <!-- Tabla de Reportes -->
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>No. repuestos</th>
+                <th>Tipo repuestos</th>
+                <th>Sucursal</th>
+                
+                
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Los datos de la tabla van aquí -->
+            <tr>
+                <td>15</td>
+                <td>Frenos</td>
+                <td>Caney</td>
+                
+                
+            </tr>
+            <!-- Repite filas similares para más datos -->
+        </tbody>
+    </table>
+
+    <!-- Botones para Descargar Reportes -->
+    <button class="btn btn-primary" onclick="descargarPDF()">Descargar PDF</button>
+    <button class="btn btn-secondary" onclick="descargarImagen('png')">Descargar PNG</button>
+    <button class="btn btn-success" onclick="descargarImagen('jpg')">Descargar JPG</button>
+    <!--button class="btn btn-danger " href="#" onclick="Agregar Reporte">Agregar Reporte</button-->
+   
+</div>
+
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+
+<!-- html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.0.0-rc.7/html2canvas.min.js"></script>
+
+<!-- Bootstrap y jQuery (necesario para algunas funcionalidades de Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.5/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Funciones para la descarga de reportes
+
+    function descargarPDF() {
+        // Implementación de la descarga del PDF usando jsPDF
+    }
+
+    function descargarImagen(tipo) {
+        // Implementación de la descarga de la imagen usando html2canvas
+    }
+</script>
+{% endblock %}   

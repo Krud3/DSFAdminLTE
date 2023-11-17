@@ -1,0 +1,73 @@
+{% extends "adminlte/gerente/base_gerente.html" %}
+{% load static %}
+{% block body %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper ">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Visualizar/Eliminar</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="card">
+        
+        <!-- /.card-header -->
+        <div class="container mt-4">
+          <h2>Sucursales</h2>
+          <input class="form-control mb-3" id="buscador" type="text" placeholder="Buscar...">
+          <table class="table table-bordered table-striped">
+              <thead>
+                  <tr>
+                      <th>codigo_sucursal</th>
+                      <th>id_gerente</th>
+                      <th>nombre_sucursal</th>
+                      <th>ciudad_sucursal</th>
+                      <th>telefono_sucursal</th>
+                      <th>Acciones</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for sucursal in sucursales %}
+                  <!-- Los datos de la tabla van aquí -->
+                  <tr>
+                      <td>{{ sucursal.codigo_sucursal }}</td>
+                      <td>{{ sucursal.id_gerente }}</td>
+                      <td>{{ sucursal.nombre_sucursal }}</td>
+                      <td>{{ sucursal.ciudad_sucursal }}</td>
+                      <td>{{ sucursal.telefono_sucursal }}</td>
+                      <td>
+                        <form action="{% url 'eliminar_sucursal' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="codigo_sucursal" value="{{ sucursal.codigo_sucursal }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                          </form>
+                      </td>
+                  </tr>
+                  <!-- Repite filas similares para más datos -->
+                {% endfor %}
+              </tbody>
+          </table>
+      </div>
+        <!-- /.card-body -->
+
+      </div>
+      
+      
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+{% endblock %}   

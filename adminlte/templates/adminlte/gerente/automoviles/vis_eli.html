@@ -1,0 +1,74 @@
+{% extends "adminlte/gerente/base_gerente.html" %}
+{% load static %}
+{% block body %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Vehículos</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Visualizar/Eliminar</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="card">
+        
+        <!-- /.card-header -->
+        <div class="container mt-4">
+          <h2>Visualizar/Eliminar vehiculos</h2>
+          <table class="table table-bordered table-striped">
+              <thead>
+                  <tr>
+                      <th>Codigo vehículo</th>
+                      <th>cod sucursal</th>
+                      <th>Modelo vehículo</th>
+                      <th>Color vehículo</th>
+                      <th>Precio vehículo</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for vehiculo in vehiculos %}
+                  <!-- Los datos de la tabla van aquí -->
+                  <tr>
+                      <td>{{ vehiculo.codigo_vehiculo }}</td>
+                      <td>{{ vehiculo.codigo_sucursal }}</td>
+                      <td>{{ vehiculo.modelo_vehiculo }}</td>
+                      <td>{{ vehiculo.color_vehiculo }}</td>
+                      <td>{{ vehiculo.precio_vehiculo }}</td>
+                      <td>
+                        <form action="{% url 'eliminar_vehiculo' %}" method="post">
+                          {% csrf_token %}
+                          <input type="hidden" name="codigo_vehiculo" value="{{ vehiculo.codigo_vehiculo }}">
+                          <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                      </td>
+                  </tr>
+                  <!-- Repite filas similares para más datos -->
+                  {% endfor %}
+              </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+
+      </div>
+      
+      
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+{% endblock %}   
+
+
+

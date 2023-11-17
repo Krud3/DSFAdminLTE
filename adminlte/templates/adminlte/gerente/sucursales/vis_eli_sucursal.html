@@ -2,13 +2,13 @@
 {% load static %}
 {% block body %}
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper ">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Vehículos</h1>
+            
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -26,39 +26,41 @@
         
         <!-- /.card-header -->
         <div class="container mt-4">
-          <h2>Visualizar/Eliminar vehiculos</h2>
+          <h2>Sucursales</h2>
+          <input class="form-control mb-3" id="buscador" type="text" placeholder="Buscar...">
           <table class="table table-bordered table-striped">
               <thead>
                   <tr>
-                      <th>Codigo vehículo</th>
-                      <th>cod sucursal</th>
-                      <th>Modelo vehículo</th>
-                      <th>Color vehículo</th>
-                      <th>Precio vehículo</th>
+                      <th>codigo_sucursal</th>
+                      <th>id_gerente</th>
+                      <th>nombre_sucursal</th>
+                      <th>ciudad_sucursal</th>
+                      <th>telefono_sucursal</th>
+                      <th>Acciones</th>
                   </tr>
               </thead>
               <tbody>
-                  {% for vehiculo in vehiculos %}
+                {% for sucursal in sucursales %}
                   <!-- Los datos de la tabla van aquí -->
                   <tr>
-                      <td>{{ vehiculo.codigo_vehiculo }}</td>
-                      <td>{{ vehiculo.codigo_sucursal }}</td>
-                      <td>{{ vehiculo.modelo_vehiculo }}</td>
-                      <td>{{ vehiculo.color_vehiculo }}</td>
-                      <td>{{ vehiculo.precio_vehiculo }}</td>
+                      <td>{{ sucursal.codigo_sucursal }}</td>
+                      <td>{{ sucursal.id_gerente }}</td>
+                      <td>{{ sucursal.nombre_sucursal }}</td>
+                      <td>{{ sucursal.ciudad_sucursal }}</td>
+                      <td>{{ sucursal.telefono_sucursal }}</td>
                       <td>
-                        <form action="{% url 'eliminar_vehiculo' %}" method="post">
-                          {% csrf_token %}
-                          <input type="hidden" name="codigo_vehiculo" value="{{ vehiculo.codigo_vehiculo }}">
-                          <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                        </form>
+                        <form action="{% url 'eliminar_sucursal' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="codigo_sucursal" value="{{ sucursal.codigo_sucursal }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                          </form>
                       </td>
                   </tr>
                   <!-- Repite filas similares para más datos -->
-                  {% endfor %}
+                {% endfor %}
               </tbody>
           </table>
-        </div>
+      </div>
         <!-- /.card-body -->
 
       </div>
@@ -69,6 +71,3 @@
   </div>
   <!-- /.content-wrapper -->
 {% endblock %}   
-
-
-

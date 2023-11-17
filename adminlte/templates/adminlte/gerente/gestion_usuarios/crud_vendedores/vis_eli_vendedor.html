@@ -30,27 +30,34 @@
           <table class="table table-bordered table-striped">
               <thead>
                   <tr>
-                      <th>id_vendedor</th>
-                      <th>Nombre Vendedor</th>
-                      <th>Direccion Vendedor</th>
-                      <th>Email Vendedor</th>
+                      <th>id vendedor</th>
+                      <th>id gerente</th>
+                      <th>codigo sucursal</th>
+                      <th>nombre vendedor</th>
                       <th>Telefono Vendedor</th>
-                      <th>Acciones</th>
+                      <th>Email vendedor</th>
                   </tr>
               </thead>
               <tbody>
+                  {% for vendedor in vendedores %}
                   <!-- Los datos de la tabla van aquí -->
                   <tr>
-                      <td>001</td>
-                      <td>Ervin Carabali</td>
-                      <td>Carrera 11 # 12-19</td>
-                      <td>jalasso2017@gmail.com</td>
-                      <td>3128601589</td>
+                      <td>{{ vendedor.id_vendedor }}</td>
+                      <td>{{ vendedor.id_gerente }}</td>
+                      <td>{{ vendedor.codigo_sucursal }}</td>
+                      <td>{{ vendedor.nombre_vendedor }}</td>
+                      <td>{{ vendedor.telefono_vendedor }}</td>
+                      <td>{{ vendedor.email_vendedor }}</td>
                       <td>
-                          <button class="btn btn-danger btn-sm">Eliminar</button>
+                        <form action="{% url 'eliminar_vendedor' %}" method="post">
+                          {% csrf_token %}
+                          <input type="hidden" name="id_vendedor" value="{{ vendedor.id_vendedor }}">
+                          <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
                       </td>
                   </tr>
                   <!-- Repite filas similares para más datos -->
+                  {% endfor %}
               </tbody>
           </table>
       </div>

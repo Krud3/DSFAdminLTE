@@ -1,0 +1,308 @@
+DROP TABLE IF EXISTS gerente CASCADE;
+CREATE TABLE gerente(
+  id_gerente VARCHAR(10) NOT NULL,
+  nombre_gerente VARCHAR(50) NOT NULL,
+  telefono_gerente VARCHAR(20),
+  direccion_gerente VARCHAR(100),
+  email_gerente VARCHAR(50),
+  pass VARCHAR(200),
+
+PRIMARY KEY(id_gerente)
+);
+
+----------------------------------------------------------------------------------
+DROP TABLE IF EXISTS sucursal CASCADE;
+CREATE TABLE sucursal(
+  codigo_sucursal VARCHAR(10) NOT NULL,
+  id_gerente VARCHAR(10) NOT NULL,
+  nombre_sucursal VARCHAR(100) NOT NULL,
+  ciudad_sucursal VARCHAR(50),
+  telefono_sucursal VARCHAR(20),
+
+PRIMARY KEY (codigo_sucursal),
+FOREIGN KEY (id_gerente) REFERENCES gerente(id_gerente)
+);
+
+----------------------------------------------------------------------------------
+DROP TABLE IF EXISTS vendedor CASCADE;
+CREATE TABLE vendedor(
+  id_vendedor VARCHAR(10) NOT NULL,
+  id_gerente VARCHAR(10) NOT NULL,
+  codigo_sucursal VARCHAR(10) NOT NULL,
+  nombre_vendedor VARCHAR(50) NOT NULL,
+  telefono_vendedor VARCHAR(20),
+  direccion_vendedor VARCHAR(100),
+  email_vendedor VARCHAR(50),
+  pass VARCHAR(200),
+
+PRIMARY KEY(id_vendedor),
+FOREIGN KEY (id_gerente) REFERENCES gerente(id_gerente),
+FOREIGN KEY (codigo_sucursal) REFERENCES sucursal(codigo_sucursal)
+);
+
+----------------------------------------------------------------------------------
+DROP TABLE IF EXISTS jefe_taller CASCADE;
+CREATE TABLE jefe_taller(
+  id_jefe_taller VARCHAR(10) NOT NULL,
+  id_gerente VARCHAR(10) NOT NULL,
+  codigo_sucursal VARCHAR(10) NOT NULL,
+  nombre_jefe_taller VARCHAR(50) NOT NULL,
+  telefono_jefe_taller VARCHAR(20),
+  direccion_jefe_taller VARCHAR(100),
+  email_jefe_taller VARCHAR(50),
+  pass VARCHAR(200),
+
+PRIMARY KEY(id_jefe_taller),
+FOREIGN KEY (id_gerente) REFERENCES gerente(id_gerente),
+FOREIGN KEY (codigo_sucursal) REFERENCES sucursal(codigo_sucursal)
+);
+
+----------------------------------------------------------------------------------
+DROP TABLE IF EXISTS cliente CASCADE;
+CREATE TABLE cliente (
+  id_cliente  VARCHAR(10) NOT NULL,
+  id_gerente VARCHAR(10) NOT NULL,
+  id_vendedor VARCHAR(10) NOT NULL,
+  id_jefe_taller VARCHAR(10) NOT NULL,
+  nombre_cliente  VARCHAR(50) NOT NULL,
+  telefono_cliente  VARCHAR(20),
+  direccion_cliente  VARCHAR(100),
+  email_cliente  VARCHAR(50),
+
+PRIMARY KEY(id_cliente),
+FOREIGN KEY (id_gerente) REFERENCES gerente(id_gerente),
+FOREIGN KEY (id_vendedor) REFERENCES vendedor(id_vendedor),
+FOREIGN KEY (id_jefe_taller) REFERENCES jefe_taller(id_jefe_taller)
+);
+
+----------------------------------------------------------------------------------
+DROP TABLE IF EXISTS factura CASCADE;
+CREATE TABLE factura (
+  numero_factura VARCHAR(10) NOT NULL,
+  id_vendedor VARCHAR(10) NOT NULL,
+  id_cliente  VARCHAR(10) NOT NULL,
+  fecha_factura DATE NOT NULL,
+  precio_total_factura INTEGER NOT NULL,
+
+PRIMARY KEY (numero_factura),
+FOREIGN KEY (id_vendedor) REFERENCES vendedor(id_vendedor),
+FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
+);
+
+----------------------------------------------------------------------------------
+DROP TABLE IF EXISTS cotizacion CASCADE;
+CREATE TABLE cotizacion (
+  numero_cotizacion VARCHAR(10) NOT NULL,
+  id_vendedor VARCHAR(10) NOT NULL,
+  id_cliente  VARCHAR(10) NOT NULL,
+  fecha_cotizacion DATE NOT NULL,
+  precio_total_cotizacion INTEGER NOT NULL,
+
+PRIMARY KEY (numero_cotizacion),
+FOREIGN KEY (id_vendedor) REFERENCES vendedor(id_vendedor),
+FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
+);
+
+----------------------------------------------------------------------------------
+DROP TABLE IF EXISTS vehiculo CASCADE;
+CREATE TABLE vehiculo(
+  codigo_vehiculo VARCHAR(10) NOT NULL,
+  id_gerente VARCHAR(10) NOT NULL,
+  codigo_sucursal VARCHAR(10) NOT NULL,
+  numero_factura VARCHAR(10) NOT NULL,
+  numero_cotizacion VARCHAR(10) NOT NULL,
+  modelo_vehiculo VARCHAR(50) NOT NULL,
+  color_vehiculo VARCHAR(50),
+  precio_vehiculo INTEGER NOT NULL,
+  descripcion_vehiculo VARCHAR(100), 
+
+PRIMARY KEY (codigo_vehiculo),
+FOREIGN KEY (id_gerente) REFERENCES gerente(id_gerente),
+FOREIGN KEY (codigo_sucursal) REFERENCES sucursal(codigo_sucursal),
+FOREIGN KEY (numero_factura) REFERENCES factura(numero_factura),
+FOREIGN KEY (numero_cotizacion) REFERENCES cotizacion(numero_cotizacion)
+);
+
+----------------------------------------------------------------------------------
+DROP TABLE IF EXISTS repuesto CASCADE;
+CREATE TABLE repuesto(
+  codigo_repuesto VARCHAR(10) NOT NULL,
+  id_gerente VARCHAR(10) NOT NULL,
+  codigo_sucursal VARCHAR(10) NOT NULL,
+  numero_factura VARCHAR(10) NOT NULL,
+  numero_cotizacion VARCHAR(10) NOT NULL,
+  nombre_repuesto VARCHAR(50) NOT NULL,
+  tipo_repuesto VARCHAR(50) NOT NULL,
+  precio_repuesto INTEGER NOT NULL,
+  descripcion_repuesto VARCHAR(100), 
+
+PRIMARY KEY(codigo_repuesto),
+FOREIGN KEY (id_gerente) REFERENCES gerente(id_gerente),
+FOREIGN KEY (codigo_sucursal) REFERENCES sucursal(codigo_sucursal),
+FOREIGN KEY (numero_factura) REFERENCES factura(numero_factura),
+FOREIGN KEY (numero_cotizacion) REFERENCES cotizacion(numero_cotizacion)
+);
+
+----------------------------------------------------------------------------------
+CREATE TYPE opciones_orden_trabajo AS ENUM('En proceso','Completada');
+DROP TABLE IF EXISTS orden_trabajo CASCADE;
+CREATE TABLE orden_trabajo(
+  numero_orden_trabajo VARCHAR(10) NOT NULL,
+  id_jefe_taller VARCHAR(10) NOT NULL,
+  id_cliente  VARCHAR(10) NOT NULL,
+  codigo_vehiculo VARCHAR(10) NOT NULL,
+  numero_factura VARCHAR(10) NOT NULL,
+  fecha_inicio_orden_trabajo DATE NOT NULL,
+  fecha_final_orden_trabajo DATE NOT NULL,
+  estado_orden_trabajo opciones_orden_trabajo,
+  descripcion_orden_trabajo VARCHAR(100), 
+
+PRIMARY KEY(numero_orden_trabajo),
+FOREIGN KEY (id_jefe_taller) REFERENCES jefe_taller(id_jefe_taller), 
+FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente),
+FOREIGN KEY (codigo_vehiculo) REFERENCES vehiculo(codigo_vehiculo),
+FOREIGN KEY (numero_factura) REFERENCES factura(numero_factura)
+);
+
+---------------------------------------------------------------------------------------------------------------------------------
+-- INSERTS para la tabla gerente
+INSERT INTO gerente (id_gerente, nombre_gerente, telefono_gerente, direccion_gerente, email_gerente)
+VALUES 	('GER0001', 'Juan Perez', '3111111111', 'Cra. 1 # 1-1', 'juanperez@gmail.com'),
+       	('GER0002', 'Maria Gomez', '3222222222', 'Cra. 2 # 2-2', 'mariagomez@hotmail.com'),
+       	('GER0003', 'Pedro Lopez', '3333333333', 'Cra. 3 # 3-3', 'pedrolopez@yahoo.com'),
+	('GER0004', 'Maria Perea', '5551234', 'Calle 23 #15-23', 'mariap@ejemplo.com'),
+	('GER0005', 'Juan Alvarez', '5555678', 'Calle 34 #16-45', 'juana@ejemplo.com'),
+	('GER0006', 'Sofia Rios', '5556789', 'Carrera 7 #15-67', 'sofiar@ejemplo.com'),
+	('GER0007', 'Luisa Guzman', '5553456', 'Carrera 7 #22-34', 'luisag@ejemplo.com'),
+	('GER0008', 'Pedro Palacios', '5554567', 'Calle 45 #13-56', 'pedrop@ejemplo.com'),
+	('GER0009', 'Jorge Suarez', '5555678', 'Carrera 9 #19-45', 'jorges@ejemplo.com'),
+ 	('GER0010', 'María Gomez', '3335557777', 'Av. Roosevelt 123', 'mariagomez@gmail.com');
+
+---------------------------------------------------------------------------------------------------------------------------------
+-- INSERTS para la tabla sucursal
+INSERT INTO sucursal (codigo_sucursal, id_gerente, nombre_sucursal, ciudad_sucursal, telefono_sucursal) 
+VALUES ('SUC0001', 'GER0001', 'Calle Quinta', 'Cali', '5555678'),
+       ('SUC0002', 'GER0002', 'Carrera Primera', 'Cali', '3333333333'),
+       ('SUC0003', 'GER0003', 'Centro', 'Cali', '3335557777'),
+       ('SUC0004', 'GER0004', 'Parque Municipal', 'Bogota', '3111111111'),
+       ('SUC0005', 'GER0005', 'Carrera 100', 'Bogota', '7777777777'),
+       ('SUC0006', 'GER0006', 'Avenida Jimenez', 'Bogota', '5555555555'),
+       ('SUC0007', 'GER0007', 'Calle de las Palmas', 'Medellin', '10111001101'),
+       ('SUC0008', 'GER0008', 'Carrera 12', 'Medellin', '3335557777'),
+       ('SUC0009', 'GER0009', 'Principal', 'Medellin', '6666666666'),
+       ('SUC0010', 'GER0010', 'Carrera 5', 'Cali', '6666888889');
+
+---------------------------------------------------------------------------------------------------------------------------------
+-- INSERTS para la tabla vendedor
+INSERT INTO vendedor (id_vendedor, id_gerente, codigo_sucursal, nombre_vendedor, telefono_vendedor, direccion_vendedor, email_vendedor)
+VALUES ('VEN0001', 'GER0001', 'SUC0001', 'Carlos Rodriguez', '3001111111', 'Cra. 4 # 4-4', 'carlosrodriguez@gmail.com'),
+       ('VEN0002', 'GER0002', 'SUC0002', 'Laura Martinez', '3112222222', 'Cra. 5 # 5-5', 'lauramartinez@hotmail.com'),
+       ('VEN0003', 'GER0003', 'SUC0003', 'Andres Garcia', '3223333333', 'Cra. 6 # 6-6', 'andresgarcia@yahoo.com'),
+       ('VEN0004', 'GER0004', 'SUC0004', 'Luisa Perez', '5552345', 'Calle 56 #17-34', 'luisap@ejemplo.com'),
+       ('VEN0005', 'GER0005', 'SUC0005', 'Ana Ramirez', '5556789', 'Calle 78 #19-45', 'anar@ejemplo.com'),
+       ('VEN0006', 'GER0006', 'SUC0006', 'Mario Sanchez', '5557890', 'Carrera 10 #20-67', 'marios@ejemplo.com'),
+       ('VEN0007', 'GER0007', 'SUC0007', 'Natalia Lopez', '5554567', 'Carrera 11 #21-34', 'natalial@ejemplo.com'),
+       ('VEN0008', 'GER0008', 'SUC0008', 'Gabriel Hernandez', '5555678', 'Calle 67 #23-56', 'gabrielh@ejemplo.com'),
+       ('VEN0009', 'GER0009', 'SUC0009', 'Isabella Gomez', '5556789', 'Av. Bolivar 345', 'isabellag@ejemplo.com'),
+       ('VEN0010', 'GER0010', 'SUC0010', 'Javier Suarez', '3335557777', 'Av. Las Americas 456', 'javiersuarez@gmail.com');
+
+---------------------------------------------------------------------------------------------------------------------------------
+-- INSERTS para la tabla jefe_taller
+INSERT INTO jefe_taller (id_jefe_taller, id_gerente, codigo_sucursal, nombre_jefe_taller, telefono_jefe_taller, direccion_jefe_taller, email_jefe_taller)
+VALUES ('JT0001', 'GER0001', 'SUC0001', 'Carlos Rodriguez', '3001111111', 'Cra. 4 # 4-4', 'carlosrodriguez@gmail.com'),
+       ('JT0002', 'GER0002', 'SUC0002', 'Laura Martinez', '3112222222', 'Cra. 5 # 5-5', 'lauramartinez@hotmail.com'),
+       ('JT0003', 'GER0003', 'SUC0003', 'Andres Garcia', '3223333333', 'Cra. 6 # 6-6', 'andresgarcia@yahoo.com'),
+       ('JT0004', 'GER0004', 'SUC0004', 'Luisa Perez', '5552345', 'Calle 56 #17-34', 'luisap@ejemplo.com'),
+       ('JT0005', 'GER0005', 'SUC0005', 'Ana Ramirez', '5555678', 'Calle 78 #19-45', 'anar@ejemplo.com'),
+       ('JT0006', 'GER0006', 'SUC0006', 'Mario Sanchez', '5557890', 'Carrera 10 #20-67', 'marios@ejemplo.com'),
+       ('JT0007', 'GER0007', 'SUC0007', 'Natalia Lopez', '5554567', 'Carrera 11 #21-34', 'natalial@ejemplo.com'),
+       ('JT0008', 'GER0008', 'SUC0008', 'Gabriel Hernandez', '5555678', 'Calle 67 #23-56', 'gabrielh@ejemplo.com'),
+       ('JT0009', 'GER0009', 'SUC0009', 'Isabella Gomez', '5556789', 'Av. Bolivar 345', 'isabellag@ejemplo.com'),
+       ('JT0010', 'GER0010', 'SUC0010', 'Javier Suarez', '3335557777', 'Av. Las Americas 456', 'javiersuarez@gmail.com');
+
+---------------------------------------------------------------------------------------------------------------------------------
+-- INSERTS para la tabla cliente
+INSERT INTO cliente (id_cliente, id_gerente, id_vendedor, id_jefe_taller, nombre_cliente, telefono_cliente, direccion_cliente, email_cliente)
+VALUES 
+    ('CLI0001', 'GER0001', 'VEN0001', 'JT0001', 'Juan Perez', '3111111111', 'Cra. 1 # 1-1', 'juanperez@gmail.com'),
+    ('CLI0002', 'GER0002', 'VEN0002', 'JT0002', 'Maria Gomez', '3222222222', 'Cra. 2 # 2-2', 'mariagomez@hotmail.com'),
+    ('CLI0003', 'GER0003', 'VEN0003', 'JT0003', 'Pedro Lopez', '3333333333', 'Cra. 3 # 3-3', 'pedrolopez@yahoo.com'),
+    ('CLI0004', 'GER0004', 'VEN0004', 'JT0004', 'Maria Perea', '5551234', 'Calle 23 #15-23', 'mariap@ejemplo.com'),
+    ('CLI0005', 'GER0005', 'VEN0005', 'JT0005', 'Juan Alvarez', '5555678', 'Calle 34 #16-45', 'juana@ejemplo.com'),
+    ('CLI0006', 'GER0006', 'VEN0006', 'JT0006', 'Sofia Rios', '5556789', 'Carrera 7 #15-67', 'sofiar@ejemplo.com'),
+    ('CLI0007', 'GER0007', 'VEN0007', 'JT0007', 'Luisa Guzman', '5553456', 'Carrera 7 #22-34', 'luisag@ejemplo.com'),
+    ('CLI0008', 'GER0008', 'VEN0008', 'JT0008', 'Pedro Palacios', '5554567', 'Calle 45 #13-56', 'pedrop@ejemplo.com'),
+    ('CLI0009', 'GER0009', 'VEN0009', 'JT0009', 'Jorge Suarez', '5555678', 'Carrera 9 #19-45', 'jorges@ejemplo.com'),
+    ('CLI0010', 'GER0010', 'VEN0010', 'JT0010', 'María Gomez', '3335557777', 'Av. Roosevelt 123', 'mariagomez@gmail.com');
+
+---------------------------------------------------------------------------------------------------------------------------------
+-- INSERTS para la tabla factura
+INSERT INTO factura (numero_factura, id_vendedor, id_cliente, fecha_factura, precio_total_factura)
+VALUES ('FAC0001', 'VEN0001', 'CLI0001', '2023-11-01', 8000000),
+       ('FAC0002', 'VEN0002', 'CLI0002', '2023-11-02', 10000000),
+       ('FAC0003', 'VEN0003', 'CLI0003', '2023-11-03', 12000000),
+       ('FAC0004', 'VEN0004', 'CLI0004', '2023-11-04', 14000000),
+       ('FAC0005', 'VEN0005', 'CLI0005', '2023-11-05', 16000000),
+       ('FAC0006', 'VEN0006', 'CLI0006', '2023-11-06', 18000000),
+       ('FAC0007', 'VEN0007', 'CLI0007', '2023-11-07', 20000000),
+       ('FAC0008', 'VEN0008', 'CLI0008', '2023-11-08', 22000000),
+       ('FAC0009', 'VEN0009', 'CLI0009', '2023-11-09', 24000000),
+       ('FAC0010', 'VEN0010', 'CLI0010', '2023-11-10', 26000000);
+
+---------------------------------------------------------------------------------------------------------------------------------
+-- INSERTS para la tabla cotizacion
+INSERT INTO cotizacion (numero_cotizacion, id_vendedor, id_cliente, fecha_cotizacion, precio_total_cotizacion )
+VALUES ('COT0001', 'VEN0001', 'CLI0001', '2023-11-01', 8000000),
+       ('COT0002', 'VEN0002', 'CLI0002', '2023-11-02', 10000000),
+       ('COT0003', 'VEN0003', 'CLI0003', '2023-11-03', 12000000),
+       ('COT0004', 'VEN0004', 'CLI0004', '2023-11-04', 14000000),
+       ('COT0005', 'VEN0005', 'CLI0005', '2023-11-05', 16000000),
+       ('COT0006', 'VEN0006', 'CLI0006', '2023-11-06', 18000000),
+       ('COT0007', 'VEN0007', 'CLI0007', '2023-11-07', 20000000),
+       ('COT0008', 'VEN0008', 'CLI0008', '2023-11-08', 22000000),
+       ('COT0009', 'VEN0009', 'CLI0009', '2023-11-09', 24000000),
+       ('COT0010', 'VEN0010', 'CLI0010', '2023-11-10', 26000000);
+
+---------------------------------------------------------------------------------------------------------------------------------
+-- INSERTS para la tabla vehiculo
+INSERT INTO vehiculo (codigo_vehiculo, codigo_sucursal, id_gerente, numero_factura, numero_cotizacion, modelo_vehiculo, color_vehiculo, precio_vehiculo, descripcion_vehiculo)
+VALUES ('VEH0001', 'SUC0001', 'GER0001', 'FAC0001', 'COT0001', 'Corolla', 'Blanco', 8000000, 'Sedán 4 puertas'),
+       ('VEH0002', 'SUC0002', 'GER0002', 'FAC0002', 'COT0002', 'Civic', 'Plateado', 10000000, 'Hatchback 5 puertas'),
+       ('VEH0003', 'SUC0003', 'GER0003', 'FAC0003', 'COT0003', 'Focus', 'Rojo', 12000000, 'Sedán 4 puertas'),
+       ('VEH0004', 'SUC0004', 'GER0004', 'FAC0004', 'COT0004', 'Cruze', 'Negro', 14000000, 'Sedán 4 puertas'),
+       ('VEH0005', 'SUC0005', 'GER0005', 'FAC0005', 'COT0005', 'Golf', 'Gris', 16000000, 'Hatchback 5 puertas'),
+       ('VEH0006', 'SUC0006', 'GER0006', 'FAC0006', 'COT0006', 'Sentra', 'Azul', 18000000, 'Sedán 4 puertas'),
+       ('VEH0007', 'SUC0007', 'GER0007', 'FAC0007', 'COT0007', 'Elantra', 'Blanco', 20000000, 'Sedán 4 puertas'),
+       ('VEH0008', 'SUC0008', 'GER0008', 'FAC0008', 'COT0008', 'Mazda3', 'Plateado', 22000000, 'Hatchback 5 puertas'),
+       ('VEH0009', 'SUC0009', 'GER0009', 'FAC0009', 'COT0009', 'Forte', 'Negro', 24000000, 'Sedán 4 puertas'),
+       ('VEH0010', 'SUC0010', 'GER0010', 'FAC0010', 'COT0010', 'Impreza', 'Blanco', 26000000, 'Hatchback 5 puertas');
+
+---------------------------------------------------------------------------------------------------------------------------------
+-- INSERTS para la tabla repuesto
+INSERT INTO repuesto (codigo_repuesto, codigo_sucursal, id_gerente, numero_factura, numero_cotizacion, nombre_repuesto, tipo_repuesto, precio_repuesto, descripcion_repuesto)
+VALUES 
+    ('REP0001', 'SUC0001', 'GER0001', 'FAC0001', 'COT0001', 'Filtro de Aceite', 'Filtración', 100000, 'Filtro de aceite estándar para vehículos.'),
+    ('REP0002', 'SUC0002', 'GER0002', 'FAC0002', 'COT0002', 'Batería 12V', 'Batería', 150000, 'Batería de 12 voltios para automóviles.'),
+    ('REP0003', 'SUC0003', 'GER0003', 'FAC0003', 'COT0003', 'Amortiguador Trasero', 'Suspensión', 200000, 'Amortiguador trasero para vehículos.'),
+    ('REP0004', 'SUC0004', 'GER0004', 'FAC0004', 'COT0004', 'Pastillas de Freno', 'Frenos', 250000, 'Pastillas de freno para vehículos estándar.'),
+    ('REP0005', 'SUC0005', 'GER0005', 'FAC0005', 'COT0005', 'Correa de Distribución', 'Motor', 300000, 'Correa de distribución para motores estándar.'),
+    ('REP0006', 'SUC0006', 'GER0006', 'FAC0006', 'COT0006', 'Faro Delantero', 'Iluminación', 350000, 'Faro delantero estándar para vehículos.'),
+    ('REP0007', 'SUC0007', 'GER0007', 'FAC0007', 'COT0007', 'Radiador de Refrigeración', 'Refrigeración', 400000, 'Radiador de refrigeración para vehículos estándar.'),
+    ('REP0008', 'SUC0008', 'GER0008', 'FAC0008', 'COT0008', 'Sensor de Oxígeno', 'Sensores', 450000, 'Sensor de oxígeno para vehículos.'),
+    ('REP0009', 'SUC0009', 'GER0009', 'FAC0009', 'COT0009', 'Embrague Completo', 'Embrague', 500000, 'Embrague completo para vehículos.'),
+    ('REP0010', 'SUC0010', 'GER0010', 'FAC0010', 'COT0010', 'Válvula EGR', 'Sistema de Emisiones', 550000, 'Válvula EGR para vehículos estándar.');
+
+---------------------------------------------------------------------------------------------------------------------------------
+-- INSERTS para la tabla orden_trabajo
+INSERT INTO orden_trabajo (numero_orden_trabajo, id_jefe_taller, id_cliente, codigo_vehiculo, numero_factura, fecha_inicio_orden_trabajo, fecha_final_orden_trabajo, estado_orden_trabajo, descripcion_orden_trabajo)
+VALUES ('OT0001', 'JT0001', 'CLI0001', 'VEH0001', 'FAC0001', '2023-11-01', '2023-11-03', 'Completada', 'Reparación de motor.'),
+       ('OT0002', 'JT0002', 'CLI0002', 'VEH0002', 'FAC0002', '2023-11-02', '2023-11-04', 'En proceso', 'Cambio de frenos y discos.'),
+       ('OT0003', 'JT0003', 'CLI0003', 'VEH0003', 'FAC0003', '2023-11-03', '2023-11-05', 'Completada', 'Revisión y ajuste de suspensión.'),
+       ('OT0004', 'JT0004', 'CLI0004', 'VEH0004', 'FAC0004', '2023-11-04', '2023-11-06', 'En proceso', 'Cambio de sistema de escape.'),
+       ('OT0005', 'JT0005', 'CLI0005', 'VEH0005', 'FAC0005', '2023-11-05', '2023-11-07', 'Completada', 'Limpieza y ajuste de inyectores.'),
+       ('OT0006', 'JT0006', 'CLI0006', 'VEH0006', 'FAC0006', '2023-11-06', '2023-11-08', 'En proceso', 'Alineación y balanceo de ruedas.'),
+       ('OT0007', 'JT0007', 'CLI0007', 'VEH0007', 'FAC0007', '2023-11-07', '2023-11-09', 'Completada', 'Cambio de filtro de aire y aceite.'),
+       ('OT0008', 'JT0008', 'CLI0008', 'VEH0008', 'FAC0008', '2023-11-08', '2023-11-10', 'En proceso', 'Diagnóstico de sistema eléctrico.'),
+       ('OT0009', 'JT0009', 'CLI0009', 'VEH0009', 'FAC0009', '2023-11-09', '2023-11-11', 'Completada', 'Cambio de bujías y cables de encendido.'),
+       ('OT0010', 'JT0010', 'CLI0010', 'VEH0010', 'FAC0010', '2023-11-10', '2023-11-12', 'En proceso', 'Reparación de sistema de frenos ABS.');
+

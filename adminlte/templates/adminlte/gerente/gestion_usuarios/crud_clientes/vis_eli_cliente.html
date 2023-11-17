@@ -39,18 +39,25 @@
                   </tr>
               </thead>
               <tbody>
+                  {% for cliente in clientes %}
                   <!-- Los datos de la tabla van aquí -->
                   <tr>
-                      <td>001</td>
-                      <td>Juan Davis Rios</td>
-                      <td>Carrera 25 # 2-09</td>
-                      <td>jalasso2017@gmail.com</td>
-                      <td>3128601430</td>
+                      <td>{{ cliente.id_cliente }}</td>
+                      <td>{{ cliente.nombre_cliente }}</td>
+                      <td>{{ cliente.direccion_cliente }}</td>
+                      <td>{{ cliente.email_cliente }}</td>
+                      <th>{{ cliente.telefono_cliente }}</th>
                       <td>
-                          <button class="btn btn-danger btn-sm">Eliminar</button>
+                        <form action="{% url 'eliminar_cliente' %}" method="post">
+                          {% csrf_token %}
+                          <input type="hidden" name="id_cliente" value="{{ cliente.id_cliente }}">
+                          <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                        
                       </td>
                   </tr>
                   <!-- Repite filas similares para más datos -->
+                  {% endfor %}
               </tbody>
           </table>
       </div>

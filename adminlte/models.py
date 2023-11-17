@@ -82,7 +82,7 @@ class JefeTaller(models.Model):
     def save(self, *args, **kwargs):
         if self.pass_field:
             self.pass_field = make_password(self.pass_field)
-        super(Gerente, self).save(*args, **kwargs)
+        super(JefeTaller, self).save(*args, **kwargs)
 
 
 class OrdenTrabajo(models.Model):
@@ -161,4 +161,4 @@ class Vendedor(models.Model):
     def save(self, *args, **kwargs):
         if self.pass_field:
             self.pass_field = make_password(self.pass_field)
-        super(Gerente, self).save(*args, **kwargs)
+        super(Vendedor, self).save(*args, **kwargs)

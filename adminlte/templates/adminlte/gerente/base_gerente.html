@@ -370,9 +370,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
+                <a href="{% url 'gra_rep_add' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar repuestos</p>
+                  <p>Agregar repuestos</p>
                 </a>
               </li>
             </ul>
@@ -457,27 +457,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
+                <a href="{% url 'add_sucursal' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Crear Sucursal</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
+                <a href="{% url 'edit_sucursal' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar Sucursal</p>
+                  <p>Editar Sucursal</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
+                <a href="{% url 'vis_eli_sucursal' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Modificar Sucursal</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Eliminar Sucursal</p>
+                  <p>Consultar/Eliminar Sucursal</p>
                 </a>
               </li>
 
@@ -572,8 +566,6 @@
 <script src="{% static 'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
 <!-- AdminLTE App -->
 <script src="{% static 'dist/js/adminlte.js' %}"></script>
-
-<script src="{% static 'dist/js/adminlte.min.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'dist/js/demo.js' %}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->

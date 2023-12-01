@@ -2,9 +2,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import logout
-from .models import Vehiculo, Gerente, Sucursal, Factura, Cotizacion, Vendedor, JefeTaller, Cliente
+from .models import Vehiculo, Gerente, Sucursal, Factura, Cotizacion, Vendedor, JefeTaller, Cliente,Repuesto
 from django.contrib import messages
 from django.views.decorators.http import require_POST
+
+from django.http import HttpResponse, JsonResponse
+import json
+
+from django.http import JsonResponse
+
+import json
 
 # Create your views here.
 def index(request):
@@ -351,28 +358,6 @@ def eliminar_cliente(request):
     messages.success(request, "Cliente eliminado con éxito.")
     return redirect('vis_eli_cliente')
 
-@require_POST
-def eliminar_sucursal(request):
-    codigo_sucursal = request.POST.get('codigo_sucursal')
-    sucursal = get_object_or_404(Sucursal, codigo_sucursal=codigo_sucursal)
-    sucursal.delete()
-    messages.success(request, "Sucursal eliminada con éxito.")
-    return redirect('vis_eli_sucursal')
-
-def vis_eli_sucursal(request):
-    sucursales = Sucursal.objects.all()
-    context = {'sucursales': sucursales}
-    return render(request, 'adminlte/gerente/sucursales/vis_eli_sucursal.html', context)
-
-def edit_sucursal(request):
-    sucursales = Sucursal.objects.all()
-    gerentes = Gerente.objects.all()
-
-    context = {
-        'sucursales': sucursales,
-        'gerentes': gerentes,
-    }
-    return render(request, 'adminlte/gerente/sucursales/sucursal_edit.html', context)
 
 def add_sucursal(request):
     gerentes = Gerente.objects.all()
@@ -383,3 +368,130 @@ def add_sucursal(request):
 
 def gra_rep_add(request):
     return render(request, 'adminlte/gerente/reportes_graficos/gra_rep_add.html')
+
+
+def add_repuesto(request):
+    repuestos = Repuesto.objects.all()
+    sucursales = Sucursal.objects.all()
+    gerentes = Gerente.objects.all()
+    facturas = Factura.objects.all()
+    cotizaciones = Cotizacion.objects.all()
+    
+    context = {
+        
+        'sucursales': sucursales,
+        'gerentes': gerentes,
+        'facturas': facturas,
+        'cotizaciones': cotizaciones,
+        'repuestos': repuestos,
+ 
+    }
+    return render(request, 'adminlte/gerente/repuestos/repuesto_add.html', context)
+
+def vis_eli_repuesto(request):
+    repuesto = Repuesto.objects.all()
+    print(repuesto)
+    return render(request, 'adminlte/gerente/repuestos/visualizar_editar_eliminar_reporte.html', {'repuesto': repuesto})
+
+
+
+def agregar_repuesto(request):
+    if request.method == 'POST':
+        codigo_repuesto = request.POST.get('codigo_repuesto')
+        id_gerente = request.POST.get('id_gerente')
+        codigo_sucursal = request.POST.get('codigo_sucursal')
+        numero_factura = request.POST.get('numero_factura')
+        numero_cotizacion = request.POST.get('numero_cotizacion')
+        nombre_repuesto = request.POST.get('nombre_repuesto')
+        tipo_repuesto = request.POST.get('tipo_repuesto')
+        precio_repuesto = request.POST.get('precio_repuesto')
+        descripcion_repuesto = request.POST.get('descripcion_repuesto')
+
+        
+        nuevo_repuesto = Repuesto(
+                codigo_repuesto=codigo_repuesto,
+                id_gerente=Gerente.objects.get(id_gerente=id_gerente),
+                codigo_sucursal=Sucursal.objects.get(codigo_sucursal=codigo_sucursal),
+                numero_factura=Factura.objects.get(numero_factura=numero_factura),
+                numero_cotizacion=Cotizacion.objects.get( numero_cotizacion=numero_cotizacion),
+                nombre_repuesto=nombre_repuesto,
+                tipo_repuesto=tipo_repuesto,
+                precio_repuesto=precio_repuesto,
+                descripcion_repuesto=descripcion_repuesto
+            )
+        nuevo_repuesto.save()
+        messages.success(request, 'Repuesto agregado exitosamente')
+        return redirect('add_repuesto')  # Ajusta esto según tus necesidades
+       
+        
+    repuestos = Repuesto.objects.all()
+    context = {
+        'repuestos': repuestos,
+    }
+    print(Repuesto)
+    return render(request, 'adminlte/gerente/repuestos/visualizar_editar_eliminar_reporte.html', context)
+
+@require_POST
+def eliminar_repuesto(request):
+    codigo_repuesto = request.POST.get('codigo_repuesto')
+    repuesto = get_object_or_404(Repuesto, codigo_repuesto= codigo_repuesto)
+    repuesto.delete()
+    messages.success(request, "Repuesto eliminado con éxito.")
+    return redirect('vis_eli_repuesto')
+
+def add_sucursal(request):
+  
+    sucursales = Sucursal.objects.all()
+    gerentes = Gerente.objects.all()
+   
+    context = {
+        
+        'sucursales': sucursales,
+        'gerentes': gerentes,
+     }
+    return render(request, 'adminlte/gerente/sucursales/sucursal_add.html', context)
+
+def vis_eli_sucursal(request):
+    sucursal = Sucursal.objects.all()
+    print(Sucursal)
+    return render(request, 'adminlte/gerente/sucursales/visualizar_editar_eliminar_sucursal.html', {'sucursal': sucursal})
+
+
+
+def agregar_sucursal(request):
+    if request.method == 'POST':
+        codigo_sucursal  = request.POST.get('codigo_sucursal ')
+        id_gerente = request.POST.get('id_gerente')
+        nombre_sucursal = request.POST.get('nombre_sucursal')
+        ciudad_sucursal = request.POST.get('ciudad_sucursal')
+        telefono_sucursal = request.POST.get('telefono_sucursal')
+        
+
+        
+        nuevo_sucursal = Sucursal(
+                codigo_sucursal=codigo_sucursal,
+                id_gerente=Gerente.objects.get(id_gerente=id_gerente),
+                nombre_sucursal=nombre_sucursal,
+                ciudad_sucursal=ciudad_sucursal,
+                telefono_sucursal = telefono_sucursal,
+                
+            )
+        nuevo_sucursal.save()
+        messages.success(request, 'Sucursal agregado exitosamente')
+        return redirect('add_sucursal')  # Ajusta esto según tus necesidades
+       
+        
+    sucursales = Sucursal.objects.all()
+    context = {
+        'sucursales': sucursales,
+    }
+    print(Sucursal)
+    return render(request, 'adminlte/gerente/sucursales/visualizar_editar_eliminar_sucursal.html', context)
+
+@require_POST
+def eliminar_sucursal(request):
+    codigo_sucursal = request.POST.get('codigo_sucursal')
+    sucursal = get_object_or_404(Sucursal, codigo_sucursal= codigo_sucursal)
+    sucursal.delete()
+    messages.success(request, "Sucursal eliminado con éxito.")
+    return redirect('vis_eli_sucursal')

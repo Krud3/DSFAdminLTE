@@ -116,6 +116,8 @@ class Repuesto(models.Model):
         managed = True
         db_table = 'repuesto'
 
+ 
+
 
 class Sucursal(models.Model):
     codigo_sucursal = models.CharField(primary_key=True, max_length=10)

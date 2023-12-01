@@ -405,7 +405,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
+                <a href="{% url 'gra_rep_add' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Consultar repuestos</p>
                 </a>
@@ -422,27 +422,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
+                <a href="{% url 'add_repuesto' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Crear Repuesto</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
+                <a href="{% url 'agregar_repuesto' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar Repuesto</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Modificar Repuesto</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Eliminar Repuesto</p>
+                  <p>Consultar/Modificar/Editar Repuesto</p>
                 </a>
               </li>
             </ul>
@@ -463,15 +451,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'edit_sucursal' %}" class="nav-link">
+                <a href="{% url 'agregar_sucursal' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Editar Sucursal</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'vis_eli_sucursal' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar/Eliminar Sucursal</p>
+                  <p>Consultar/Modificar/Editar Sucursal</p>
                 </a>
               </li>
 

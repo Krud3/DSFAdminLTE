@@ -1,7 +1,7 @@
 {% extends "adminlte/gerente/base_gerente.html" %}
 {% load static %}
 {% block body %}
-<!-- Content Wrapper. Contains page content -->
+  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -13,7 +13,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">agregar Sucursal</li>
+              <li class="breadcrumb-item active">Agregar Sucursal</li>
             </ol>
           </div>
         </div>
@@ -22,57 +22,62 @@
   
     <!-- Main content -->
     <section class="content">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title">Sucursal</h3>
+      <form action="{% url 'agregar_sucursal' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Detalles de la Sucursal</h3>
   
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
               </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="codigoSucursal">Código Sucursal</label>
+                  <input type="text" id="codigoSucursal" name="codigo_sucursal" class="form-control" placeholder="Código de la Sucursal">
+                </div>
+                <div class="form-group">
+                  <label for="idGerente">ID Gerente</label>
+                  <select id="idGerente" name="id_gerente" class="form-control custom-select">
+                    <option selected disabled>Seleccione el ID del Gerente</option>
+                    {% for gerente in gerentes %}
+                      <option value="{{ gerente.id_gerente }}">{{ gerente.id_gerente }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="nombreSucursal">Nombre de la Sucursal</label>
+                  <input type="text" id="nombreSucursal" name="nombre_sucursal" class="form-control" placeholder="Nombre de la Sucursal">
+                </div>
+                <div class="form-group">
+                  <label for="ciudadSucursal">Ciudad de la Sucursal</label>
+                  <input type="text" id="ciudadSucursal" name="ciudad_sucursal" class="form-control" placeholder="Ciudad de la Sucursal">
+                </div>
+                <div class="form-group">
+                  <label for="telefonoSucursal">Teléfono de la Sucursal</label>
+                  <input type="text" id="telefonoSucursal" name="telefono_sucursal" class="form-control" placeholder="Teléfono de la Sucursal">
+                </div>
+              </div>
+              <!-- /.card-body -->
             </div>
-            <div class="card-body">
-              <div class="form-group">
-                <label for="inputName">Código_sucursal</label>
-                <input type="text" id="inputName" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="inputName">Nombre sucursal</label>
-                <input type="text" id="inputName" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="inputDescription">Telefono sucursal</label>
-                <input type="text" id="inputName" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="inputStatus">Direccion sucursal</label>
-                <input type="text" id="inputName" class="form-control">
-              </div>
-               
-              
-              
-            </div>
-            <!-- /.card-body -->
+            <!-- /.card -->
           </div>
-          <!-- /.card -->
         </div>
-        
-          <!-- /.card -->
+        <div class="row">
+          <div class="col-12">
+            <a href="#" class="btn btn-secondary">Cancelar</a>
+            <input type="submit" value="Agregar Nueva Sucursal" class="btn btn-success float-right">
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <a href="#" class="btn btn-secondary">Cancelar</a>
-          <input type="submit" value="Agregar Nueva Sucursal" class="btn btn-success float-right">
-        </div>
-      </div>
+      </form>
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
-
-{% endblock %}   
+{% endblock %}

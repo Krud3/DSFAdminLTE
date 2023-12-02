@@ -22,6 +22,8 @@
 
     <!-- Main content -->
     <section class="content">
+    <form action="{% url 'agregar_vendedor' %}" method="post">
+      {% csrf_token %}
       <div class="row">
         <div class="col-md-6">
           <div class="card card-primary">
@@ -37,24 +39,46 @@
             <div class="card-body">
               <div class="form-group">
                 <label for="inputName">id_vendedor</label>
-                <input type="num" id="inputName" class="form-control">
+                <input type="text" id="id_vendedor" name="id_vendedor" class="form-control">
+              </div>
+              <div class="form-group">
+                <select id="id_gerente" name="id_gerente" class="form-control custom-select">
+                  <option selected disabled>Seleccione un gerente</option>
+                  {% for gerente in gerentes %}
+                  <option value="{{ gerente.id_gerente }}">{{ gerente.id_gerente }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <select id="codigo_sucursal" name="codigo_sucursal" class="form-control custom-select">
+                  <option selected disabled>Seleccione un codigo de sucursal</option>
+                  {% for sucursal in sucursales %}
+                  <option value="{{ sucursal.codigo_sucursal }}">{{ sucursal.codigo_sucursal }}</option>
+                  {% endfor %}
+                </select>
               </div>
               <div class="form-group">
                 <label for="inputName">Nombre vendedor</label>
-                <input type="text" id="inputName" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="inputName">Direccion vendedor</label>
-                <input type="text" id="inputName" class="form-control">
+                <input type="text" id="nombre_vendedor" name = "nombre_vendedor" class="form-control">
               </div>
               <div class="form-group">
                 <label for="inputName">Email vendedor</label>
-                <input type="text" id="inputName" class="form-control">
+                <input type="text" id="email_vendedor" name = "email_vendedor" class="form-control">
               </div>
               <div class="form-group">
                 <label for="inputName">Telefono vendedor</label>
-                <input type="num" id="inputName" class="form-control">
+                <input type="num" id="telefono_vendedor" name = "telefono_vendedor" class="form-control">
               </div>
+              <div class="form-group">
+                <label for="inputName">Direccion vendedor</label>
+                <input type="text" id="direccion_vendedor" name = "direccion_vendedor" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="inputName">Clave</label>
+                <input type="text" id="pass_field" name = "pass_field" class="form-control">
+              </div>
+              
+
               
               
               

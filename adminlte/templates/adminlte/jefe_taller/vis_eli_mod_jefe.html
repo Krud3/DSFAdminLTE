@@ -19,23 +19,27 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
+        
     <!-- Main content -->
     <section class="content">
-      <div class="card">
+      <div class="card" >
         
         <!-- /.card-header -->
-        <div class="container mt-4">
+        <div class="container mt-4 ali">
           <h2>Visualizar/Eliminar/Modificar Jefe taller</h2>
           <input class="form-control mb-3" id="buscador" type="text" placeholder="Buscar...">
-          <table class="table table-bordered table-striped">
+          <table id"tablajefes" class="table table-bordered table-striped" style="font-size: 8px; margin-left: auto; margin-right: auto;">
+            
+             
               <thead>
                   <tr>
-                      <th>id jefe taller</th>
-                      <th>Nombre jefe taller</th>
-                      <th>Telefono jefe taller</th>
-                      <th>Direccion jefe taller</th>
-                      <th>Email jefe taller</th>
+                      <th>id_jefe taller</th>
+                      <th>id_gerente</th>
+                      <th>codigo_sucursal</th>
+                      <th>nombre jefe taller</th>
+                      <th>telefono jefe taller</th>
+                      <th>direccion jefe taller</th>
+                      <th>email jefe taller</th>
                       <th>Acciones</th>
                   </tr>
               </thead>
@@ -43,22 +47,96 @@
                   <!-- Los datos de la tabla van aquí -->
                   <tr>
                       <td>001</td>
-                      <td>Juan Reyes</td>
-                      <td>3128601430</td>
-                      <td>carrera 25 # 101-23</td>
-                      <td>jalo@gmail.com</td>
+                      <td>1625436</td>
+                      <td>002</td>
+                      <td><input type="text" class="editableField" value="Juan reyes" disabled></td>
+                      <td><input type="text" class="editableField" value="3128601430" disabled></td>
+                      <td><input type="text" class="editableField" value="calle 46" disabled></td>
+                      <td><input type="text" class="editableField" value="jalasso@gmail" disabled></td>
                       <td>
-                          <button class="btn btn-danger btn-sm">Eliminar</button>
-                          <button class="btn btn-primary btn-sm">Modificar</button>
+                          <button class="btn btn-danger btn-sm"style = "font-size: 8px;">Eliminar</button>
+                          <button class="editarFila btn-primary" style = "font-size: 10px;">Editar</button>
                       </td>
                   </tr>
+                  <tr>
+                    <td>002</td>
+                    <td>4586952</td>
+                    <td>010</td>
+                      <td><input type="text" class="editableField" value="Juan reyes" disabled></td>
+                      <td><input type="text" class="editableField" value="3128601430" disabled></td>
+                      <td><input type="text" class="editableField" value="calle 46" disabled></td>
+                      <td><input type="text" class="editableField" value="jalasso@gmail" disabled></td>
+                    <td>
+                        <button class="btn btn-danger btn-sm"style = "font-size: 8px;">Eliminar</button>
+                        <button class="editarFila btn-primary" style = "font-size: 10px;">Editar</button>
+                    </td>
+                  </tr>
+                <tr>
+                  <td>003</td>
+                  <td>2563215</td>
+                  <td>111</td>
+                      <td><input type="text" class="editableField" value="Juan reyes" disabled></td>
+                      <td><input type="text" class="editableField" value="3128601430" disabled></td>
+                      <td><input type="text" class="editableField" value="calle 46" disabled></td>
+                      <td><input type="text" class="editableField" value="jalasso@gmail" disabled></td>
+                  <td>
+                      <button class="btn btn-danger btn-sm"style = "font-size: 8px;">Eliminar</button>
+                      <button class="editarFila btn-primary" style = "font-size: 10px;">Editar</button>
+                  </td>
+                </tr>
                   <!-- Repite filas similares para más datos -->
               </tbody>
           </table>
+           <button class="btn btn-danger btn-sm" id="limpiarCampos">Limpiar campos</button>
+           <button class="btn btn-primary btn-sm" id="guardarCambios">Guardar cambios</button>
+
+
+           <script>
+            // Script de JavaScript para la funcionalidad de búsqueda
+            document.getElementById('buscador').addEventListener('keyup', function() {
+                var terminoBusqueda = this.value.toLowerCase();
+                var filas = document.getElementById('tablaJefes').getElementsByTagName('tr');
+    
+                for (var i = 1; i < filas.length; i++) { // Empieza en 1 para saltar el encabezado
+                    var celdas = filas[i].getElementsByTagName('td');
+                    var encontrado = false;
+                    
+                    for (var j = 0; j < celdas.length && !encontrado; j++) {
+                        if (celdas[j].textContent.toLowerCase().indexOf(terminoBusqueda) > -1) {
+                            encontrado = true;
+                        }
+                    }
+    
+                    filas[i].style.display = encontrado ? '' : 'none';
+                }
+            });
+        </script>
+
+          
+           <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var botonesEditar = document.querySelectorAll('.editarFila');
+            
+                botonesEditar.forEach(function(boton) {
+                    boton.addEventListener('click', function() {
+                        var fila = boton.parentNode.parentNode; // Obtiene la fila (tr) a la que pertenece el botón
+                        var campos = fila.querySelectorAll('.editableField'); // Obtiene solo los campos de esa fila
+                        campos.forEach(function(campo) {
+                            campo.disabled = false; // Hace cada campo en la fila editable
+                        });
+                    });
+                });
+            });
+            </script>
+
+
+           
+
       </div>
         <!-- /.card-body -->
 
       </div>
+      
       
       
     </section>

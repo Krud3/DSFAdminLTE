@@ -22,6 +22,8 @@
 
     <!-- Main content -->
     <section class="content">
+      <form action="{% url 'editar_cliente' %}" method="post">
+        {% csrf_token %}
       <div class="row">
         <div class="col-md-6">
           <div class="card card-primary">
@@ -36,24 +38,52 @@
             </div>
             <div class="card-body">
               <div class="form-group">
-                <label for="inputName">id_Clientes</label>
-                <input type="num" id="inputName" class="form-control">
+                <select id="id_cliente" name="id_cliente" class="form-control custom-select">
+                  <option selected disabled>Seleccione un id cliente</option>
+                  {% for cliente in clientes %}
+                  <option value="{{ cliente.id_cliente }}">{{ cliente.id_cliente }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <select id="id_gerente" name="id_gerente" class="form-control custom-select">
+                  <option selected disabled>Seleccione un id gerente</option>
+                  {% for gerente in gerentes %}
+                  <option value="{{ gerente.id_gerente }}">{{ gerente.id_gerente }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <select id="id_vendedor" name="id_vendedor" class="form-control custom-select">
+                  <option selected disabled>Seleccione un id vendedor</option>
+                  {% for vendedor in vendedores %}
+                  <option value="{{ vendedor.id_vendedor }}">{{ vendedor.id_vendedor }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <select id="id_jefe_taller" name="id_jefe_taller" class="form-control custom-select">
+                  <option selected disabled>Seleccione un jefe taller</option>
+                  {% for jefe in jefes %}
+                  <option value="{{ jefe.id_jefe_taller }}">{{ jefe.id_jefe_taller }}</option>
+                  {% endfor %}
+                </select>
               </div>
               <div class="form-group">
                 <label for="inputName">Nombre clientes</label>
-                <input type="text" id="inputName" class="form-control">
+                <input type="text" id="nombre_cliente" name="nombre_cliente" class="form-control" placeholder="nombre_cliente">
               </div>
               <div class="form-group">
                 <label for="inputName">Direccion clientes</label>
-                <input type="text" id="inputName" class="form-control">
+                <input type="text" id="direccion_cliente" name="direccion_cliente" class="form-control" placeholder="direccion_cliente">
               </div>
               <div class="form-group">
                 <label for="inputName">Email clientes</label>
-                <input type="text" id="inputName" class="form-control">
+                <input type="text" id="email_cliente" name="email_cliente" class="form-control" placeholder="email_cliente">
               </div>
               <div class="form-group">
                 <label for="inputName">Telefono clientes</label>
-                <input type="num" id="inputName" class="form-control">
+                <input type="text" id="telefono_cliente" name="telefono_cliente" class="form-control" placeholder="telefono_cliente">
               </div>
               
               

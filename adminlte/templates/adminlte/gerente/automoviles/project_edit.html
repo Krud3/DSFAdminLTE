@@ -8,12 +8,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Agregar Vehículos</h1>
+            <h1>Modificar Vehículos</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">agregar Vehículos</li>
+              <li class="breadcrumb-item active">Modificar Vehículos</li>
             </ol>
           </div>
         </div>
@@ -22,7 +22,7 @@
   
     <!-- Main content -->
     <section class="content">
-    <form action="{% url 'agregar_vehiculo' %}" method="post">
+    <form action="{% url 'editar_vehiculo' %}" method="post">
       {% csrf_token %}
       <div class="row">
         <div class="col-md-6">
@@ -38,8 +38,12 @@
             </div>
             <div class="card-body">
               <div class="form-group">
-                <label for="inputName">Código Vehículo</label>
-                <input type="text" id="codigoVehiculo" name="codigo" class="form-control" placeholder="Código del Vehículo">
+                <select id="codigo" name="codigo" class="form-control custom-select">
+                  <option selected disabled>Seleccione un codigo Vehículo</option>
+                  {% for vehiculo in vehiculos %}
+                  <option value="{{ vehiculo.codigo_vehiculo }}">{{ vehiculo.codigo_vehiculo }}</option>
+                  {% endfor %}
+                </select>
               </div>
               <div class="form-group">
                 <select id="codigo_sucursal" name="codigo_sucursal" class="form-control custom-select">

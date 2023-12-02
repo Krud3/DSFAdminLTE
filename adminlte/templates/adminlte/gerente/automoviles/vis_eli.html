@@ -30,31 +30,35 @@
           <table class="table table-bordered table-striped">
               <thead>
                   <tr>
-                      <th>Código vehículo</th>
-                      <th>Marca vehículo</th>
-                      <th>Descripcion vehículo</th>
+                      <th>Codigo vehículo</th>
+                      <th>cod sucursal</th>
                       <th>Modelo vehículo</th>
+                      <th>Color vehículo</th>
                       <th>Precio vehículo</th>
-                      <th>Acciones</th>
                   </tr>
               </thead>
               <tbody>
+                  {% for vehiculo in vehiculos %}
                   <!-- Los datos de la tabla van aquí -->
                   <tr>
-                      <td>001</td>
-                      <td>BMW</td>
-                      <td>Vehículo nuevo, hibrido</td>
-                      <td>7</td>
-                      <td>170.000.000</td>
+                      <td>{{ vehiculo.codigo_vehiculo }}</td>
+                      <td>{{ vehiculo.codigo_sucursal }}</td>
+                      <td>{{ vehiculo.modelo_vehiculo }}</td>
+                      <td>{{ vehiculo.color_vehiculo }}</td>
+                      <td>{{ vehiculo.precio_vehiculo }}</td>
                       <td>
-                          <button class="btn btn-danger btn-sm">Eliminar</button>
-                          <button class="btn btn-primary btn-sm">Modificar</button>
+                        <form action="{% url 'eliminar_vehiculo' %}" method="post">
+                          {% csrf_token %}
+                          <input type="hidden" name="codigo_vehiculo" value="{{ vehiculo.codigo_vehiculo }}">
+                          <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
                       </td>
                   </tr>
                   <!-- Repite filas similares para más datos -->
+                  {% endfor %}
               </tbody>
           </table>
-      </div>
+        </div>
         <!-- /.card-body -->
 
       </div>

@@ -2,13 +2,13 @@
 {% load static %}
 {% block body %}
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper ">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Vendedores</h1>
+            
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -26,38 +26,38 @@
         
         <!-- /.card-header -->
         <div class="container mt-4">
-          <h2>Visualizar/Eliminar Vendedores</h2>
+          <h2>Sucursales</h2>
+          <input class="form-control mb-3" id="buscador" type="text" placeholder="Buscar...">
           <table class="table table-bordered table-striped">
               <thead>
                   <tr>
-                      <th>id vendedor</th>
-                      <th>id gerente</th>
-                      <th>codigo sucursal</th>
-                      <th>nombre vendedor</th>
-                      <th>Telefono Vendedor</th>
-                      <th>Email vendedor</th>
+                      <th>codigo_sucursal</th>
+                      <th>id_gerente</th>
+                      <th>nombre_sucursal</th>
+                      <th>ciudad_sucursal</th>
+                      <th>telefono_sucursal</th>
+                      <th>Acciones</th>
                   </tr>
               </thead>
               <tbody>
-                  {% for vendedor in vendedores %}
+                {% for sucursal in sucursales %}
                   <!-- Los datos de la tabla van aquí -->
                   <tr>
-                      <td>{{ vendedor.id_vendedor }}</td>
-                      <td>{{ vendedor.id_gerente }}</td>
-                      <td>{{ vendedor.codigo_sucursal }}</td>
-                      <td>{{ vendedor.nombre_vendedor }}</td>
-                      <td>{{ vendedor.telefono_vendedor }}</td>
-                      <td>{{ vendedor.email_vendedor }}</td>
+                      <td>{{ sucursal.codigo_sucursal }}</td>
+                      <td>{{ sucursal.id_gerente }}</td>
+                      <td>{{ sucursal.nombre_sucursal }}</td>
+                      <td>{{ sucursal.ciudad_sucursal }}</td>
+                      <td>{{ sucursal.telefono_sucursal }}</td>
                       <td>
-                        <form action="{% url 'eliminar_vendedor' %}" method="post">
-                          {% csrf_token %}
-                          <input type="hidden" name="id_vendedor" value="{{ vendedor.id_vendedor }}">
-                          <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                        </form>
+                        <form action="{% url 'eliminar_sucursal' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="codigo_sucursal" value="{{ sucursal.codigo_sucursal }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                          </form>
                       </td>
                   </tr>
                   <!-- Repite filas similares para más datos -->
-                  {% endfor %}
+                {% endfor %}
               </tbody>
           </table>
       </div>
@@ -69,7 +69,5 @@
     </section>
     <!-- /.content -->
   </div>
+  <!-- /.content-wrapper -->
 {% endblock %}   
-
-
-

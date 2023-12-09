@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [ path('login/', views.login, name='login'),
-               path('index/', views.index, name='index'), 
+               path('index/', views.index, name='index'),
+               path('index2/', views.index2, name='index2'), 
                path('logout/', views.logout_view, name='logout'),
                path('forgot_password/', views.forgot_password_view, name='forgot_password'),
                path('recover_password_view/', views.recover_password_view, name='recover_password_view'),
@@ -35,4 +36,14 @@ urlpatterns = [ path('login/', views.login, name='login'),
                path('agregar_sucursal/', views.agregar_sucursal, name='agregar_sucursal'),
                path('eliminar_sucursal', views.eliminar_sucursal, name='eliminar_sucursal'),
                path('vis_eli_sucursal', views.vis_eli_sucursal, name='vis_eli_sucursal'),
+               path('add_jefetaller_cliente/',views.add_cliente_jefe_taller, name='add_jefetaller_cliente'),
+               path('agregar_cliente_jefe_taller/', views.agregar_jefe_taller_cliente, name='agregar_cliente_jefe_taller'),
+               path('eliminar_cliente_jefe_taller/', views.eliminar_cliente_jefe_taller, name='eliminar_cliente_jefe_taller'),
+               path('vis_eli_cliente_jefe_taller/', views.vis_eli_jefe_taller_cliente, name='vis_eli_cliente_jefe_taller'),
+               path('consultar_repuesto_jefe_taller/', views.consultar_repuesto_jefe_taller, name='consultar_repuesto_jefe_taller'),
+               path('add_ordenes_trabajo/', views.add_ordenes_trabajo, name='add_ordenes_trabajo'),
+               path('agregar_ordenes_trabajo/', views.agregar_ordenes_trabajo, name='agregar_ordenes_trabajo'),
+               path('eliminar_ordenes_trabajo/', views.eliminar_ordenes_trabajo, name='eliminar_ordenes_trabajo'),
+               path('vis_eli_ordenes_trabajo/', views.vis_eli_ordenes_trabajo, name='vis_eli_ordenes_trabajo'),
+                
                ]

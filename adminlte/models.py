@@ -22,7 +22,9 @@ class Cliente(models.Model):
     class Meta:
         managed = True
         db_table = 'cliente'
-
+    
+    def __str__(self):
+        return self.id_cliente
 
 class Cotizacion(models.Model):
     numero_cotizacion = models.CharField(primary_key=True, max_length=10)
@@ -34,6 +36,8 @@ class Cotizacion(models.Model):
     class Meta:
         managed = True
         db_table = 'cotizacion'
+    def __str__(self):
+        return self.numero_cotizacion
 
 
 class Factura(models.Model):
@@ -46,6 +50,10 @@ class Factura(models.Model):
     class Meta:
         managed = True
         db_table = 'factura'
+
+    def __str__(self):
+        return self.numero_factura
+
 
 
 class Gerente(models.Model):
@@ -64,7 +72,8 @@ class Gerente(models.Model):
         if self.pass_field:
             self.pass_field = make_password(self.pass_field)
         super(Gerente, self).save(*args, **kwargs)
-
+    def __str__(self):
+        return self.id_gerente
 
 class JefeTaller(models.Model):
     id_jefe_taller = models.CharField(primary_key=True, max_length=10)
@@ -83,7 +92,8 @@ class JefeTaller(models.Model):
         if self.pass_field:
             self.pass_field = make_password(self.pass_field)
         super(JefeTaller, self).save(*args, **kwargs)
-
+    def __str__(self):
+        return self.id_jefe_taller
 
 class OrdenTrabajo(models.Model):
     numero_orden_trabajo = models.CharField(primary_key=True, max_length=10)
@@ -99,7 +109,9 @@ class OrdenTrabajo(models.Model):
     class Meta:
         managed = True
         db_table = 'orden_trabajo'
-
+    def __str__(self):
+        return self.numero_orden_trabajo
+   
 
 class Repuesto(models.Model):
     codigo_repuesto = models.CharField(primary_key=True, max_length=10)
@@ -115,8 +127,8 @@ class Repuesto(models.Model):
     class Meta:
         managed = True
         db_table = 'repuesto'
-
- 
+    def __str__(self):
+        return self.codigo_repuesto
 
 
 class Sucursal(models.Model):
@@ -129,7 +141,8 @@ class Sucursal(models.Model):
     class Meta:
         managed = True
         db_table = 'sucursal'
-
+    def __str__(self):
+        return self. codigo_sucursal 
 
 class Vehiculo(models.Model):
     codigo_vehiculo = models.CharField(primary_key=True, max_length=10)
@@ -145,6 +158,9 @@ class Vehiculo(models.Model):
     class Meta:
         managed = True
         db_table = 'vehiculo'
+
+    def __str__(self):
+        return self.codigo_vehiculo
 
 
 class Vendedor(models.Model):
@@ -164,3 +180,5 @@ class Vendedor(models.Model):
         if self.pass_field:
             self.pass_field = make_password(self.pass_field)
         super(Vendedor, self).save(*args, **kwargs)
+    def __str__(self):
+        return self.id_vendedor 

@@ -1,0 +1,110 @@
+{% extends "adminlte/jefe_taller/base_jefe_taller.html" %}
+{% load static %}
+{% block body %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-6">
+          <div class="col-sm-6">
+            <h1>Agregar Orden de Trabajo</h1>
+          </div>
+    
+
+    <!-- Main content -->
+    <section class="content">
+      <form action="{% url 'agregar_ordenes_trabajo' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Orden de Trabajo</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="numero_orden_trabajo">Número de Orden de Trabajo</label>
+                  <input type="text" id="numero_orden_trabajo" name="numero_orden_trabajo" class="form-control" placeholder="Número de Orden de Trabajo">
+                </div>
+                <div class="form-group">
+                  <label for="id_jefe_taller">Jefe de Taller</label>
+                  <select id="id_jefe_taller" name="id_jefe_taller" class="form-control custom-select">
+                    <option selected disabled>Seleccione un jefe taller</option>
+                    {% for jefe in jefes %}
+                      <option value="{{ jefe.id_jefe_taller }}">{{ jefe.id_jefe_taller }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="id_cliente">Cliente</label>
+                  <select id="id_cliente" name="id_cliente" class="form-control custom-select">
+                    <option selected disabled>Seleccione un cliente</option>
+                    {% for cliente in clientes %}
+                      <option value="{{ cliente.id_cliente }}">{{ cliente.id_cliente }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="codigo_vehiculo">Codigo vehiculo</label>
+                  <select id="codigo_vehiculo" name="codigo_vehiculo" class="form-control custom-select">
+                    <option selected disabled>Seleccione un vehículo</option>
+                    {% for vehiculo in vehiculos %}
+                       <option value="{{ vehiculo.codigo_vehiculo }}">{{ vehiculo.codigo_vehiculo }}</option>
+                    {% endfor %}
+                 </select>
+                 <div class="form-group">
+                  <label for="numero_factura">Número de Factura</label>
+                  <select id="numero_factura" name="numero_factura" class="form-control custom-select">
+                    <option selected disabled>Seleccione un número de factura</option>
+                    {% for factura in facturas %}
+                      <option value="{{ factura.numero_factura }}">{{ factura.numero_factura }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label for="fecha_inicio_orden_trabajo">Fecha de Inicio</label>
+                  <input type="date" id="fecha_inicio_orden_trabajo" name="fecha_inicio_orden_trabajo" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="fecha_final_orden_trabajo">Fecha de Finalización</label>
+                  <input type="date" id="fecha_final_orden_trabajo" name="fecha_final_orden_trabajo" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="estado_orden_trabajo">Estado de la Orden de Trabajo</label>
+                  <select id="estado_orden_trabajo" name="estado_orden_trabajo" class="form-control custom-select">
+                    <option selected disabled>Seleccione el estado</option>
+                    <option value="En proceso">En proceso</option>
+                    <option value="Completada">Completada</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="descripcion_orden_trabajo">Descripción de la Orden de Trabajo</label>
+                  <textarea id="descripcion_orden_trabajo" name="descripcion_orden_trabajo" class="form-control" placeholder="Descripción de la Orden de Trabajo"></textarea>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <div class="row">
+          <button type="button" class="btn btn-tool"  title="Collapse">  
+          </button>
+          <div class="col-21">
+            <a href="{% url 'add_ordenes_trabajo' %}" class="btn btn-secondary">Cancelar</a>
+            <input type="submit" value="Agregar Orden de Trabajo" class="btn btn-success float-right">
+          </div>
+        </div>
+      </form>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  {% endblock %}  

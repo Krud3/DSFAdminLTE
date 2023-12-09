@@ -1,0 +1,72 @@
+{% extends "adminlte/jefe_taller/base_jefe_taller.html" %}
+{% load static %}
+{% block body %}
+    <!-- Main content -->
+    <section class="content">
+        <div class="card">
+            <!-- /.card-header -->
+            <div class="container mt-4 text-left">
+                <h2>Visualizar Repuestos</h2>
+                <input class="form-control mb-3" id="buscador" type="text" placeholder="Buscar por Nombre de Repuesto...">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" style="font-size: 12px;">
+                        <thead>
+                            <tr>
+                                <th>Código Repuesto</th>
+                                <th>ID Gerente</th>
+                                <th>Código Sucursal</th>
+                                <th>Número Factura</th>
+                                <th>Número Cotización</th>
+                                <th>Nombre Repuesto</th>
+                                <th>Tipo Repuesto</th>
+                                <th>Precio Repuesto</th>
+                                <th>Descripción Repuesto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Los datos de la tabla van aquí -->
+                            {% for repuesto in repuestos %}
+                                <tr>
+                                    <td>{{ repuesto.codigo_repuesto }}</td>
+                                    <td>{{ repuesto.id_gerente }}</td>
+                                    <td>{{ repuesto.codigo_sucursal }}</td>
+                                    <td>{{ repuesto.numero_factura }}</td>
+                                    <td>{{ repuesto.numero_cotizacion }}</td>
+                                    <td><input type="text" name="nombre_repuesto" class="editableField form-control" value="{{ repuesto.nombre_repuesto }}" disabled></td>
+                                    <td><input type="text" name="tipo_repuesto" class="editableField form-control" value="{{ repuesto.tipo_repuesto }}" disabled></td>
+                                    <td><input type="text" name="precio_repuesto" class="editableField form-control" value="{{ repuesto.precio_repuesto }}" disabled></td>
+                                    <td><input type="text" name="descripcion_repuesto" class="editableField form-control" value="{{ repuesto.descripcion_repuesto }}" disabled></td>
+                                </tr>
+                            {% endfor %}
+                            <!-- Repite filas similares para más datos -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <script>
+                // Buscador
+                var buscador = document.getElementById('buscador');
+                buscador.addEventListener('input', function () {
+                    var term = buscador.value.trim().toLowerCase();
+                    var filas = document.querySelectorAll('.table tbody tr');
+
+                    filas.forEach(function (fila) {
+                        var nombreRepuesto = fila.querySelector('td:nth-child(1)').textContent.toLowerCase();
+
+                        if (nombreRepuesto.includes(term)) {
+                            fila.style.display = ''; // Muestra la fila si hay coincidencia
+                        } else {
+                            fila.style.display = 'none'; // Oculta la fila si no hay coincidencia
+                        }
+                    });
+                });
+            </script>
+            <!-- /.card-body -->
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+{% endblock %}
+

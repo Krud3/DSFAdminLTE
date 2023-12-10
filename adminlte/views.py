@@ -5,9 +5,9 @@ from django.contrib.auth import logout
 from .models import Vehiculo, Gerente, Sucursal, Factura, Cotizacion, Vendedor, JefeTaller, Cliente,Repuesto,OrdenTrabajo
 from django.contrib import messages
 from django.views.decorators.http import require_POST
-
-
-
+from django.db.models import Count
+from django.db.models.functions import TruncMonth
+from django.http import JsonResponse
 # Create your views here.
 def index(request):
     return render(request, 'adminlte/gerente/index.html')
@@ -627,7 +627,7 @@ def agregar_ordenes_trabajo(request):
         # Creating a new OrdenTrabajo object
         nueva_orden_trabajo = OrdenTrabajo(
             numero_orden_trabajo=numero_orden_trabajo,
-            id_jefe_taller = JefeTaller.objects.__getattribute__(id_jefe_taller=id_jefe_taller),
+            id_jefe_taller = JefeTaller.objects.get(id_jefe_taller=id_jefe_taller),
             id_cliente=Cliente.objects.get(id_cliente=id_cliente),
             codigo_vehiculo=Vehiculo.objects.get(codigo_vehiculo=codigo_vehiculo),
             numero_factura=Factura.objects.get(numero_factura=numero_factura),
@@ -681,3 +681,34 @@ def vis_eli_ordenes_trabajo(request):
     ordenes_trabajo = OrdenTrabajo.objects.all()
     print(ordenes_trabajo)
     return render(request, 'adminlte/jefe_taller/Ordenes_trabajo/edit_delete_ordenes_trabajo.html', {'ordenes_trabajo': ordenes_trabajo})
+
+def inventario_ordenes_trabajo(request):
+    # Obtén las órdenes de trabajo
+    ordenes = OrdenTrabajo.objects.all()
+
+    # Obtén datos agregados por mes usando annotate
+    data_for_chart = OrdenTrabajo.objects.annotate(
+        month=TruncMonth('fecha_inicio_orden_trabajo')
+    ).values('month').annotate(
+        count=Count('numero_orden_trabajo')
+    ).order_by('month')
+
+    # Pasa las órdenes y datos al contexto de la plantilla
+    context = {
+        'ordenes': ordenes,
+        'data_for_chart': list(data_for_chart),
+    }
+
+    # Renderiza la plantilla con el contexto
+    return render(request, 'adminlte/jefe_taller/reportes_graficos/reporte_grafico_jefe_taller.html', context)
+
+# Vista para alimentar la gráfica con datos JSON
+def datos_grafico(request):
+    data_for_chart = OrdenTrabajo.objects.annotate(
+        month=TruncMonth('fecha_inicio_orden_trabajo')
+    ).values('month').annotate(
+        count=Count('numero_orden_trabajo')
+    ).order_by('month')
+
+    data = list(data_for_chart)
+    return JsonResponse(data, safe=False)

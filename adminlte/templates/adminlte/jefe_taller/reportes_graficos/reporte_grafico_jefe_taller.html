@@ -1,0 +1,141 @@
+<!-- templates/tu_app/inventario_ordenes_trabajo.html -->
+
+{% extends "adminlte/jefe_taller/base_jefe_taller.html" %}
+{% load static %}
+{% block body %}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Inventario órdenes de trabajo</h2>
+
+    <!-- Gráfico de Barras -->
+    <div class="row">
+        <div class="col-md-12">
+            <canvas id="graficoInventarioRepuestos"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('graficoInventarioRepuestos').getContext('2d');
+    var datosInventario = [];
+
+    // Obtén los datos del servidor
+    fetch('{% url "datos_grafico" %}')
+        .then(response => response.json())
+        .then(data => {
+            // Organiza los datos por mes y completa los valores faltantes con cero
+            datosInventario = organizarDatosPorMes(data);
+
+            var coloresMeses = obtenerColoresMeses();  // Función para obtener colores por mes
+
+            var graficoInventarioRepuestos = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: datosInventario.map(point => point.month),
+                    datasets: [{
+                        label: 'Cantidad de Órdenes de Trabajo',
+                        data: datosInventario.map(point => point.count),
+                        backgroundColor: coloresMeses,  // Asigna los colores aquí
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            // Definir el máximo en null para ajuste automático
+                            max: null
+                        }
+                    }
+                }
+            });
+        });
+
+    // Función para manejar la adición de datos al gráfico
+    document.getElementById('formularioInventario').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var mes = document.getElementById('mes').value;
+        var cantidad = parseInt(document.getElementById('cantidad').value);
+        var indiceMes = datosInventario.findIndex(point => point.month === mes);
+        if (indiceMes !== -1) {
+            // Actualizar el valor existente
+            datosInventario[indiceMes].count = cantidad;
+        } else {
+            // Agregar nuevo mes
+            datosInventario.push({ month: mes, count: cantidad });
+        }
+
+        // Actualizar el gráfico
+        graficoInventarioRepuestos.data.labels = datosInventario.map(point => point.month);
+        graficoInventarioRepuestos.data.datasets[0].data = datosInventario.map(point => point.count);
+        graficoInventarioRepuestos.update();
+    });
+
+    // Función para obtener colores por mes
+    function obtenerColoresMeses() {
+        // Puedes definir una paleta de colores o asignar colores específicos a cada mes
+        // Aquí se muestra una paleta de colores de ejemplo
+        var paletaColores = [
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 205, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(201, 203, 207, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 205, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(54, 162, 235, 0.6)'
+        ];
+
+        // Obtén las etiquetas con el formato del servidor
+        var etiquetasServidor = datosInventario.map(point => point.month);
+
+        // Asigna colores a cada mes
+        var colores = etiquetasServidor.map((point, index) => paletaColores[index % paletaColores.length]);
+
+        return colores;
+    }
+
+    // Función para organizar los datos por mes y completar con ceros
+    function organizarDatosPorMes(data) {
+        // Crear un objeto para mapear datos por mes
+        var datosPorMes = {};
+
+        // Llenar datos reales del servidor
+        data.forEach(point => {
+            var fecha = new Date(point.month);
+            var mesKey = fecha.toISOString().slice(0,7);  // Formato del mes del servidor (YYYY-MM)
+            datosPorMes[mesKey] = point;
+        });
+
+        // Filtrar meses sin datos
+        var mesesConDatos = Object.values(datosPorMes).filter(point => point.count > 0);
+
+        // Completar con ceros para todos los meses con datos
+        var fechaActual = new Date();
+        for (var i = 0; i < 12; i++) {
+            var mesKey = fechaActual.toISOString().slice(0,7);  // Formato del mes del servidor (YYYY-MM)
+            if (!datosPorMes[mesKey]) {
+                datosPorMes[mesKey] = { month: mesKey, count: 0 };
+            }
+            fechaActual.setMonth(fechaActual.getMonth() - 1);
+        }
+
+        // Ordenar los datos por mes de forma ascendente
+        var datosOrdenados = Object.values(datosPorMes).sort((a, b) => new Date(a.month) - new Date(b.month));
+
+        return datosOrdenados;
+    }
+</script>
+
+<!-- Bootstrap y jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.5/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}

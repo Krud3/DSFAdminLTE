@@ -1,6 +1,6 @@
-from django.urls import path
+from django.urls import path,include
 from . import views
-
+from django.contrib import admin
 urlpatterns = [ path('login/', views.login, name='login'),
                path('index/', views.index, name='index'),
                path('index2/', views.index2, name='index2'), 
@@ -45,5 +45,6 @@ urlpatterns = [ path('login/', views.login, name='login'),
                path('agregar_ordenes_trabajo/', views.agregar_ordenes_trabajo, name='agregar_ordenes_trabajo'),
                path('eliminar_ordenes_trabajo/', views.eliminar_ordenes_trabajo, name='eliminar_ordenes_trabajo'),
                path('vis_eli_ordenes_trabajo/', views.vis_eli_ordenes_trabajo, name='vis_eli_ordenes_trabajo'),
-                
+               path('inventario_ordenes_trabajo/', views.inventario_ordenes_trabajo, name='inventario_ordenes_trabajo'),
+               path('datos_grafico/', views.datos_grafico, name='datos_grafico'),
                ]

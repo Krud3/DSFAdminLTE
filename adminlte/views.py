@@ -683,32 +683,40 @@ def vis_eli_ordenes_trabajo(request):
     return render(request, 'adminlte/jefe_taller/Ordenes_trabajo/edit_delete_ordenes_trabajo.html', {'ordenes_trabajo': ordenes_trabajo})
 
 def inventario_ordenes_trabajo(request):
-    # Obtén las órdenes de trabajo
     ordenes = OrdenTrabajo.objects.all()
 
-    # Obtén datos agregados por mes usando annotate
     data_for_chart = OrdenTrabajo.objects.annotate(
         month=TruncMonth('fecha_inicio_orden_trabajo')
-    ).values('month').annotate(
+    ).values('month', 'estado_orden_trabajo').annotate(
         count=Count('numero_orden_trabajo')
-    ).order_by('month')
+    ).order_by('month', 'estado_orden_trabajo')
 
-    # Pasa las órdenes y datos al contexto de la plantilla
     context = {
         'ordenes': ordenes,
         'data_for_chart': list(data_for_chart),
     }
 
-    # Renderiza la plantilla con el contexto
     return render(request, 'adminlte/jefe_taller/reportes_graficos/reporte_grafico_jefe_taller.html', context)
 
 # Vista para alimentar la gráfica con datos JSON
 def datos_grafico(request):
     data_for_chart = OrdenTrabajo.objects.annotate(
         month=TruncMonth('fecha_inicio_orden_trabajo')
-    ).values('month').annotate(
+    ).values('month', 'estado_orden_trabajo').annotate(
         count=Count('numero_orden_trabajo')
-    ).order_by('month')
+    ).order_by('month', 'estado_orden_trabajo')
 
-    data = list(data_for_chart)
+    # Convertir queryset a una lista de diccionarios
+    data = [
+        {
+            'month': entry['month'],
+            'estado_orden_trabajo': entry['estado_orden_trabajo'],
+            'count': entry['count'],
+        }
+        for entry in data_for_chart
+    ]
+
+    # Ordenar los datos por mes y estado
+    data = sorted(data, key=lambda x: (x['month'], x['estado_orden_trabajo']))
+
     return JsonResponse(data, safe=False)

@@ -10,14 +10,12 @@
           <div class="col-sm-6">
             <h1>Agregar Orden de Trabajo</h1>
           </div>
-    
-
     <!-- Main content -->
     <section class="content">
       <form action="{% url 'agregar_ordenes_trabajo' %}" method="post">
         {% csrf_token %}
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-14">
             <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">Orden de Trabajo</h3>

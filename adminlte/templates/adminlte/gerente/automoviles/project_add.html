@@ -90,17 +90,11 @@
               </div>
               <div class="form-group">
                 <label for="modeloVehiculo">Modelo Vehículo</label>
-                <select id="modeloVehiculo" name="modelo" class="form-control custom-select">
+                <select id=" modelo_vehiculo" name="modelo" class="form-control custom-select">
                   <option selected disabled>Seleccione el Modelo</option>
-                  <option>BMW X</option>
-                  <option>BMW M</option>
-                  <option>BMW i</option>
-                  <option>7</option>
-                  <option>5</option>
-                  <option>4</option>
-                  <option>3</option>
-                  <option>2</option>
-                  <option>1</option>
+                  {% for vehiculo in vehiculos %}
+                  <option value="{{ vehiculo.modelo_vehiculo }}">{{ vehiculo.modelo_vehiculo }}</option>
+                  {% endfor %}
                 </select>
               </div>
               

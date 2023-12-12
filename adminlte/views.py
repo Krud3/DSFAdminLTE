@@ -8,6 +8,7 @@ from django.views.decorators.http import require_POST
 from django.db.models import Count
 from django.db.models.functions import TruncMonth
 from django.http import JsonResponse
+from django.db.models import Sum
 # Create your views here.
 def index(request):
     return render(request, 'adminlte/gerente/index.html')
@@ -25,7 +26,7 @@ def login(request):
             gerente = Gerente.objects.get(id_gerente=username)
             if check_password(password, gerente.pass_field):
                 #request.session['user'] = gerente.id_gerente
-                return redirect(reverse('index2'))
+                return redirect(reverse('index'))
             else:
                 return render(request, 'adminlte/gestion_login/login.html', {'error': 'Contraseña incorrecta'})
             
@@ -63,6 +64,7 @@ def recover_password(request):
     return render(request, 'adminlte/gestion_login/recover_password.html')
 
 def add_automovil(request):
+    vehiculos = Vehiculo.objects.all()
     sucursales = Sucursal.objects.all()
     gerentes = Gerente.objects.all()
     facturas = Factura.objects.all()
@@ -73,6 +75,7 @@ def add_automovil(request):
         'gerentes': gerentes,
         'facturas': facturas,
         'cotizaciones': cotizaciones,
+        'vehiculos': vehiculos,
     }
     return render(request, 'adminlte/gerente/automoviles/project_add.html', context)
 
@@ -378,13 +381,12 @@ def add_repuesto(request):
     cotizaciones = Cotizacion.objects.all()
     
     context = {
-        
+        'repuestos': repuestos,
         'sucursales': sucursales,
         'gerentes': gerentes,
         'facturas': facturas,
         'cotizaciones': cotizaciones,
-        'repuestos': repuestos,
- 
+        
     }
     return render(request, 'adminlte/gerente/repuestos/repuesto_add.html', context)
 
@@ -718,5 +720,94 @@ def datos_grafico(request):
 
     # Ordenar los datos por mes y estado
     data = sorted(data, key=lambda x: (x['month'], x['estado_orden_trabajo']))
+
+    return JsonResponse(data, safe=False)
+
+def gra_repuestos(request):
+    return render(request, 'adminlte/gerente/reportes_graficos/gra_repuestos.html')
+
+def gra_rep_add(request):
+    repuestos = Repuesto.objects.all()
+
+    data_for_chart = Repuesto.objects.values(
+        'tipo_repuesto'
+    ).annotate(
+        total_precio=Sum('precio_repuesto'),
+        cantidad_unidades=Count('tipo_repuesto')
+    ).order_by('tipo_repuesto')
+
+    context = {
+        'repuestos': repuestos,
+        'data_for_chart': list(data_for_chart),
+    }
+
+    return render(request, 'adminlte/gerente/reportes_graficos/gra_rep_add.html', context)
+
+# Vista para alimentar la gráfica con datos JSON
+def datos_grafico_rep(request):
+    data_for_chart = Repuesto.objects.values(
+        'tipo_repuesto'
+    ).annotate(
+        total_precio=Sum('precio_repuesto'),
+        cantidad_unidades=Count('tipo_repuesto')
+    ).order_by('tipo_repuesto')
+
+    # Convertir queryset a una lista de diccionarios
+    data = [
+        {
+            'tipo_repuesto': entry['tipo_repuesto'],
+            'total_precio': entry['total_precio'],
+            'cantidad_unidades': entry['cantidad_unidades'],
+        }
+        for entry in data_for_chart
+    ]
+
+    # Ordenar los datos por tipo_repuesto
+    data = sorted(data, key=lambda x: x['tipo_repuesto'])
+
+    return JsonResponse(data, safe=False)
+
+def gra_autos(request):
+    return render(request, 'adminlte/gerente/reportes_graficos/gra_autos.html')
+
+
+def gra_autos_add(request):
+    vehiculos = Vehiculo.objects.all()
+
+    data_for_chart = Vehiculo.objects.values(
+        'modelo_vehiculo'
+    ).annotate(
+        total_precio=Sum('precio_vehiculo'),
+        cantidad_unidades=Count('modelo_vehiculo')
+    ).order_by('modelo_vehiculo')
+
+    context = {
+        'vehiculos': vehiculos,
+        'data_for_chart': list(data_for_chart),
+    }
+
+    return render(request, 'adminlte/gerente/reportes_graficos/gra_autos.html', context)
+
+# Vista para alimentar la gráfica con datos JSON
+def datos_grafico_autos(request):
+    data_for_chart = Vehiculo.objects.values(
+        'modelo_vehiculo'
+    ).annotate(
+        total_precio=Sum('precio_vehiculo'),
+        cantidad_unidades=Count('modelo_vehiculo')
+    ).order_by('modelo_vehiculo')
+
+    # Convertir queryset a una lista de diccionarios
+    data = [
+        {
+            'modelo_vehiculo': entry['modelo_vehiculo'],
+            'total_precio': entry['total_precio'],
+            'cantidad_unidades': entry['cantidad_unidades'],
+        }
+        for entry in data_for_chart
+    ]
+
+    # Ordenar los datos por modelo_vehiculo
+    data = sorted(data, key=lambda x: x['modelo_vehiculo'])
 
     return JsonResponse(data, safe=False)

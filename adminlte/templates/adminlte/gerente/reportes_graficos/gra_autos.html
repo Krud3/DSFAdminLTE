@@ -3,12 +3,12 @@
 {% block body %}
 
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Inventario de Repuestos por Tipo y Precio</h2>
+    <h2 class="text-center mb-4">Inventario de Vehículos por Modelo y Precio</h2>
 
     <!-- Gráfico de Barras -->
     <div class="row">
         <div class="col-md-12">
-            <canvas id="graficoInventarioRepuestos"></canvas>
+            <canvas id="graficoInventarioVehiculos"></canvas>
         </div>
     </div>
 </div>
@@ -16,35 +16,35 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var ctx = document.getElementById('graficoInventarioRepuestos').getContext('2d');
+        var ctx = document.getElementById('graficoInventarioVehiculos').getContext('2d');
         var datosInventario = [];
 
         // Obtén los datos del servidor
-        fetch('{% url "datos_grafico_rep" %}')
+        fetch('{% url "datos_grafico_autos" %}')
             .then(response => response.json())
             .then(data => {
-                // Organiza los datos por tipo de repuesto y completa los valores faltantes con cero
-                datosInventario = organizarDatosPorTipoRepuesto(data);
+                // Organiza los datos por modelo de vehículo y completa los valores faltantes con cero
+                datosInventario = organizarDatosPorModeloVehiculo(data);
                 console.log('Datos después de organizar:', datosInventario);
 
-                var coloresRepuestos = obtenerColoresRepuestos();
+                var coloresVehiculos = obtenerColoresVehiculos();
 
-                var graficoInventarioRepuestos = new Chart(ctx, {
+                var graficoInventarioVehiculos = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: datosInventario.map(point => point.tipo_repuesto),
+                        labels: datosInventario.map(point => point.modelo_vehiculo),
                         datasets: [{
-                            label: 'Total Precio por Tipo de Repuesto',
+                            label: 'Total Precio por Modelo de Vehículo',
                             data: datosInventario.map(point => point.total_precio),
-                            backgroundColor: coloresRepuestos,
-                            borderColor: coloresRepuestos,
+                            backgroundColor: coloresVehiculos,
+                            borderColor: coloresVehiculos,
                             borderWidth: 1
                         },
                         {
-                            label: 'Cantidad de Unidades por Tipo de Repuesto',
+                            label: 'Cantidad de Unidades por Modelo de Vehículo',
                             data: datosInventario.map(point => point.cantidad_unidades),
-                            backgroundColor: coloresRepuestos.map(color => color.replace('0.6', '0.3')),
-                            borderColor: coloresRepuestos.map(color => color.replace('0.6', '1')),
+                            backgroundColor: coloresVehiculos.map(color => color.replace('0.6', '0.3')),
+                            borderColor: coloresVehiculos.map(color => color.replace('0.6', '1')),
                             borderWidth: 1
                         }]
                     },
@@ -59,8 +59,8 @@
                 });
             });
 
-        // Función para obtener colores por tipo de repuesto
-        function obtenerColoresRepuestos() {
+        // Función para obtener colores por modelo de vehículo
+        function obtenerColoresVehiculos() {
             var paletaColores = [
                 'rgba(255, 99, 132, 0.6)',
                 'rgba(255, 159, 64, 0.6)',
@@ -76,28 +76,28 @@
                 'rgba(54, 162, 235, 0.6)'
             ];
 
-            var etiquetasServidor = datosInventario.map(point => point.tipo_repuesto);
+            var etiquetasServidor = datosInventario.map(point => point.modelo_vehiculo);
             var colores = etiquetasServidor.map((point, index) => paletaColores[index % paletaColores.length]);
 
             return colores;
         }
 
-        // Función para organizar los datos por tipo de repuesto y completar con ceros
-        function organizarDatosPorTipoRepuesto(data) {
-            var datosPorTipoRepuesto = {};
+        // Función para organizar los datos por modelo de vehículo y completar con ceros
+        function organizarDatosPorModeloVehiculo(data) {
+            var datosPorModeloVehiculo = {};
 
             data.forEach(point => {
-                var tipoRepuestoKey = point.tipo_repuesto;
-                if (!datosPorTipoRepuesto[tipoRepuestoKey]) {
-                    datosPorTipoRepuesto[tipoRepuestoKey] = { tipo_repuesto: tipoRepuestoKey, total_precio: 0, cantidad_unidades: 0 };
+                var modeloVehiculoKey = point.modelo_vehiculo;
+                if (!datosPorModeloVehiculo[modeloVehiculoKey]) {
+                    datosPorModeloVehiculo[modeloVehiculoKey] = { modelo_vehiculo: modeloVehiculoKey, total_precio: 0, cantidad_unidades: 0 };
                 }
 
-                datosPorTipoRepuesto[tipoRepuestoKey].total_precio += point.total_precio;
-                datosPorTipoRepuesto[tipoRepuestoKey].cantidad_unidades += point.cantidad_unidades;
+                datosPorModeloVehiculo[modeloVehiculoKey].total_precio += point.total_precio;
+                datosPorModeloVehiculo[modeloVehiculoKey].cantidad_unidades += point.cantidad_unidades;
             });
 
-            // Convertir la estructura de datos a un array ordenado por tipo de repuesto
-            var datosOrdenados = Object.values(datosPorTipoRepuesto).sort((a, b) => b.total_precio - a.total_precio);
+            // Convertir la estructura de datos a un array ordenado por modelo de vehículo
+            var datosOrdenados = Object.values(datosPorModeloVehiculo).sort((a, b) => b.total_precio - a.total_precio);
 
             return datosOrdenados;
         }

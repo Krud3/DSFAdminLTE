@@ -26,7 +26,7 @@ def login(request):
             gerente = Gerente.objects.get(id_gerente=username)
             if check_password(password, gerente.pass_field):
                 #request.session['user'] = gerente.id_gerente
-                return redirect(reverse('index'))
+                return redirect(reverse('index2'))
             else:
                 return render(request, 'adminlte/gestion_login/login.html', {'error': 'Contraseña incorrecta'})
             

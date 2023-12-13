@@ -367,12 +367,7 @@ def eliminar_cliente(request):
     return redirect('vis_eli_cliente')
 
 
-def add_sucursal(request):
-    gerentes = Gerente.objects.all()
-    context = {
-        'gerentes': gerentes,
-    }
-    return render(request, 'adminlte/gerente/sucursales/sucursal_add.html', context)
+
 
 def gra_rep_add(request):
     return render(request, 'adminlte/gerente/reportes_graficos/gra_rep_add.html')
@@ -400,7 +395,20 @@ def vis_eli_repuesto(request):
     print(repuesto)
     return render(request, 'adminlte/gerente/repuestos/visualizar_editar_eliminar_reporte.html', {'repuesto': repuesto})
 
+def eliminar_repuesto(request):
+    codigo_repuesto = request.POST.get('codigo_repuesto')
+    repuesto = get_object_or_404(Repuesto, codigo_repuesto=codigo_repuesto)
+    repuesto.delete()
+    messages.success(request, "Repuesto eliminado con éxito.")
 
+    # Agrega mensajes de depuración
+    print("Repuesto eliminado:", codigo_repuesto)
+
+    repuestos = Repuesto.objects.all()
+    print("Repuestos después de eliminación:", repuestos)
+
+    context = {'repuestos': repuestos}
+    return render(request, 'adminlte/gerente/repuestos/visualizar_editar_eliminar_reporte.html', context)
 
 def agregar_repuesto(request):
     if request.method == 'POST':
@@ -430,21 +438,16 @@ def agregar_repuesto(request):
         messages.success(request, 'Repuesto agregado exitosamente')
         return redirect('add_repuesto')  # Ajusta esto según tus necesidades
        
-        
+    
+
     repuestos = Repuesto.objects.all()
     context = {
         'repuestos': repuestos,
     }
-    print(Repuesto)
+    print(repuestos)
     return render(request, 'adminlte/gerente/repuestos/visualizar_editar_eliminar_reporte.html', context)
 
-@require_POST
-def eliminar_repuesto(request):
-    codigo_repuesto = request.POST.get('codigo_repuesto')
-    repuesto = get_object_or_404(Repuesto, codigo_repuesto= codigo_repuesto)
-    repuesto.delete()
-    messages.success(request, "Repuesto eliminado con éxito.")
-    return redirect('vis_eli_repuesto')
+
 
 def add_sucursal(request):
   
@@ -459,40 +462,35 @@ def add_sucursal(request):
     return render(request, 'adminlte/gerente/sucursales/sucursal_add.html', context)
 
 def vis_eli_sucursal(request):
-    sucursal = Sucursal.objects.all()
-    print(Sucursal)
-    return render(request, 'adminlte/gerente/sucursales/visualizar_editar_eliminar_sucursal.html', {'sucursal': sucursal})
+    sucursales = Sucursal.objects.all()
+    return render(request, 'adminlte/gerente/sucursales/visualizar_editar_eliminar_sucursal.html', {'sucursales': sucursales})
 
 
 
 def agregar_sucursal(request):
     if request.method == 'POST':
-        codigo_sucursal  = request.POST.get('codigo_sucursal ')
+        codigo_sucursal = request.POST.get('codigo_sucursal')  # Corregir el espacio extra
         id_gerente = request.POST.get('id_gerente')
         nombre_sucursal = request.POST.get('nombre_sucursal')
         ciudad_sucursal = request.POST.get('ciudad_sucursal')
         telefono_sucursal = request.POST.get('telefono_sucursal')
-        
 
-        
         nuevo_sucursal = Sucursal(
-                codigo_sucursal=codigo_sucursal,
-                id_gerente=Gerente.objects.get(id_gerente=id_gerente),
-                nombre_sucursal=nombre_sucursal,
-                ciudad_sucursal=ciudad_sucursal,
-                telefono_sucursal = telefono_sucursal,
-                
-            )
+            codigo_sucursal=codigo_sucursal,
+            id_gerente=Gerente.objects.get(id_gerente=id_gerente),
+            nombre_sucursal=nombre_sucursal,
+            ciudad_sucursal=ciudad_sucursal,
+            telefono_sucursal=telefono_sucursal,
+        )
         nuevo_sucursal.save()
-        messages.success(request, 'Sucursal agregado exitosamente')
+        messages.success(request, 'Sucursal agregada exitosamente')
         return redirect('add_sucursal')  # Ajusta esto según tus necesidades
-       
-        
+
     sucursales = Sucursal.objects.all()
     context = {
         'sucursales': sucursales,
     }
-    print(Sucursal)
+    print(sucursales)  # Corregir aquí
     return render(request, 'adminlte/gerente/sucursales/visualizar_editar_eliminar_sucursal.html', context)
 
 @require_POST

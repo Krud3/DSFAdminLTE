@@ -51,4 +51,10 @@ urlpatterns = [ path('login/', views.login, name='login'),
                path('gra_autos/',views.gra_autos,name='gra_autos'),
                path('gra_autos_add/',views.gra_autos_add, name='gra_autos_add'),
                path('datos_grafico_autos/', views.datos_grafico_autos, name='datos_grafico_autos'),
+               path('agregar_ordenes_trabajo2/', views.agregar_ordenes_trabajo2, name='agregar_ordenes_trabajo2'),
+               path('generar_pdf_orden_trabajo/<str:numero_orden_trabajo>/', views.generar_pdf_orden_trabajo, name='generar_pdf_orden_trabajo'),
+
+
+
+               
                ]

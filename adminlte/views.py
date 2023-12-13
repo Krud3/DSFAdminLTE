@@ -9,6 +9,11 @@ from django.db.models import Count
 from django.db.models.functions import TruncMonth
 from django.http import JsonResponse
 from django.db.models import Sum
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.shortcuts import get_object_or_404
+
 # Create your views here.
 def index(request):
     return render(request, 'adminlte/gerente/index.html')
@@ -811,3 +816,40 @@ def datos_grafico_autos(request):
     data = sorted(data, key=lambda x: x['modelo_vehiculo'])
 
     return JsonResponse(data, safe=False)
+
+
+
+def agregar_ordenes_trabajo2(request):
+  ordenes_trabajo = OrdenTrabajo.objects.all()
+  print(ordenes_trabajo)
+  return render(request, 'adminlte/jefe_taller/reportes_texto/reporte_texto_ordenes_trabajo.html', {'ordenes_trabajo': ordenes_trabajo})
+
+def render_pdf(html_content):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="orden_trabajo.pdf"'
+    pisa.CreatePDF(html_content, dest=response)
+    return response
+
+def generar_pdf_orden_trabajo(request, numero_orden_trabajo):
+    orden_trabajo = get_object_or_404(OrdenTrabajo, numero_orden_trabajo=numero_orden_trabajo)
+    
+    context = {'orden_trabajo': orden_trabajo}
+    template = get_template('orden_trabajo_pdf.html')
+    html_content = template.render(context)
+
+    return render_pdf(html_content)
+
+def render_pdf(html_content):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="orden_trabajo.pdf"'
+    pisa.CreatePDF(html_content, dest=response)
+    return response
+
+def generar_pdf_orden_trabajo(request, numero_orden_trabajo):
+    orden_trabajo = get_object_or_404(OrdenTrabajo, numero_orden_trabajo=numero_orden_trabajo)
+    
+    context = {'orden_trabajo': orden_trabajo}
+    template = get_template('adminlte/jefe_taller/reportes_texto/orden_trabajo_pdf.html')
+    html_content = template.render(context)
+
+    return render_pdf(html_content)

@@ -37,7 +37,8 @@
                                             <input type="hidden" name="codigo_sucursal" value="{{ sucursal.codigo_sucursal }}">
                                             <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                                         </form>
-                                        <button class="editarFila btn-primary btn-sm" data-id="{{ sucursal.codigo_sucursal }}" style="font-size: 10px;">Editar</button>
+                                        <a href= "{% url 'editar_sucursal' codigo_sucursal=sucursal.codigo_sucursal %}" class="btn btn-primary btn-sm">Editar</a>
+
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -45,8 +46,7 @@
                         </tbody>
                     </table>
                 </div>
-                <button class="btn btn-danger btn-sm" id="limpiarCampos">Limpiar campos</button>
-                <button class="btn btn-primary btn-sm guardarCambios">Guardar cambios</button>
+                
             </div>
 
             <script>
@@ -72,30 +72,9 @@
                     });
                 });
 
-                var editarBotones = document.querySelectorAll('.editarFila');
-                var guardarBotones = document.querySelectorAll('.guardarEdicion');
+                
 
-                editarBotones.forEach(function (boton) {
-                boton.addEventListener('click', function () {
-                   // Habilitar campos de edición
-                   var fila = boton.closest('tr');
-                  fila.querySelectorAll('.editableField').forEach(function (campo) {
-            campo.disabled = false;
-        });
-    });
-});
 
-guardarBotones.forEach(function (boton) {
-    boton.addEventListener('click', function () {
-        // Deshabilitar campos de edición y enviar datos al servidor
-        var fila = boton.closest('tr');
-        fila.querySelectorAll('.editableField').forEach(function (campo) {
-            campo.disabled = true;
-        });
-
-        // También puedes enviar datos al servidor aquí utilizando una solicitud AJAX
-    });
-});
             </script>
             
         </div>

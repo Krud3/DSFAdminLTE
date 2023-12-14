@@ -225,12 +225,7 @@
                   <p>Crear Automovil</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{% url 'edit_automovil' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Modificar Automovil</p>
-                </a>
-              </li>
+             
               <li class="nav-item">
                 <a href="{% url 'vis_eli' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -259,19 +254,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{% url 'add_jefe_taller' %}" class="nav-link">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Agregar</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Modificar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href= "{% url 'vis_eli_jefe_taller' %}"  class="nav-link">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Visualizar/Eliminar</p>
                     </a>
@@ -293,12 +282,6 @@
                     <a href="{% url 'add_vendedor' %}" class="nav-link">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Agregar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{% url 'edit_vendedor' %}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Modificar</p>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -326,12 +309,7 @@
                       <p>Agregar</p>
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a href="{% url 'edit_cliente' %}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Modificar</p>
-                    </a>
-                  </li>
+
                   <li class="nav-item">
                     <a href="{% url 'vis_eli_cliente' %}" class="nav-link">
                       <i class="far fa-dot-circle nav-icon"></i>

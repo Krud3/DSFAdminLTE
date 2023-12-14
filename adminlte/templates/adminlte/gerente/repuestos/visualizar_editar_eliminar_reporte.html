@@ -1,12 +1,30 @@
 {% extends "adminlte/gerente/base_gerente.html" %}
 {% load static %}
 {% block body %}
+    <!-- Content Wrapper. Contains page content -->
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Visualizar/Eliminar/Modificar Repuestos</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Visualizar/Eliminar</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
     <!-- Main content -->
     <section class="content">
         <div class="card">
             <!-- /.card-header -->
             <div class="container mt-4 text-left">
-                <h2>Visualizar/Eliminar/Modificar Repuestos</h2>
                 <input class="form-control mb-3" id="buscador" type="text" placeholder="Buscar...">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped" style="font-size: 12px;">
@@ -25,7 +43,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Los datos de la tabla van aquí -->
+                            <!-- Data rows -->
                             {% for repuesto in repuestos %}
                                 <tr>
                                     <td>{{ repuesto.codigo_repuesto }}</td>
@@ -43,74 +61,49 @@
                                             <input type="hidden" name="codigo_repuesto" value="{{ repuesto.codigo_repuesto }}">
                                             <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                                         </form>
-                                        <button class="editarFila btn-primary btn-sm" data-id="{{ repuesto.codigo_repuesto }}" style="font-size: 10px;">Editar</button>
+                                        
+                                        
+                                        <a href= "{% url 'editar_repuesto' codigo_repuesto=repuesto.codigo_repuesto %}" class="btn btn-primary btn-sm">Editar</a>
+
+                                        
                                     </td>
                                 </tr>
                             {% endfor %}
-                            <!-- Repite filas similares para más datos -->
                         </tbody>
                     </table>
                 </div>
-                <button class="btn btn-danger btn-sm" id="limpiarCampos">Limpiar campos</button>
-                <button class="btn btn-primary btn-sm guardarCambios">Guardar cambios</button>
             </div>
-
-            <script>
-                // Buscador
-                var buscador = document.getElementById('buscador');
-                buscador.addEventListener('input', function () {
-                    var term = buscador.value.trim().toLowerCase();
-                    var filas = document.querySelectorAll('.table tbody tr');
-
-                    filas.forEach(function (fila) {
-                        var coincide = false;
-                        fila.querySelectorAll('td').forEach(function (celda) {
-                            if (celda.textContent.toLowerCase().includes(term)) {
-                                coincide = true;
-                            }
-                        });
-
-                        if (coincide) {
-                            fila.style.display = ''; // Muestra la fila si hay coincidencia
-                        } else {
-                            fila.style.display = 'none'; // Oculta la fila si no hay coincidencia
-                        }
-                    });
-                });
-
-              
-                var editarBotones = document.querySelectorAll('.editarFila');
-                var guardarBotones = document.querySelectorAll('.guardarEdicion');
-
-                editarBotones.forEach(function (boton) {
-                boton.addEventListener('click', function () {
-                   // Habilitar campos de edición
-                   var fila = boton.closest('tr');
-                  fila.querySelectorAll('.editableField').forEach(function (campo) {
-            campo.disabled = false;
-        });
-    });
-});
-
-guardarBotones.forEach(function (boton) {
-    boton.addEventListener('click', function () {
-        // Deshabilitar campos de edición y enviar datos al servidor
-        var fila = boton.closest('tr');
-        fila.querySelectorAll('.editableField').forEach(function (campo) {
-            campo.disabled = true;
-        });
-
-        // También puedes enviar datos al servidor aquí utilizando una solicitud AJAX
-    });
-});
-
-
-
-            </script>
             <!-- /.card-body -->
         </div>
     </section>
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<!-- Script for Buscador -->
+<script>
+    var buscador = document.getElementById('buscador');
+    buscador.addEventListener('input', function () {
+        var term = buscador.value.trim().toLowerCase();
+        var filas = document.querySelectorAll('.table tbody tr');
+
+        filas.forEach(function (fila) {
+            var coincide = false;
+            fila.querySelectorAll('td').forEach(function (celda) {
+                if (celda.textContent.toLowerCase().includes(term)) {
+                    coincide = true;
+                }
+            });
+
+            if (coincide) {
+                fila.style.display = ''; // Muestra la fila si hay coincidencia
+            } else {
+                fila.style.display = 'none'; // Oculta la fila si no hay coincidencia
+            }
+        });
+    });
+
+    
+</script>
+
 {% endblock %}

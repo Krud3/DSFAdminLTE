@@ -2,13 +2,13 @@
 {% load static %}
 {% block body %}
   <!-- Content Wrapper. Contains page content -->
-
+  
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Vendedores</h1>
+            <h1>Jefes de Taller</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -25,37 +25,39 @@
       <div class="card">
         <!-- /.card-header -->
         <div class="container mt-4">
-          <h2>Visualizar/Eliminar Vendedores</h2>
+          <h2>Visualizar/Eliminar Jefes de Taller</h2>
           <table class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th>ID Vendedor</th>
+                <th>ID Jefe Taller</th>
                 <th>ID Gerente</th>
                 <th>Código Sucursal</th>
-                <th>Nombre Vendedor</th>
-                <th>Teléfono Vendedor</th>
-                <th>Email Vendedor</th>
+                <th>Nombre Jefe Taller</th>
+                <th>Teléfono Jefe Taller</th>
+                <th>Dirección Jefe Taller</th>
+                <th>Email Jefe Taller</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
-              {% for vendedor in vendedores %}
+              {% for jefe_taller in jefes_taller %}
               <!-- Los datos de la tabla van aquí -->
               <tr>
-                <td>{{ vendedor.id_vendedor }}</td>
-                <td>{{ vendedor.id_gerente }}</td>
-                <td>{{ vendedor.codigo_sucursal }}</td>
-                <td>{{ vendedor.nombre_vendedor }}</td>
-                <td>{{ vendedor.telefono_vendedor }}</td>
-                <td>{{ vendedor.email_vendedor }}</td>
+                <td>{{ jefe_taller.id_jefe_taller }}</td>
+                <td>{{ jefe_taller.id_gerente }}</td>
+                <td>{{ jefe_taller.codigo_sucursal }}</td>
+                <td>{{ jefe_taller.nombre_jefe_taller }}</td>
+                <td>{{ jefe_taller.telefono_jefe_taller }}</td>
+                <td>{{ jefe_taller.direccion_jefe_taller }}</td>
+                <td>{{ jefe_taller.email_jefe_taller }}</td>
                 <td>
-                 
-
-                  <form action="{% url 'eliminar_vendedor' %}" method="post" style="display: inline;">
+                  <form action="{% url 'eliminar_jefe_taller' %}" method="post" style="display: inline;">
                     {% csrf_token %}
-                    <input type="hidden" name="id_vendedor" value="{{ vendedor.id_vendedor }}">
+                    <input type="hidden" name="id_jefe_taller" value="{{ jefe_taller.id_jefe_taller }}">
                     <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                  <a href="{% url 'editar_vendedor' id_vendedor=vendedor.id_vendedor %}" class="btn btn-primary btn-sm">Editar</a>
+                  </form>
+                  
+                  <a href="{% url 'editar_jefe_taller' id_jefe_taller=jefe_taller.id_jefe_taller %}" class="btn btn-primary btn-sm">Editar</a>
                 </td>
               </tr>
               <!-- Repite filas similares para más datos -->

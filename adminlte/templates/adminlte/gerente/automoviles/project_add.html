@@ -90,16 +90,9 @@
               </div>
               <div class="form-group">
                 <label for="modeloVehiculo">Modelo Vehículo</label>
-                <select id=" modelo_vehiculo" name="modelo" class="form-control custom-select">
-                  <option selected disabled>Seleccione el Modelo</option>
-                  {% for vehiculo in vehiculos %}
-                  <option value="{{ vehiculo.modelo_vehiculo }}">{{ vehiculo.modelo_vehiculo }}</option>
-                  {% endfor %}
-                </select>
+                <input type="text" id="modelo_vehiculo" name="modelo" class="form-control" placeholder="modelo">
               </div>
-              
-              
-            </div>
+              </div>
             <!-- /.card-body -->
           </div>
           <!-- /.card -->

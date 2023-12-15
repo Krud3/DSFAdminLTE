@@ -95,7 +95,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="index_vendedor" class="brand-link">
       
       <span class="brand-text font-weight-light">CARROS COLOMBIA</span>
     </a>
@@ -104,7 +104,6 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        
       </div>
 
       <!-- SidebarSearch Form -->
@@ -134,88 +133,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{% url 'add_jefetaller_cliente' %}" class="nav-link">
+                <a href="{% url 'clientes' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Crear Cliente</p>
+                  <p>Crear clientes</p>
                 </a>
               </li>
-           
               <li class="nav-item">
-                <a href="{% url 'vis_eli_cliente_jefe_taller' %}" class="nav-link">
+                <a href="{% url 'vis_mod_eli_cliente' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Eliminar/Editar Cliente</p>
+                  <p>Consultar/Modificar/Eliminar</p>
                 </a>
               </li>
             </ul>
           </li>
-          
-          <li class="nav-item">
-           
-            <ul class="nav nav-treeview">
-            
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Vendedor
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{% url 'add_vendedor' %}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Agregar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{% url 'edit_vendedor' %}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Modificar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{% url 'vis_eli_vendedor' %}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Visualizar/Eliminar</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Clientes
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{% url 'add_cliente' %}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Agregar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{% url 'edit_cliente' %}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Modificar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{% url 'vis_eli_cliente' %}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Visualizar/Eliminar</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -227,13 +157,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{% url 'inventario_ordenes_trabajo' %}"  class="nav-link">
+                <a href="{% url 'cotizaciones' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar  Grafico</p>
+                  <p>Generar cotizaciones</p>
                 </a>
               </li>
-            </ul>
+             
+              <li class="nav-item">
+                <a href="{% url 'ventas' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Genera ventas</p>
+                </a>
               </li>
+              
+            </ul>
+          </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -244,60 +182,91 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href= "{% url 'agregar_ordenes_trabajo2' %}" class="nav-link">
+                <a href="{% url 'add_cotizaciones' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Generar Reporte</p>
+                  <p>Generar cotizaciones</p>
                 </a>
               </li>
-              </ul>
+              
+              <li class="nav-item">
+                <a href="{% url 'add_ventas' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Genera ventas</p>
+                </a>
+              </li>
+              
+            </ul>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Repuestos
+                Cotizaciones
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{% url 'consultar_repuesto_jefe_taller' %}" class="nav-link">
+                <a href="{% url 'add_cotizacion' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar Repuesto</p>
+                  <p>Generar cotizaciones</p>
                 </a>
               </li>
-              
+              <li class="nav-item">
+                <a href="{% url 'vis_mod_eli_cotizacion' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Visualiza/modifica/elimina</p>
+                </a>
+              </li>
             </ul>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                  Ordenes de trabajo
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{% url 'add_ordenes_trabajo' %}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Crear Ordenes de trabajo</p>
-                  </a>
-                </li>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Facturas Ventas
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'add_factura' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Generar facturas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'vis_eli_factura' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>visualiza/modifica/elimina</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Vehiculos
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'vis_vehiculos' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Consulta vehiculos</p>
+                </a>
+            </ul>
+          </li>
+          
+          
+            
+              
+              
              
-                <li class="nav-item">
-                  <a href="{% url 'vis_eli_ordenes_trabajo' %}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Eliminar/Editar Ordenes </p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-           
-
-          </li>
-          </ul>
-          </li>
+              
+          
           <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <button type="submit" class="btn btn-block btn-dark btn-lg">Cerrar sesion</button>

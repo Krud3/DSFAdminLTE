@@ -1,0 +1,67 @@
+{% extends "adminlte\vendedor\base_vendedor.html" %}
+{% load static %}
+{% block body %}
+
+
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Gráficos de Cotizaciones</title>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+          }
+      
+          canvas {
+            max-width: 600px;
+          }
+      </style>
+    </head>
+    <body>
+      <canvas id="cotizacionesChart"></canvas>
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          // Datos de ejemplo (puedes cargar estos datos desde tu backend)
+          const datosCotizaciones = {
+            enero: 10,
+            febrero: 20,
+            marzo: 15,
+            abril: 25,
+            mayo: 18,
+            junio: 30,
+          };
+    
+          const meses = Object.keys(datosCotizaciones);
+          const cotizaciones = Object.values(datosCotizaciones);
+    
+          // Configuración del gráfico
+          const ctx = document.getElementById('cotizacionesChart').getContext('2d');
+          const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: meses,
+              datasets: [{
+                label: 'Cotizaciones por Mes',
+                data: cotizaciones,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+              }],
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true,
+                },
+              },
+            },
+          });
+        });
+      </script>
+    </body>
+    {% endblock %}   

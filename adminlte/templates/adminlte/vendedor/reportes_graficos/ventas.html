@@ -1,0 +1,67 @@
+{% extends "adminlte\vendedor\base_vendedor.html" %}
+{% load static %}
+{% block body %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficos de Ventas</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+  
+      canvas {
+        max-width: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="ventasChart"></canvas>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Datos de ejemplo (puedes cargar estos datos desde tu backend)
+        const datosVentas = {
+          enero: 50,
+          febrero: 80,
+          marzo: 65,
+          abril: 100,
+          mayo: 90,
+          junio: 120,
+        };
+  
+        const mesesVentas = Object.keys(datosVentas);
+        const ventas = Object.values(datosVentas);
+  
+        // Configuración del gráfico
+        const ctxVentas = document.getElementById('ventasChart').getContext('2d');
+        const ventasChart = new Chart(ctxVentas, {
+          type: 'bar',
+          data: {
+            labels: mesesVentas,
+            datasets: [{
+              label: 'Ventas por Mes',
+              data: ventas,
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 1,
+            }],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      });
+    </script>
+  </body>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "adminlte/vendedor/base_vendedor.html" %}
+{% load static %}
+{% block body %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-12">
+          <div class="col-sm-12">
+            <h1>Agregar Factura</h1>
+          </div>
+    <!-- Main content -->
+    <section class="content">
+      <form action="{% url 'add_factura' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-14">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Factura</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="numero_factura">Número de factura</label>
+                  <input type="text" id="numero_factura" name="numero_factura" class="form-control" placeholder="Número de Factura">
+                </div>
+                <div class="form-group">
+                  <label for="id_vendedor">Vendedor</label>
+                  <select id="id_vendedor" name="id_vendedor" class="form-control custom-select">
+                    <option selected disabled>Seleccione un vendedor</option>
+                    {% for vendedor in vendedor %}
+                      <option value="{{ vendedor.id_vendedor }}">{{ vededor.id_vendedor }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="id_cliente">Cliente</label>
+                  <select id="id_cliente" name="id_cliente" class="form-control custom-select">
+                    <option selected disabled>Seleccione un cliente</option>
+                    {% for cliente in clientes %}
+                      <option value="{{ cliente.id_cliente }}">{{ cliente.id_cliente }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label for="fecha_factura">Fecha de factura</label>
+                  <input type="date" id="fecha_factura" name="fecha_factura" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="precio_factura">precio factura</label>
+                  <input type="double" id="precio_factura" name="precio_factura" class="form-control">
+                </div>
+                
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <div class="row">
+          <button type="button" class="btn btn-tool"  title="Collapse">  
+          </button>
+          <div class="col-21">
+            <a href="{% url 'add_factura' %}" class="btn btn-secondary">Cancelar</a>
+            <input type="submit" value="Agregar cotizacion" class="btn btn-success float-right">
+          </div>
+        </div>
+      </form>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  {% endblock %}  

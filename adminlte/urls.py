@@ -3,6 +3,7 @@ from . import views
 from django.contrib import admin
 urlpatterns = [ path('login/', views.login, name='login'),
                path('index/', views.index, name='index'),
+               path('index_vendedor/', views.index_vendedor, name='index_vendedor'),
                path('index2/', views.index2, name='index2'), 
                path('logout/', views.logout_view, name='logout'),
                path('forgot_password/', views.forgot_password_view, name='forgot_password'),
@@ -74,6 +75,18 @@ urlpatterns = [ path('login/', views.login, name='login'),
                path('generar_pdf_sucursal/<str:codigo_sucursal>/', views.generar_pdf_sucursal, name='generar_pdf_sucursal'),              
                path('agregar_repuestos2/', views.agregar_repuestos2, name='agregar_repuestos2'),
                path('generar_pdf_repuesto/<str:codigo_sucursal>/', views.generar_pdf_repuesto, name='generar_pdf_repuesto'),
+               path('clientes',views.clientes, name='clientes'),
+               path('vis_mod_eli_cliente',views.vis_mod_eli_cliente, name='vis_mod_eli_cliente'),
+               path('add_cotizacion',views.add_cotizacion, name='add_cotizacion'),
+               path('vis_mod_eli_cotizacion',views.vis_mod_eli_cotizacion, name='vis_mod_eli_cotizacion'),
+               path('add_factura',views.add_factura, name='add_factura'),
+               path('vis_eli_factura',views.vis_eli_factura, name='vis_eli_factura'),
+               path('add_cotizaciones',views.add_cotizaciones, name='add_cotizaciones'),
+               path('vis_vehiculos',views.vis_vehiculos, name='vis_vehiculos'),
+               path('jefe_taller_add',views.jefe_taller_add, name='jefe_taller_add'),
+               path('cotizaciones',views.cotizaciones, name='cotizaciones'),
+               path('ventas',views.ventas, name='ventas'),
+               path('add_ventas',views.add_ventas, name='add_ventas'),
 
                
                ]

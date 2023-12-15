@@ -29,7 +29,7 @@ def login(request):
         username = request.POST.get("username")
         
         password = request.POST.get('password')
-        '''recaptcha_response = request.POST.get('g-recaptcha-response')
+        recaptcha_response = request.POST.get('g-recaptcha-response')
 
         data = {
             'secret': '6LeiIzIpAAAAAGdzTYY8sOwRKK08f2Y7vWDtyOT1',
@@ -38,37 +38,37 @@ def login(request):
         r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
         result = r.json()
 
-        if result['success']:'''
-        try:
-            if(username[0:2] == 'JT'):
-                jefe_taller = JefeTaller.objects.get(id_jefe_taller=username)
-                if check_password(password, jefe_taller.pass_field):
+        if result['success']:
+            try:
+                if(username[0:2] == 'JT'):
+                    jefe_taller = JefeTaller.objects.get(id_jefe_taller=username)
+                    if check_password(password, jefe_taller.pass_field):
+                        
+                        return redirect(reverse('index2'))
+                    else:
+                        return render(request, 'adminlte/gestion_login/login.html', {'error': 'Contraseña incorrecta'})
                     
-                    return redirect(reverse('index2'))
-                else:
-                    return render(request, 'adminlte/gestion_login/login.html', {'error': 'Contraseña incorrecta'})
+                elif(username[0:2] == 'GE'):
+                    gerente = Gerente.objects.get(id_gerente=username)
+                    if check_password(password, gerente.pass_field):
+                        #request.session['user'] = gerente.id_gerente
+                        return redirect(reverse('index'))
+                    else:
+                        return render(request, 'adminlte/gestion_login/login.html', {'error': 'Contraseña incorrecta'})
+                    
+                elif(username[0:2] == 'VE'):
+                    vendedor = Vendedor.objects.get(id_vendedor=username)
+                    if check_password(password, vendedor.pass_field):
+                        #request.session['user'] = vendedor.id_vendedor
+                        return redirect(reverse('index_vendedor'))
+                    else:
+                        return render(request, 'adminlte/gestion_login/login.html', {'error': 'Contraseña incorrecta'})
                 
-            elif(username[0:2] == 'GE'):
-                gerente = Gerente.objects.get(id_gerente=username)
-                if check_password(password, gerente.pass_field):
-                    #request.session['user'] = gerente.id_gerente
-                    return redirect(reverse('index'))
-                else:
-                    return render(request, 'adminlte/gestion_login/login.html', {'error': 'Contraseña incorrecta'})
-                
-            elif(username[0:2] == 'VE'):
-                vendedor = Vendedor.objects.get(id_vendedor=username)
-                if check_password(password, vendedor.pass_field):
-                    #request.session['user'] = vendedor.id_vendedor
-                    return redirect(reverse('index3'))
-                else:
-                    return render(request, 'adminlte/gestion_login/login.html', {'error': 'Contraseña incorrecta'})
-            
-        except Gerente.DoesNotExist:
-            return render(request, 'adminlte/gestion_login/login.html', {'error': 'Usuario no existe'})
+            except Gerente.DoesNotExist:
+                return render(request, 'adminlte/gestion_login/login.html', {'error': 'Usuario no existe'})
         
-        '''else:
-            return render(request, 'adminlte/gestion_login/login.html', {'error': 'Por favor, comprueba que no eres un robot'})'''
+        else:
+            return render(request, 'adminlte/gestion_login/login.html', {'error': 'Por favor, comprueba que no eres un robot'})
         
     return render(request, 'adminlte/gestion_login/login.html')
 
@@ -1366,3 +1366,109 @@ def agregar_repuestos2(request):
     print(sucursales)
     return render(request, 'adminlte/gerente/reportes_texto/reporte_texto_repuestos/reporte_repuestos.html', {'sucursales': sucursales})
 
+def index_vendedor(request):
+    return render(request, 'adminlte/vendedor/index_vendedor.html')
+
+def clientes(request):
+
+      if request.method == 'POST':
+        id_cliente = request.POST.get('id_cliente')
+        id_gerente = request.POST.get('id_gerente')
+        id_vendedor = request.POST.get('id_vendedor')
+        id_jefe_taller = request.POST.get('id_jefe_taller')
+        nombre_cliente = request.POST.get('nombre_cliente')
+        telefono_cliente = request.POST.get('telefono_cliente')
+        direccion_cliente = request.POST.get('direccion_cliente')
+        email_cliente = request.POST.get('email_cliente')
+
+        nuevo_cliente = Cliente(
+            id_cliente=id_cliente,
+            id_gerente=Gerente.objects.get(id_gerente=id_gerente),
+            id_vendedor=Vendedor.objects.get(id_vendedor=id_vendedor),
+            id_jefe_taller=JefeTaller.objects.get(id_jefe_taller=id_jefe_taller),
+            nombre_cliente=nombre_cliente,
+            telefono_cliente=telefono_cliente,
+            direccion_cliente=direccion_cliente,
+            email_cliente=email_cliente
+
+
+
+         )
+        nuevo_cliente.save()
+        messages.success(request, 'cliente agregado exitosamente')
+
+
+        return render(request, 'adminlte/vendedor/crud_clientes/clientes.html')
+
+      cliente = Cliente.objects.all()
+      context = {
+          'cliente': cliente,
+        }
+
+      return render(request, 'adminlte/vendedor/crud_clientes/clientes.html', context)
+
+
+def vis_mod_eli_cliente(request):
+    @require_POST
+    def eliminar_cliente(request):
+     id_cliente = request.POST.get('id_cliente')
+     cliente = get_object_or_404(Cliente, id_cliente=id_cliente)
+     cliente.delete()
+     messages.success(request, "Cliente eliminado con éxito.")
+    return redirect('vis_mod_eli_cliente')
+
+def vis_mod_eli_cliente(request):
+    clientes = Cliente.objects.all()
+    context = {'clientes': clientes}    
+
+    return render(request, 'adminlte/vendedor/crud_clientes/vis_mod_eli_cliente.html', context)
+
+
+
+
+def add_cotizacion(request):
+
+ return render(request, 'adminlte/vendedor/crud_cotizaciones/add_cotizacion.html')
+
+def vis_mod_eli_cotizacion(request):
+
+    return render(request, 'adminlte/vendedor/crud_cotizaciones/vis_mod_eli_cotizacion.html')
+
+
+
+
+
+
+
+def add_factura(request):
+    return render(request, 'adminlte/vendedor/crud_facturas/add_factura.html')
+
+
+
+def jefe_taller_add(request):
+    return render(request, 'adminlte/jefe_taller/jefe_taller_add.html')
+
+def vis_eli_factura(request):
+
+    return render(request, 'adminlte/vendedor/crud_facturas/vis_eli_factura.html')
+
+
+
+def add_cotizaciones(request):
+    return render(request, 'adminlte/vendedor/reportes_texto/add_cotizaciones.html')
+
+def vis_vehiculos(request):
+
+    return render(request, 'adminlte/vendedor/automoviles/vis_vehiculos.html')
+
+def cotizaciones(request):
+
+    return render(request, 'adminlte/vendedor/reportes_graficos/cotizaciones.html')
+
+def ventas(request):
+
+    return render(request, 'adminlte/vendedor/reportes_graficos/ventas.html')
+
+def add_ventas(request):
+
+    return render(request, 'adminlte/vendedor/reportes_texto/add_ventas')

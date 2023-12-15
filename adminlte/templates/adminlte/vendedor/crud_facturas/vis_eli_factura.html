@@ -1,0 +1,123 @@
+{% extends "adminlte/vendedor/base_vendedor.html" %}
+{% load static %}
+{% block body %}
+  <!-- Content Wrapper. Contains page content -->
+  <section class="content">
+   
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="card">
+      <!-- /.card-header -->
+      <div class="container mt-4">
+        <h2>Visualizar/Eliminar Factura</h2>
+        <input class="form-control mb-3" id="buscador" type="text" placeholder="Buscar...">
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped" style="font-size: 12px;">
+              <thead>
+                  <tr>
+                      <th>numero_factura</th>
+                      <th>id_vendedor</th>
+                      <th>id_clinete</th>
+                      <th>fecha_factura</th>
+                      <th>precio_factura</th>
+                      <th>Acciones</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <!-- Los datos de la tabla van aquí -->
+                  <tr>
+                      <td>100</td>
+                      <td>03256</td>
+                      <td>24485</td>
+                      <td><input type="date" class="editableField" value="12-10-22" disabled></td>
+                      <td><input type="double" class="editableField" value="42.000.000" disabled></td>-
+                      <td>
+                          <button class="btn btn-danger btn-sm"style = "font-size: 8px;">Eliminar</button>
+                          <button class="editarFila btn-primary" style = "font-size: 10px;">Editar</button>
+                      </td>
+                  </tr>
+                  <tr>
+                    <td>101</td>
+                    <td>13565</td>
+                    <td>14872</td>
+                    <td><input type="date" class="editableField" value="12-10-22" disabled></td>
+                    <td><input type="double" class="editableField" value="26.000.000" disabled></td>-
+                    <td>
+                        <button class="btn btn-danger btn-sm"style = "font-size: 8px;">Eliminar</button>
+                        <button class="editarFila btn-primary" style = "font-size: 10px;">Editar</button>
+                    </td>
+                </tr>
+                <tr>
+                  <td>102</td>
+                  <td>45893</td>
+                  <td>24548</td>
+                  <td><input type="date" class="editableField" value="12-10-22" disabled></td>
+                  <td><input type="double" class="editableField" value="20.000.000" disabled></td>-
+                  <td>
+                      <button class="btn btn-danger btn-sm"style = "font-size: 8px;">Eliminar</button>
+                      <button class="editarFila btn-primary" style = "font-size: 10px;">Editar</button>
+                  </td>
+              </tr>
+                  <!-- Repite filas similares para más datos -->
+              </tbody>
+          </table>
+           <button class="btn btn-danger btn-sm" id="limpiarCampos">Limpiar campos</button>
+           <button class="btn btn-primary btn-sm" id="guardarCambios">Guardar cambios</button>
+
+
+           <script>
+            // Script de JavaScript para la funcionalidad de búsqueda
+            document.getElementById('buscador').addEventListener('keyup', function() {
+                var terminoBusqueda = this.value.toLowerCase();
+                var filas = document.getElementById('tablaJefes').getElementsByTagName('tr');
+    
+                for (var i = 1; i < filas.length; i++) { // Empieza en 1 para saltar el encabezado
+                    var celdas = filas[i].getElementsByTagName('td');
+                    var encontrado = false;
+                    
+                    for (var j = 0; j < celdas.length && !encontrado; j++) {
+                        if (celdas[j].textContent.toLowerCase().indexOf(terminoBusqueda) > -1) {
+                            encontrado = true;
+                        }
+                    }
+    
+                    filas[i].style.display = encontrado ? '' : 'none';
+                }
+            });
+        </script>
+
+          
+           <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var botonesEditar = document.querySelectorAll('.editarFila');
+            
+                botonesEditar.forEach(function(boton) {
+                    boton.addEventListener('click', function() {
+                        var fila = boton.parentNode.parentNode; // Obtiene la fila (tr) a la que pertenece el botón
+                        var campos = fila.querySelectorAll('.editableField'); // Obtiene solo los campos de esa fila
+                        campos.forEach(function(campo) {
+                            campo.disabled = false; // Hace cada campo en la fila editable
+                        });
+                    });
+                });
+            });
+            </script>
+
+
+           
+
+      </div>
+        <!-- /.card-body -->
+
+      </div>
+      
+      
+      
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+{% endblock %}   
+

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CONCESIONARIO</title>
+  <title>AdminLTE 3 | Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -32,7 +32,7 @@
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="{% static 'dist/img/AdminLTELogo.png' %}" alt="" height="60" width="60">
+    <img class="animation__shake" src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTELogo" height="60" width="60">
   </div>
 
   <!-- Navbar -->
@@ -78,7 +78,7 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
-          <span class="badge badge-danger navbar-badge"></span>
+          <span class="badge badge-danger navbar-badge">3</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <a href="#" class="dropdown-item">
@@ -103,7 +103,7 @@
               <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
-                  
+                  John Pierce
                   <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
                 </h3>
                 <p class="text-sm">I got your message bro</p>
@@ -136,10 +136,10 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge"></span>
+          <span class="badge badge-warning navbar-badge">15</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header"></span>
+          <span class="dropdown-item dropdown-header">15 Notifications</span>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
             <i class="fas fa-envelope mr-2"></i> 4 new messages
@@ -177,8 +177,8 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light"></span>
+      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
 
     <!-- Sidebar -->
@@ -189,7 +189,7 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">GERENTE</a>
+          <a href="#" class="d-block">Alexander Pierce</a>
         </div>
       </div>
 
@@ -214,127 +214,25 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Automoviles
+                Clientes
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{% url 'add_automovil' %}" class="nav-link">
+                <a href="{% url 'clientes' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Crear Automovil</p>
+                  <p>Crear clientes</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'edit_automovil' %}" class="nav-link">
+                <a href="{% url 'vis_mod_eli_cliente' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Modificar Automovil</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'vis_eli' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar/Eliminar Automovil</p>
+                  <p>Consultar/Modificar/Eliminar</p>
                 </a>
               </li>
             </ul>
           </li>
-          
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Gestion Usuarios
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Jefe taller
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{%url 'jefe_taller_add'%}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Agregar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{% url 'vis_eli_mod_jefe' %}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Visualizar/Modificar/Eliminar</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Vendedor
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{% url 'add_vendedor' %}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Agregar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{% url 'edit_vendedor' %}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Modificar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{% url 'vis_eli_vendedor' %}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Visualizar/Eliminar</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Clientes
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{% url 'add_cliente' %}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Agregar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{% url 'edit_cliente' %}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Modificar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{% url 'vis_eli_cliente' %}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Visualizar/Eliminar</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -346,29 +244,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
+                <a href="{% url 'cotizaciones' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Generar automoviles</p>
+                  <p>Generar cotizaciones</p>
                 </a>
               </li>
+             
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
+                <a href="{% url 'ventas' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar automoviles</p>
+                  <p>Genera ventas</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{% url 'gra_repuestos' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Generar repuestos</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'gra_rep_add' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Agregar repuestos</p>
-                </a>
-              </li>
+              
             </ul>
           </li>
           <li class="nav-item">
@@ -381,105 +269,94 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
+                <a href="{% url 'add_cotizaciones' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Generar automoviles</p>
+                  <p>Generar cotizaciones</p>
                 </a>
               </li>
+              
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
+                <a href="{% url 'add_ventas' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar automoviles</p>
+                  <p>Genera ventas</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Generar repuestos</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar repuestos</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Repuestos
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./index.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Crear Repuesto</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar Repuesto</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Modificar Repuesto</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Eliminar Repuesto</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Sucursales
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{% url 'add_sucursal' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Crear Sucursal</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'edit_sucursal' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Editar Sucursal</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'vis_eli_sucursal' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar/Eliminar Sucursal</p>
-                </a>
-              </li>
-
               
             </ul>
           </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Cotizaciones
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'add_cotizacion' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Generar cotizaciones</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'vis_mod_eli_cotizacion' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Visualiza/modifica/elimina</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Facturas Ventas
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'add_factura' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Generar facturas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'vis_eli_factura' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>visualiza/modifica/elimina</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Vehiculos
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'vis_vehiculos' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Consulta vehiculos</p>
+                </a>
+            </ul>
+          </li>
+          
+          
+            
+              
+              
+             
+              
+          
           <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <button type="submit" class="btn btn-block btn-dark btn-lg">Cerrar sesion</button>
-          </form>
-
-          <form action="{% url 'index_vendedor' %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-block btn-dark btn-lg">Vendedor</button>
           </form>
           
         </ul>
@@ -496,6 +373,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
+            <h1 class="m-0">Dashboard</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -522,6 +400,7 @@
     <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.2.0
     </div>
   </footer>
 

@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [ path('login/', views.login, name='login'),
-               path('index/', views.index, name='index'), 
+               path('index/', views.index, name='index'),
+               path('index_vendedor/', views.index_vendedor, name='index_vendedor'), 
                path('logout/', views.logout_view, name='logout'),
                path('forgot_password/', views.forgot_password_view, name='forgot_password'),
                path('recover_password_view/', views.recover_password_view, name='recover_password_view'),
@@ -32,5 +33,17 @@ urlpatterns = [ path('login/', views.login, name='login'),
                path('add_sucursal',views.add_sucursal, name='add_sucursal'),
                path('gra_rep_add',views.gra_rep_add, name='gra_rep_add'),
                path('vis_eli_mod_jefe',views.vis_eli_mod_jefe, name='vis_eli_mod_jefe'),
+               path('clientes',views.clientes, name='clientes'),
+               path('vis_mod_eli_cliente',views.vis_mod_eli_cliente, name='vis_mod_eli_cliente'),
+               path('add_cotizacion',views.add_cotizacion, name='add_cotizacion'),
+               path('vis_mod_eli_cotizacion',views.vis_mod_eli_cotizacion, name='vis_mod_eli_cotizacion'),
+               path('add_factura',views.add_factura, name='add_factura'),
+               path('vis_eli_factura',views.vis_eli_factura, name='vis_eli_factura'),
+               path('add_cotizaciones',views.add_cotizaciones, name='add_cotizaciones'),
+               path('vis_vehiculos',views.vis_vehiculos, name='vis_vehiculos'),
                path('jefe_taller_add',views.jefe_taller_add, name='jefe_taller_add'),
+               path('cotizaciones',views.cotizaciones, name='cotizaciones'),
+               path('ventas',views.ventas, name='ventas'),
+               path('add_ventas',views.add_ventas, name='add_ventas'),
+               
                ]

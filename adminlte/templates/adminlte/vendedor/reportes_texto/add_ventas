@@ -1,0 +1,235 @@
+{% extends "adminlte/vendedor/base_vendedor.html" %}
+{% load static %}
+{% block body %}
+    <!-- Main content -->
+    <section class="content">
+        <div class="card">
+            <!-- /.card-header -->
+            <div class="container mt-4 text-left">
+                <h2>Reporte texto Ventas</h2>
+                <input class="form-control mb-3" id="buscador" type="text" placeholder="Buscar por Número de cotizacion...">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" style="font-size: 12px;">
+                        <thead>
+                            <tr>
+                                <th>Número de ventas</th>
+                                <th>Vendedor</th>
+                                <th>Cliente</th>
+                                <th>Fecha de venta</th>
+                                <th>Precio de venta</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>001</td>
+                            <td>12345</td>
+                            <td>002</td>
+                            <td><input type="date" class="editableField" value="12-10-22" disabled></td>
+                            <td><input type="double" class="editableField" value="32.000.000" disabled></td>-
+                            <td>
+                                <button class="btn btn-primary btn-sm"style = "font-size: 12px;">pdf</button>
+                              
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>002</td>
+                            <td>48625</td>
+                            <td>00348</td>
+                            <td><input type="date" class="editableField" value="12-10-22" disabled></td>
+                            <td><input type="double" class="editableField" value="45.000.000" disabled></td>-
+                            <td>
+                                <button class="btn btn-primary btn-sm"style = "font-size: 12px;">pdf</button>
+                              
+                            </td>
+                        </tr>
+                      
+                        <tr>
+                            <td>003</td>
+                            <td>452168</td>
+                            <td>04782</td>
+                            <td><input type="date" class="editableField" value="12-10-22" disabled></td>
+                            <td><input type="double" class="editableField" value="62.000.000" disabled></td>-
+                            <td>
+                                <button class="btn btn-primary btn-sm"style = "font-size: 12px;">pdf</button>
+                              
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>004</td>
+                            <td>73201</td>
+                            <td>45896</td>
+                            <td><input type="date" class="editableField" value="12-10-22" disabled></td>
+                            <td><input type="double" class="editableField" value="12.000.000" disabled></td>-
+                            <td>
+                                <button class="btn btn-primary btn-sm"style = "font-size: 12px;">pdf</button>
+                              
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>005</td>
+                            <td>35691</td>
+                            <td>45632</td>
+                            <td><input type="date" class="editableField" value="12-10-22" disabled></td>
+                            <td><input type="double" class="editableField" value="56.000.000" disabled></td>-
+                            <td>
+                                <button class="btn btn-primary btn-sm"style = "font-size: 12px;">pdf</button>
+                              
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>006</td>
+                            <td>17845</td>
+                            <td>456982</td>
+                            <td><input type="date" class="editableField" value="12-10-22" disabled></td>
+                            <td><input type="double" class="editableField" value="70.000.000" disabled></td>-
+                            <td>
+                                <button class="btn btn-primary btn-sm"style = "font-size: 12px;">pdf</button>
+                              
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>007</td>
+                            <td>78965</td>
+                            <td>01243</td>
+                            <td><input type="date" class="editableField" value="12-10-22" disabled></td>
+                            <td><input type="double" class="editableField" value="21.000.000" disabled></td>-
+                            <td>
+                                <button class="btn btn-primary btn-sm"style = "font-size: 12px;">pdf</button>
+                              
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>008</td>
+                            <td>12855</td>
+                            <td>78925</td>
+                            <td><input type="date" class="editableField" value="12-10-22" disabled></td>
+                            <td><input type="double" class="editableField" value="14.000.000" disabled></td>-
+                            <td>
+                                <button class="btn btn-primary btn-sm"style = "font-size: 12px;">pdf</button>
+                              
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>009</td>
+                            <td>62541</td>
+                            <td>32541</td>
+                            <td><input type="date" class="editableField" value="12-10-22" disabled></td>
+                            <td><input type="double" class="editableField" value="38.000.000" disabled></td>-
+                            <td>
+                                <button class="btn btn-primary btn-sm"style = "font-size: 12px;">pdf</button>
+                              
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>010</td>
+                            <td>15426</td>
+                            <td>23658</td>
+                            <td><input type="date" class="editableField" value="12-10-22" disabled></td>
+                            <td><input type="double" class="editableField" value="78.000.000" disabled></td>-
+                            <td>
+                                <button class="btn btn-primary btn-sm"style = "font-size: 12px;">pdf</button>
+                              
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>011</td>
+                            <td>78513</td>
+                            <td>98451</td>
+                            <td><input type="date" class="editableField" value="12-10-22" disabled></td>
+                            <td><input type="double" class="editableField" value="32.000.000" disabled></td>-
+                            <td>
+                                <button class="btn btn-primary btn-sm"style = "font-size: 12px;">pdf</button>
+                              
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>012</td>
+                            <td>12345</td>
+                            <td>002</td>
+                            <td><input type="date" class="editableField" value="12-10-22" disabled></td>
+                            <td><input type="double" class="editableField" value="52.000.000" disabled></td>-
+                            <td>
+                                <button class="btn btn-primary btn-sm"style = "font-size: 12px;">pdf</button>
+                              
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>013</td>
+                            <td>12345</td>
+                            <td>002</td>
+                            <td><input type="date" class="editableField" value="12-10-22" disabled></td>
+                            <td><input type="double" class="editableField" value="40.000.000" disabled></td>-
+                            <td>
+                                <button class="btn btn-primary btn-sm"style = "font-size: 12px;">pdf</button>
+                              
+                            </td>
+                        </tr>
+                        <!-- Repite filas similares para más datos -->
+                    </tbody>
+                </table>
+              
+      
+      
+                 <script>
+                  // Script de JavaScript para la funcionalidad de búsqueda
+                  document.getElementById('buscador').addEventListener('keyup', function() {
+                      var terminoBusqueda = this.value.toLowerCase();
+                      var filas = document.getElementById('tablaJefes').getElementsByTagName('tr');
+          
+                      for (var i = 1; i < filas.length; i++) { // Empieza en 1 para saltar el encabezado
+                          var celdas = filas[i].getElementsByTagName('td');
+                          var encontrado = false;
+                          
+                          for (var j = 0; j < celdas.length && !encontrado; j++) {
+                              if (celdas[j].textContent.toLowerCase().indexOf(terminoBusqueda) > -1) {
+                                  encontrado = true;
+                              }
+                          }
+          
+                          filas[i].style.display = encontrado ? '' : 'none';
+                      }
+                  });
+              </script>
+      
+                
+                 <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                      var botonesEditar = document.querySelectorAll('.editarFila');
+                  
+                      botonesEditar.forEach(function(boton) {
+                          boton.addEventListener('click', function() {
+                              var fila = boton.parentNode.parentNode; // Obtiene la fila (tr) a la que pertenece el botón
+                              var campos = fila.querySelectorAll('.editableField'); // Obtiene solo los campos de esa fila
+                              campos.forEach(function(campo) {
+                                  campo.disabled = false; // Hace cada campo en la fila editable
+                              });
+                          });
+                      });
+                  });
+                  </script>
+      
+      
+                 
+      
+            </div>
+              <!-- /.card-body -->
+      
+            </div>
+            
+            
+            
+          </section>
+          <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+      {% endblock %}   

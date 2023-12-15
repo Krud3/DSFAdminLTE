@@ -1,171 +1,118 @@
+-- Creación de las tablas
 DROP TABLE IF EXISTS gerente CASCADE;
-CREATE TABLE gerente(
-  id_gerente VARCHAR(10) NOT NULL,
+CREATE TABLE gerente (
+  id_gerente VARCHAR(10) PRIMARY KEY,
   nombre_gerente VARCHAR(50) NOT NULL,
   telefono_gerente VARCHAR(20),
   direccion_gerente VARCHAR(100),
   email_gerente VARCHAR(50),
-  pass VARCHAR(200),
-
-PRIMARY KEY(id_gerente)
+  pass VARCHAR(200)
 );
 
-----------------------------------------------------------------------------------
 DROP TABLE IF EXISTS sucursal CASCADE;
-CREATE TABLE sucursal(
-  codigo_sucursal VARCHAR(10) NOT NULL,
-  id_gerente VARCHAR(10) NOT NULL,
+CREATE TABLE sucursal (
+  codigo_sucursal VARCHAR(10) PRIMARY KEY,
+  id_gerente VARCHAR(10) REFERENCES gerente(id_gerente),
   nombre_sucursal VARCHAR(100) NOT NULL,
   ciudad_sucursal VARCHAR(50),
-  telefono_sucursal VARCHAR(20),
-
-PRIMARY KEY (codigo_sucursal),
-FOREIGN KEY (id_gerente) REFERENCES gerente(id_gerente)
+  telefono_sucursal VARCHAR(20)
 );
 
-----------------------------------------------------------------------------------
 DROP TABLE IF EXISTS vendedor CASCADE;
-CREATE TABLE vendedor(
-  id_vendedor VARCHAR(10) NOT NULL,
-  id_gerente VARCHAR(10) NOT NULL,
-  codigo_sucursal VARCHAR(10) NOT NULL,
+CREATE TABLE vendedor (
+  id_vendedor VARCHAR(10) PRIMARY KEY,
+  id_gerente VARCHAR(10) REFERENCES gerente(id_gerente),
+  codigo_sucursal VARCHAR(10) REFERENCES sucursal(codigo_sucursal),
   nombre_vendedor VARCHAR(50) NOT NULL,
   telefono_vendedor VARCHAR(20),
   direccion_vendedor VARCHAR(100),
   email_vendedor VARCHAR(50),
-  pass VARCHAR(200),
-
-PRIMARY KEY(id_vendedor),
-FOREIGN KEY (id_gerente) REFERENCES gerente(id_gerente),
-FOREIGN KEY (codigo_sucursal) REFERENCES sucursal(codigo_sucursal)
+  pass VARCHAR(200)
 );
 
-----------------------------------------------------------------------------------
 DROP TABLE IF EXISTS jefe_taller CASCADE;
-CREATE TABLE jefe_taller(
-  id_jefe_taller VARCHAR(10) NOT NULL,
-  id_gerente VARCHAR(10) NOT NULL,
-  codigo_sucursal VARCHAR(10) NOT NULL,
+CREATE TABLE jefe_taller (
+  id_jefe_taller VARCHAR(10) PRIMARY KEY,
+  id_gerente VARCHAR(10) REFERENCES gerente(id_gerente),
+  codigo_sucursal VARCHAR(10) REFERENCES sucursal(codigo_sucursal),
   nombre_jefe_taller VARCHAR(50) NOT NULL,
   telefono_jefe_taller VARCHAR(20),
   direccion_jefe_taller VARCHAR(100),
   email_jefe_taller VARCHAR(50),
-  pass VARCHAR(200),
-
-PRIMARY KEY(id_jefe_taller),
-FOREIGN KEY (id_gerente) REFERENCES gerente(id_gerente),
-FOREIGN KEY (codigo_sucursal) REFERENCES sucursal(codigo_sucursal)
+  pass VARCHAR(200)
 );
 
-----------------------------------------------------------------------------------
 DROP TABLE IF EXISTS cliente CASCADE;
 CREATE TABLE cliente (
-  id_cliente  VARCHAR(10) NOT NULL,
-  id_gerente VARCHAR(10) NOT NULL,
-  id_vendedor VARCHAR(10) NOT NULL,
-  id_jefe_taller VARCHAR(10) NOT NULL,
-  nombre_cliente  VARCHAR(50) NOT NULL,
-  telefono_cliente  VARCHAR(20),
-  direccion_cliente  VARCHAR(100),
-  email_cliente  VARCHAR(50),
-
-PRIMARY KEY(id_cliente),
-FOREIGN KEY (id_gerente) REFERENCES gerente(id_gerente),
-FOREIGN KEY (id_vendedor) REFERENCES vendedor(id_vendedor),
-FOREIGN KEY (id_jefe_taller) REFERENCES jefe_taller(id_jefe_taller)
+  id_cliente VARCHAR(10) PRIMARY KEY,
+  id_gerente VARCHAR(10) REFERENCES gerente(id_gerente),
+  id_vendedor VARCHAR(10) REFERENCES vendedor(id_vendedor),
+  id_jefe_taller VARCHAR(10) REFERENCES jefe_taller(id_jefe_taller),
+  nombre_cliente VARCHAR(50) NOT NULL,
+  telefono_cliente VARCHAR(20),
+  direccion_cliente VARCHAR(100),
+  email_cliente VARCHAR(50)
 );
 
-----------------------------------------------------------------------------------
 DROP TABLE IF EXISTS factura CASCADE;
 CREATE TABLE factura (
-  numero_factura VARCHAR(10) NOT NULL,
-  id_vendedor VARCHAR(10) NOT NULL,
-  id_cliente  VARCHAR(10) NOT NULL,
+  numero_factura VARCHAR(10) PRIMARY KEY,
+  id_vendedor VARCHAR(10) REFERENCES vendedor(id_vendedor),
+  id_cliente VARCHAR(10) REFERENCES cliente(id_cliente),
   fecha_factura DATE NOT NULL,
-  precio_total_factura INTEGER NOT NULL,
-
-PRIMARY KEY (numero_factura),
-FOREIGN KEY (id_vendedor) REFERENCES vendedor(id_vendedor),
-FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
+  precio_total_factura INTEGER NOT NULL
 );
 
-----------------------------------------------------------------------------------
 DROP TABLE IF EXISTS cotizacion CASCADE;
 CREATE TABLE cotizacion (
-  numero_cotizacion VARCHAR(10) NOT NULL,
-  id_vendedor VARCHAR(10) NOT NULL,
-  id_cliente  VARCHAR(10) NOT NULL,
+  numero_cotizacion VARCHAR(10) PRIMARY KEY,
+  id_vendedor VARCHAR(10) REFERENCES vendedor(id_vendedor),
+  id_cliente VARCHAR(10) REFERENCES cliente(id_cliente),
   fecha_cotizacion DATE NOT NULL,
-  precio_total_cotizacion INTEGER NOT NULL,
-
-PRIMARY KEY (numero_cotizacion),
-FOREIGN KEY (id_vendedor) REFERENCES vendedor(id_vendedor),
-FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
+  precio_total_cotizacion INTEGER NOT NULL
 );
 
-----------------------------------------------------------------------------------
 DROP TABLE IF EXISTS vehiculo CASCADE;
-CREATE TABLE vehiculo(
-  codigo_vehiculo VARCHAR(10) NOT NULL,
-  id_gerente VARCHAR(10) NOT NULL,
-  codigo_sucursal VARCHAR(10) NOT NULL,
-  numero_factura VARCHAR(10) NOT NULL,
-  numero_cotizacion VARCHAR(10) NOT NULL,
+CREATE TABLE vehiculo (
+  codigo_vehiculo VARCHAR(10) PRIMARY KEY,
+  id_gerente VARCHAR(10) REFERENCES gerente(id_gerente),
+  codigo_sucursal VARCHAR(10) REFERENCES sucursal(codigo_sucursal),
+  numero_factura VARCHAR(10) REFERENCES factura(numero_factura),
+  numero_cotizacion VARCHAR(10) REFERENCES cotizacion(numero_cotizacion),
   modelo_vehiculo VARCHAR(50) NOT NULL,
   color_vehiculo VARCHAR(50),
   precio_vehiculo INTEGER NOT NULL,
-  descripcion_vehiculo VARCHAR(100), 
-
-PRIMARY KEY (codigo_vehiculo),
-FOREIGN KEY (id_gerente) REFERENCES gerente(id_gerente),
-FOREIGN KEY (codigo_sucursal) REFERENCES sucursal(codigo_sucursal),
-FOREIGN KEY (numero_factura) REFERENCES factura(numero_factura),
-FOREIGN KEY (numero_cotizacion) REFERENCES cotizacion(numero_cotizacion)
+  descripcion_vehiculo VARCHAR(100)
 );
 
-----------------------------------------------------------------------------------
 DROP TABLE IF EXISTS repuesto CASCADE;
-CREATE TABLE repuesto(
-  codigo_repuesto VARCHAR(10) NOT NULL,
-  id_gerente VARCHAR(10) NOT NULL,
-  codigo_sucursal VARCHAR(10) NOT NULL,
-  numero_factura VARCHAR(10) NOT NULL,
-  numero_cotizacion VARCHAR(10) NOT NULL,
+CREATE TABLE repuesto (
+  codigo_repuesto VARCHAR(10) PRIMARY KEY,
+  id_gerente VARCHAR(10) REFERENCES gerente(id_gerente),
+  codigo_sucursal VARCHAR(10) REFERENCES sucursal(codigo_sucursal),
+  numero_factura VARCHAR(10) REFERENCES factura(numero_factura),
+  numero_cotizacion VARCHAR(10) REFERENCES cotizacion(numero_cotizacion),
   nombre_repuesto VARCHAR(50) NOT NULL,
   tipo_repuesto VARCHAR(50) NOT NULL,
   precio_repuesto INTEGER NOT NULL,
-  descripcion_repuesto VARCHAR(100), 
-
-PRIMARY KEY(codigo_repuesto),
-FOREIGN KEY (id_gerente) REFERENCES gerente(id_gerente),
-FOREIGN KEY (codigo_sucursal) REFERENCES sucursal(codigo_sucursal),
-FOREIGN KEY (numero_factura) REFERENCES factura(numero_factura),
-FOREIGN KEY (numero_cotizacion) REFERENCES cotizacion(numero_cotizacion)
+  descripcion_repuesto VARCHAR(100)
 );
 
-----------------------------------------------------------------------------------
-CREATE TYPE opciones_orden_trabajo AS ENUM('En proceso','Completada');
+CREATE TYPE opciones_orden_trabajo AS ENUM('En proceso', 'Completada');
 DROP TABLE IF EXISTS orden_trabajo CASCADE;
-CREATE TABLE orden_trabajo(
-  numero_orden_trabajo VARCHAR(10) NOT NULL,
-  id_jefe_taller VARCHAR(10) NOT NULL,
-  id_cliente  VARCHAR(10) NOT NULL,
-  codigo_vehiculo VARCHAR(10) NOT NULL,
-  numero_factura VARCHAR(10) NOT NULL,
+CREATE TABLE orden_trabajo (
+  numero_orden_trabajo VARCHAR(10) PRIMARY KEY,
+  id_jefe_taller VARCHAR(10) REFERENCES jefe_taller(id_jefe_taller),
+  id_cliente VARCHAR(10) REFERENCES cliente(id_cliente),
+  codigo_vehiculo VARCHAR(10) REFERENCES vehiculo(codigo_vehiculo),
+  numero_factura VARCHAR(10) REFERENCES factura(numero_factura),
   fecha_inicio_orden_trabajo DATE NOT NULL,
   fecha_final_orden_trabajo DATE NOT NULL,
   estado_orden_trabajo opciones_orden_trabajo,
-  descripcion_orden_trabajo VARCHAR(100), 
-
-PRIMARY KEY(numero_orden_trabajo),
-FOREIGN KEY (id_jefe_taller) REFERENCES jefe_taller(id_jefe_taller), 
-FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente),
-FOREIGN KEY (codigo_vehiculo) REFERENCES vehiculo(codigo_vehiculo),
-FOREIGN KEY (numero_factura) REFERENCES factura(numero_factura)
+  descripcion_orden_trabajo VARCHAR(100)
 );
 
----------------------------------------------------------------------------------------------------------------------------------
--- INSERTS para la tabla gerente
+- INSERTS para la tabla gerente
 INSERT INTO gerente (id_gerente, nombre_gerente, telefono_gerente, direccion_gerente, email_gerente)
 VALUES 	('GER0001', 'Juan Perez', '3111111111', 'Cra. 1 # 1-1', 'juanperez@gmail.com'),
        	('GER0002', 'Maria Gomez', '3222222222', 'Cra. 2 # 2-2', 'mariagomez@hotmail.com'),
@@ -305,4 +252,3 @@ VALUES ('OT0001', 'JT0001', 'CLI0001', 'VEH0001', 'FAC0001', '2023-11-01', '2023
        ('OT0008', 'JT0008', 'CLI0008', 'VEH0008', 'FAC0008', '2023-11-08', '2023-11-10', 'En proceso', 'Diagnóstico de sistema eléctrico.'),
        ('OT0009', 'JT0009', 'CLI0009', 'VEH0009', 'FAC0009', '2023-11-09', '2023-11-11', 'Completada', 'Cambio de bujías y cables de encendido.'),
        ('OT0010', 'JT0010', 'CLI0010', 'VEH0010', 'FAC0010', '2023-11-10', '2023-11-12', 'En proceso', 'Reparación de sistema de frenos ABS.');
-

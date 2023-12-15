@@ -56,15 +56,15 @@
                       <input type="hidden" name="numero_orden_trabajo" value="{{ orden.numero_orden_trabajo }}">
                       <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
-                    <button class="editarFila btn-primary btn-sm" data-id="{{ orden.numero_orden_trabajo }}" style="font-size: 10px;">Editar</button>
+                    <a href="{% url 'editar_ordenes_trabajo' numero_orden_trabajo=orden.numero_orden_trabajo %}" class="btn btn-primary btn-sm">Editar</a>
+                    
                   </td>
                 </tr>
               {% endfor %}
             </tbody>
           </table>
         </div>
-        <button class="btn btn-danger btn-sm" id="limpiarCampos">Limpiar campos</button>
-        <button class="btn btn-primary btn-sm guardarCambios">Guardar cambios</button>
+       
       </div>
       <!-- /.card-body -->
     </div>

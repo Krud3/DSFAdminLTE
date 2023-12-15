@@ -1,0 +1,96 @@
+{% extends "adminlte/jefe_taller/base_jefe_taller.html" %}
+{% load static %}
+{% block body %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Modificar Cliente</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Modificar Cliente</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <form action="{% url 'editar_ordenes_trabajo' orden_trabajo.numero_orden_trabajo %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-6">
+           
+            <!-- /.card -->
+          </div>
+        </div>
+
+        <!-- Nuevos campos del modelo OrdenTrabajo -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Orden de Trabajo</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="numero_orden_trabajo">Número de Orden de Trabajo</label>
+                  <input type="text" id="numero_orden_trabajo" name="numero_orden_trabajo" class="form-control"
+                    placeholder="Número de Orden de Trabajo" value="{{ orden_trabajo.numero_orden_trabajo }}">
+                </div>
+                <div class="form-group">
+                  <label for="fecha_inicio_orden_trabajo">Fecha de Inicio de Orden de Trabajo</label>
+                  <input type="date" id="fecha_inicio_orden_trabajo" name="fecha_inicio_orden_trabajo" class="form-control"
+                    value="{{ orden_trabajo.fecha_inicio_orden_trabajo }}">
+                </div>
+                <div class="form-group">
+                  <label for="fecha_final_orden_trabajo">Fecha Final de Orden de Trabajo</label>
+                  <input type="date" id="fecha_final_orden_trabajo" name="fecha_final_orden_trabajo" class="form-control"
+                    value="{{ orden_trabajo.fecha_final_orden_trabajo }}">
+                </div>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="estado_orden_trabajo">Estado de la Orden de Trabajo</label>
+                        <select id="estado_orden_trabajo" name="estado_orden_trabajo" class="form-control custom-select">
+                          <option selected disabled>Seleccione el estado</option>
+                          <option value="En proceso">En proceso</option>
+                          <option value="Completada">Completada</option>
+                        </select>
+                      </div>
+              </div>
+              <div class="form-group">
+                <label for="descripcion_orden_trabajo">Descripción de Orden de Trabajo</label>
+                <textarea id="descripcion_orden_trabajo" name="descripcion_orden_trabajo" class="form-control"
+                    placeholder="Descripción de Orden de Trabajo">{{ orden_trabajo.descripcion_orden_trabajo }}</textarea>
+            </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="row">
+          <div class="col-12">
+            <a href="{% url 'vis_eli_ordenes_trabajo' %}" class="btn btn-secondary">Cancelar</a>
+            <input type="submit" value="Guardar Cambios" class="btn btn-success float-right">
+          </div>
+        </div>
+
+      </form>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+{% endblock %}

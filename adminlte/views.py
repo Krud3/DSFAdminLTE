@@ -31,7 +31,7 @@ def login(request):
             gerente = Gerente.objects.get(id_gerente=username)
             if check_password(password, gerente.pass_field):
                 #request.session['user'] = gerente.id_gerente
-                return redirect(reverse('index'))
+                return redirect(reverse('index2'))
             else:
                 return render(request, 'adminlte/gestion_login/login.html', {'error': 'Contraseña incorrecta'})
             
@@ -513,6 +513,62 @@ def vis_eli_jefe_taller_cliente(request):
     return render(request, 'adminlte/jefe_taller/Clientes/edit_delete_jefetaller.html', context)
 
 
+def edit_jefe_taller_cliente(request):
+
+    clientes = Cliente.objects.all()
+    gerentes = Gerente.objects.all()
+    vendedores = Vendedor.objects.all()
+    jefes = JefeTaller.objects.all()
+
+    # Supongamos que estás trabajando con el primer cliente en la lista
+    cliente = clientes.first()
+
+    context = {
+        'clientes': clientes,
+        'gerentes': gerentes,
+        'vendedores': vendedores,
+        'jefes': jefes,
+        'cliente': cliente,  # Asegúrate de obtener el cliente correcto aquí
+    }
+    return render(request, 'adminlte/jefe_taller/Clientes/project_edit_jefe_taller.html', context)
+
+def editar_jefe_taller_cliente(request,id_cliente):
+    # Obtener el objeto del cliente basado en el id_cliente proporcionado
+    cliente = Cliente.objects.get(id_cliente=id_cliente)
+
+    context = {
+        'cliente': cliente,
+    }
+
+    if request.method == 'POST':
+        # Manejar los datos del formulario desde la solicitud POST
+        nombre_cliente = request.POST.get('nombre_cliente', '')
+        direccion_cliente = request.POST.get('direccion_cliente', '')
+        email_cliente = request.POST.get('email_cliente', '')
+        telefono_cliente = request.POST.get('telefono_cliente', '')
+
+        # Actualizar solo los campos proporcionados en el formulario
+        if nombre_cliente:
+            cliente.nombre_cliente = nombre_cliente
+        if direccion_cliente:
+            cliente.direccion_cliente = direccion_cliente
+        if email_cliente:
+            cliente.email_cliente = email_cliente
+        if telefono_cliente:
+            cliente.telefono_cliente = telefono_cliente
+
+        cliente.save()
+       
+        return redirect('vis_eli_cliente_jefe_taller')  
+
+    return render(request, 'adminlte/jefe_taller/Clientes/project_edit_jefe_taller.html',context)
+
+    
+
+
+
+
+
 def consultar_repuesto_jefe_taller(request):
     if request.method == 'POST':
         codigo_repuesto = request.POST.get('codigo_repuesto')
@@ -636,6 +692,54 @@ def vis_eli_ordenes_trabajo(request):
     print(ordenes_trabajo)
     return render(request, 'adminlte/jefe_taller/Ordenes_trabajo/edit_delete_ordenes_trabajo.html', {'ordenes_trabajo': ordenes_trabajo})
 
+def edit_ordenes_trabajo(request):
+    ordenes_trabajo = OrdenTrabajo.objects.all()
+    jefes_taller = JefeTaller.objects.all()
+    clientes = Cliente.objects.all()
+    vehiculos = Vehiculo.objects.all()
+    facturas = Factura.objects.all()
+
+    orden_trabajo = ordenes_trabajo.first()
+
+    context = {
+        'ordenes_trabajo': ordenes_trabajo,
+        'orden_trabajo': orden_trabajo,
+        'jefes_taller': jefes_taller,
+        'clientes': clientes,
+        'vehiculos': vehiculos,
+        'facturas': facturas,
+    }
+
+    return render(request, 'adminlte/jefe_taller/Ordenes_trabajo/project_edit_orden_trabajo.html', context)
+
+def editar_ordenes_trabajo(request, numero_orden_trabajo):
+    orden_trabajo = get_object_or_404(OrdenTrabajo, numero_orden_trabajo=numero_orden_trabajo)
+
+    context = {'orden_trabajo': orden_trabajo}
+
+    if request.method == 'POST':
+        fecha_inicio = request.POST.get('fecha_inicio_orden_trabajo')
+        fecha_final = request.POST.get('fecha_final_orden_trabajo')
+        estado = request.POST.get('estado_orden_trabajo')
+        descripcion = request.POST.get('descripcion_orden_trabajo')
+
+        # Actualiza solo los campos proporcionados en el formulario
+        if fecha_inicio:
+            orden_trabajo.fecha_inicio_orden_trabajo = fecha_inicio
+        if fecha_final:
+            orden_trabajo.fecha_final_orden_trabajo = fecha_final
+        if estado:
+            orden_trabajo.estado_orden_trabajo = estado
+        if descripcion:
+            orden_trabajo.descripcion_orden_trabajo = descripcion
+
+        orden_trabajo.save()
+        messages.success(request, 'Orden de Trabajo actualizada exitosamente')
+        return redirect('vis_eli_ordenes_trabajo')
+
+    return render(request, 'adminlte/jefe_taller/Ordenes_trabajo/project_edit_orden_trabajo.html', context)
+
+
 def inventario_ordenes_trabajo(request):
     ordenes = OrdenTrabajo.objects.all()
 
@@ -651,6 +755,11 @@ def inventario_ordenes_trabajo(request):
     }
 
     return render(request, 'adminlte/jefe_taller/reportes_graficos/reporte_grafico_jefe_taller.html', context)
+
+
+
+
+
 
 # Vista para alimentar la gráfica con datos JSON
 def datos_grafico(request):

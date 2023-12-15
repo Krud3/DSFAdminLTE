@@ -1099,3 +1099,26 @@ def agregar_sucursales2(request):
     sucursales = Sucursal.objects.all()
     print(sucursales)
     return render(request, 'adminlte/gerente/reportes_texto/reporte_texto_autos/reporte_autos.html', {'sucursales': sucursales})
+
+
+
+def render_pdf(html_content):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="reporte_repuestos.pdf"'
+    pisa.CreatePDF(html_content, dest=response)
+    return response
+
+def generar_pdf_repuesto(request, codigo_sucursal):
+    sucursal = get_object_or_404(Sucursal, codigo_sucursal=codigo_sucursal)
+    repuestos = Repuesto.objects.filter(codigo_sucursal=sucursal)
+
+    context = {'sucursal': sucursal, 'repuestos': repuestos}
+    template = get_template('adminlte/gerente/reportes_texto/reporte_texto_repuestos/reporte_repuestos_pdf.html')
+    html_content = template.render(context)
+
+    return render_pdf(html_content)
+
+def agregar_repuestos2(request):
+    sucursales = Sucursal.objects.all()
+    print(sucursales)
+    return render(request, 'adminlte/gerente/reportes_texto/reporte_texto_repuestos/reporte_repuestos.html', {'sucursales': sucursales})

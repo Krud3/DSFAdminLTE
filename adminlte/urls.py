@@ -68,6 +68,8 @@ urlpatterns = [ path('login/', views.login, name='login'),
 
                path('agregar_sucursales2/', views.agregar_sucursales2, name='agregar_sucursales2'),
                path('generar_pdf_sucursal/<str:codigo_sucursal>/', views.generar_pdf_sucursal, name='generar_pdf_sucursal'),
-
+               
+               path('agregar_repuestos2/', views.agregar_repuestos2, name='agregar_repuestos2'),
+               path('generar_pdf_repuesto/<str:codigo_sucursal>/', views.generar_pdf_repuesto, name='generar_pdf_repuesto'),
                
                ]

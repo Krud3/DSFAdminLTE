@@ -225,12 +225,7 @@
                   <p>Crear Automovil</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{% url 'edit_automovil' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Modificar Automovil</p>
-                </a>
-              </li>
+             
               <li class="nav-item">
                 <a href="{% url 'vis_eli' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -259,19 +254,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{% url 'add_jefe_taller' %}" class="nav-link">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Agregar</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Modificar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href= "{% url 'vis_eli_jefe_taller' %}"  class="nav-link">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Visualizar/Eliminar</p>
                     </a>
@@ -293,12 +282,6 @@
                     <a href="{% url 'add_vendedor' %}" class="nav-link">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Agregar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{% url 'edit_vendedor' %}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Modificar</p>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -326,12 +309,7 @@
                       <p>Agregar</p>
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a href="{% url 'edit_cliente' %}" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Modificar</p>
-                    </a>
-                  </li>
+
                   <li class="nav-item">
                     <a href="{% url 'vis_eli_cliente' %}" class="nav-link">
                       <i class="far fa-dot-circle nav-icon"></i>
@@ -344,39 +322,26 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Reportes graficos
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                Reportes en  gráficos
                 <i class="right fas fa-angle-left"></i>
-              </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./index.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Generar automoviles</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar automoviles</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'gra_repuestos' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Generar repuestos</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'gra_rep_add' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Agregar repuestos</p>
-                </a>
-              </li>
+                <li class="nav-item">
+                    <a href="{% url 'gra_repuestos' %}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Inventario de Repuestos</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'gra_autos' %}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Inventario de Autos</p>
+                    </a>
+                </li>
+                <!-- Agrega aquí otros elementos del menú si es necesario -->
             </ul>
-          </li>
+        </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -387,27 +352,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
+                <a href="{% url 'agregar_sucursales2' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Generar automoviles</p>
+                  <p> Reporte automoviles</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="./index2.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar automoviles</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Generar repuestos</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar repuestos</p>
+                  <p>Reporte repuestos</p>
                 </a>
               </li>
             </ul>
@@ -422,27 +375,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
+                <a href="{% url 'add_repuesto' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Crear Repuesto</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
+                <a href="{% url 'agregar_repuesto' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar Repuesto</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Modificar Repuesto</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Eliminar Repuesto</p>
+                  <p>Consultar/Modificar/Editar Repuesto</p>
                 </a>
               </li>
             </ul>
@@ -463,15 +404,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'edit_sucursal' %}" class="nav-link">
+                <a href="{% url 'agregar_sucursal' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Editar Sucursal</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'vis_eli_sucursal' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar/Eliminar Sucursal</p>
+                  <p>Consultar/Modificar/Editar Sucursal</p>
                 </a>
               </li>
 

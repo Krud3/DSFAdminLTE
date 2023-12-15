@@ -1,0 +1,76 @@
+{% extends "adminlte/jefe_taller/base_jefe_taller.html" %}
+{% load static %}
+{% block body %}
+    <!-- Main content -->
+    <section class="content">
+        <div class="card">
+            <!-- /.card-header -->
+            <div class="container mt-4 text-left">
+                <h2>Reporte texto órden de Trabajo</h2>
+                <input class="form-control mb-3" id="buscador" type="text" placeholder="Buscar por Número de Orden...">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" style="font-size: 12px;">
+                        <thead>
+                            <tr>
+                                <th>Número de Orden</th>
+                                <th>Jefe de Taller</th>
+                                <th>Cliente</th>
+                                <th>Código de Vehículo</th>
+                                <th>Número de Factura</th>
+                                <th>Fecha de Inicio</th>
+                                <th>Fecha de Finalización</th>
+                                <th>Estado</th>
+                                <th>Descripción</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Los datos de la tabla van aquí -->
+                            {% for orden in ordenes_trabajo %}
+                                <tr>
+                                    <td>{{ orden.numero_orden_trabajo }}</td>
+                                    <td>{{ orden.id_jefe_taller }}</td>
+                                    <td>{{ orden.id_cliente }}</td>
+                                    <td>{{ orden.codigo_vehiculo }}</td>
+                                    <td>{{ orden.numero_factura }}</td>
+                                    <td>{{ orden.fecha_inicio_orden_trabajo|date:"Y-m-d" }}</td>
+                                    <td>{{ orden.fecha_final_orden_trabajo|date:"Y-m-d" }}</td>
+                                    <td>{{ orden.estado_orden_trabajo }}</td>
+                                    <td><input type="text" name="descripcion_orden_trabajo" class="editableField form-control" value="{{ orden.descripcion_orden_trabajo }}" disabled></td>
+                                    <td>
+                                        <form action="{% url 'generar_pdf_orden_trabajo' orden.numero_orden_trabajo %}" method="get">
+                                            <button type="submit" class="btn btn-primary btn-sm">Generar PDF</button>
+                                        </form>
+                                    </td> 
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <script>
+                // Buscador
+                var buscador = document.getElementById('buscador');
+                buscador.addEventListener('input', function () {
+                    var term = buscador.value.trim().toLowerCase();
+                    var filas = document.querySelectorAll('.table tbody tr');
+
+                    filas.forEach(function (fila) {
+                        var numeroOrden = fila.querySelector('td:nth-child(1)').textContent.toLowerCase();
+
+                        if (numeroOrden.includes(term)) {
+                            fila.style.display = ''; // Muestra la fila si hay coincidencia
+                        } else {
+                            fila.style.display = 'none'; // Oculta la fila si no hay coincidencia
+                        }
+                    });
+                });
+            </script>
+            <!-- /.card-body -->
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+{% endblock %}

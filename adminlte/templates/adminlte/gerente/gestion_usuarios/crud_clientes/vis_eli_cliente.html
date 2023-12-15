@@ -2,7 +2,7 @@
 {% load static %}
 {% block body %}
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -23,51 +23,53 @@
     <!-- Main content -->
     <section class="content">
       <div class="card">
-        
         <!-- /.card-header -->
         <div class="container mt-4">
           <h2>Visualizar/Eliminar Clientes</h2>
           <table class="table table-bordered table-striped">
-              <thead>
-                  <tr>
-                      <th>id_cliente</th>
-                      <th>Nombre Clinete</th>
-                      <th>Direccion Clinete</th>
-                      <th>Email Clinete</th>
-                      <th>Telefono Clinete</th>
-                      <th>Acciones</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {% for cliente in clientes %}
-                  <!-- Los datos de la tabla van aquí -->
-                  <tr>
-                      <td>{{ cliente.id_cliente }}</td>
-                      <td>{{ cliente.nombre_cliente }}</td>
-                      <td>{{ cliente.direccion_cliente }}</td>
-                      <td>{{ cliente.email_cliente }}</td>
-                      <th>{{ cliente.telefono_cliente }}</th>
-                      <td>
-                        <form action="{% url 'eliminar_cliente' %}" method="post">
-                          {% csrf_token %}
-                          <input type="hidden" name="id_cliente" value="{{ cliente.id_cliente }}">
-                          <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                        </form>
-                        
-                      </td>
-                  </tr>
-                  <!-- Repite filas similares para más datos -->
-                  {% endfor %}
-              </tbody>
+            <thead>
+              <tr>
+                <th>ID Cliente</th>
+                <th>ID Gerente</th>
+                <th>ID Vendedor</th>
+                <th>ID Jefe Taller</th>
+                <th>Nombre Cliente</th>
+                <th>Dirección Cliente</th>
+                <th>Email Cliente</th>
+                <th>Teléfono Cliente</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for cliente in clientes %}
+              <!-- Los datos de la tabla van aquí -->
+              <tr>
+                <td>{{ cliente.id_cliente }}</td>
+                <td>{{ cliente.id_gerente }}</td>
+                <td>{{ cliente.id_vendedor }}</td>
+                <td>{{ cliente.id_jefe_taller }}</td>
+                <td>{{ cliente.nombre_cliente }}</td>
+                <td>{{ cliente.direccion_cliente }}</td>
+                <td>{{ cliente.email_cliente }}</td>
+                <td>{{ cliente.telefono_cliente }}</td>
+                <td>
+                  <form action="{% url 'eliminar_cliente' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="id_cliente" value="{{ cliente.id_cliente }}">
+                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                  </form>
+                  
+                  <a href="{% url 'editar_cliente' id_cliente=cliente.id_cliente %}" class="btn btn-primary btn-sm">Editar</a>
+                </td>
+              </tr>
+              <!-- Repite filas similares para más datos -->
+              {% endfor %}
+            </tbody>
           </table>
-      </div>
+        </div>
         <!-- /.card-body -->
-
       </div>
-      
-      
     </section>
     <!-- /.content -->
   </div>
-{% endblock %}   
-
+{% endblock %}

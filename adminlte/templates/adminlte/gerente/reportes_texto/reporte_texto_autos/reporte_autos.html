@@ -1,0 +1,76 @@
+{% extends "adminlte/gerente/base_gerente.html" %}
+{% load static %}
+{% block body %}
+    <!-- Main content -->
+    <section class="content">
+        <div class="card">
+            <!-- /.card-header -->
+            <div class="container mt-4 text-left">
+                <h2>Reporte de Autos en Sucursales</h2>
+                <input class="form-control mb-3" id="buscador" type="text" placeholder="Buscar...">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" style="font-size: 12px;">
+                        <thead>
+                            <tr>
+                                <th>Código Sucursal</th>
+                                <th>ID Gerente</th>
+                                <th>Nombre Sucursal</th>
+                                <th>Ciudad Sucursal</th>
+                                <th>Teléfono Sucursal</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Los datos de la tabla van aquí -->
+                            {% for sucursal in sucursales %}
+                                <tr>
+                                    <td>{{ sucursal.codigo_sucursal }}</td>
+                                    <td>{{ sucursal.id_gerente }}</td>
+                                    <td><input type="text" name="nombre_sucursal" class="editableField form-control" value="{{ sucursal.nombre_sucursal }}" disabled></td>
+                                    <td><input type="text" name="ciudad_sucursal" class="editableField form-control" value="{{ sucursal.ciudad_sucursal }}" disabled></td>
+                                    <td><input type="text" name="telefono_sucursal" class="editableField form-control" value="{{ sucursal.telefono_sucursal }}" disabled></td>
+                                    
+                                    
+                                    <td>
+                                        <a href="{% url 'generar_pdf_sucursal' sucursal.codigo_sucursal %}" class="btn btn-primary btn-sm">Generar PDF</a>
+                                        
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            <!-- Repite filas similares para más datos -->
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+
+            <script>
+                // Buscador
+                var buscador = document.getElementById('buscador');
+                buscador.addEventListener('input', function () {
+                    var term = buscador.value.trim().toLowerCase();
+                    var filas = document.querySelectorAll('.table tbody tr');
+
+                    filas.forEach(function (fila) {
+                        var coincide = false;
+                        fila.querySelectorAll('td').forEach(function (celda) {
+                            if (celda.textContent.toLowerCase().includes(term)) {
+                                coincide = true;
+                            }
+                        });
+
+                        if (coincide) {
+                            fila.style.display = ''; // Muestra la fila si hay coincidencia
+                        } else {
+                            fila.style.display = 'none'; // Oculta la fila si no hay coincidencia
+                        }
+                    });
+                });
+            </script>
+            
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+{% endblock %}

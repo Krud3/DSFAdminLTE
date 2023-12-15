@@ -8,12 +8,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Modificar Cliente</h1>
+            <h1>Modificar Jefe de Taller</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Modificar Cliente</li>
+              <li class="breadcrumb-item active">Modificar Jefe de Taller</li>
             </ol>
           </div>
         </div>
@@ -22,14 +22,13 @@
 
     <!-- Main content -->
     <section class="content">
-      <form action="{% url 'editar_cliente' id_cliente=cliente.id_cliente %}" method="post">
-
+      <form action="{% url 'editar_jefe_taller' id_jefe_taller=jefe_taller.id_jefe_taller %}" method="post">
         {% csrf_token %}
         <div class="row">
           <div class="col-md-6">
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Clientes</h3>
+                <h3 class="card-title">Jefe de Taller</h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
@@ -38,29 +37,29 @@
               </div>
               <div class="card-body">
                 <div class="form-group">
-                  <label for="id_cliente">ID Cliente</label>
-                  <input type="text" id="id_cliente" name="id_cliente" class="form-control" placeholder="ID Cliente"
-                    value="{{ cliente.id_cliente }}" readonly>
+                  <label for="id_jefe_taller">ID Jefe de Taller</label>
+                  <input type="text" id="id_jefe_taller" name="id_jefe_taller" class="form-control"
+                    placeholder="ID Jefe de Taller" value="{{ jefe_taller.id_jefe_taller }}" readonly>
                 </div>
                 <div class="form-group">
-                  <label for="nombre_cliente">Nombre Cliente</label>
-                  <input type="text" id="nombre_cliente" name="nombre_cliente" class="form-control"
-                    placeholder="Nombre Cliente" value="{{ cliente.nombre_cliente }}" required>
+                  <label for="nombre_jefe_taller">Nombre Jefe de Taller</label>
+                  <input type="text" id="nombre_jefe_taller" name="nombre_jefe_taller" class="form-control"
+                    placeholder="Nombre Jefe de Taller" value="{{ jefe_taller.nombre_jefe_taller }}" required>
                 </div>
                 <div class="form-group">
-                  <label for="direccion_cliente">Dirección Cliente</label>
-                  <input type="text" id="direccion_cliente" name="direccion_cliente" class="form-control"
-                    placeholder="Dirección Cliente" value="{{ cliente.direccion_cliente }}">
+                  <label for="telefono_jefe_taller">Teléfono Jefe de Taller</label>
+                  <input type="text" id="telefono_jefe_taller" name="telefono_jefe_taller" class="form-control"
+                    placeholder="Teléfono Jefe de Taller" value="{{ jefe_taller.telefono_jefe_taller }}">
                 </div>
                 <div class="form-group">
-                  <label for="email_cliente">Email Cliente</label>
-                  <input type="text" id="email_cliente" name="email_cliente" class="form-control"
-                    placeholder="Email Cliente" value="{{ cliente.email_cliente }}">
+                  <label for="direccion_jefe_taller">Dirección Jefe de Taller</label>
+                  <input type="text" id="direccion_jefe_taller" name="direccion_jefe_taller" class="form-control"
+                    placeholder="Dirección Jefe de Taller" value="{{ jefe_taller.direccion_jefe_taller }}">
                 </div>
                 <div class="form-group">
-                  <label for="telefono_cliente">Teléfono Cliente</label>
-                  <input type="text" id="telefono_cliente" name="telefono_cliente" class="form-control"
-                    placeholder="Teléfono Cliente" value="{{ cliente.telefono_cliente }}">
+                  <label for="email_jefe_taller">Email Jefe de Taller</label>
+                  <input type="text" id="email_jefe_taller" name="email_jefe_taller" class="form-control"
+                    placeholder="Email Jefe de Taller" value="{{ jefe_taller.email_jefe_taller }}">
                 </div>
               </div>
               <!-- /.card-body -->
@@ -72,7 +71,7 @@
           <button type="button" class="btn btn-tool" title="Collapse">  
           </button>
           <div class="col-12">
-            <a href= "{% url 'vis_eli_cliente' %}" class="btn btn-secondary">Cancelar</a>
+            <a href= "{% url 'vis_eli_jefe_taller' %}" class="btn btn-secondary">Cancelar</a>
             <input type="submit" value="Guardar Cambios" class="btn btn-success float-right">
           </div>
         </div>

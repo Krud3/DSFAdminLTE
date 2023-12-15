@@ -2,7 +2,7 @@
 {% load static %}
 {% block body %}
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -26,15 +26,20 @@
         
         <!-- /.card-header -->
         <div class="container mt-4">
-          <h2>Visualizar/Eliminar vehiculos</h2>
+          <h2>Visualizar/Eliminar vehículos</h2>
           <table class="table table-bordered table-striped">
               <thead>
                   <tr>
                       <th>Codigo vehículo</th>
-                      <th>cod sucursal</th>
+                      <th>ID Gerente</th>
+                      <th>Codigo sucursal</th>
+                      <th>Numero factura</th>
+                      <th>Numero cotización</th>
                       <th>Modelo vehículo</th>
                       <th>Color vehículo</th>
                       <th>Precio vehículo</th>
+                      <th>Descripción vehículo</th>
+                      <th>Acciones</th>
                   </tr>
               </thead>
               <tbody>
@@ -42,16 +47,22 @@
                   <!-- Los datos de la tabla van aquí -->
                   <tr>
                       <td>{{ vehiculo.codigo_vehiculo }}</td>
+                      <td>{{ vehiculo.id_gerente }}</td>
                       <td>{{ vehiculo.codigo_sucursal }}</td>
+                      <td>{{ vehiculo.numero_factura }}</td>
+                      <td>{{ vehiculo.numero_cotizacion }}</td>
                       <td>{{ vehiculo.modelo_vehiculo }}</td>
                       <td>{{ vehiculo.color_vehiculo }}</td>
                       <td>{{ vehiculo.precio_vehiculo }}</td>
+                      <td>{{ vehiculo.descripcion_vehiculo }}</td>
                       <td>
-                        <form action="{% url 'eliminar_vehiculo' %}" method="post">
+                        <form action="{% url 'eliminar_vehiculo' %}" method="post" style="display: inline;">
                           {% csrf_token %}
                           <input type="hidden" name="codigo_vehiculo" value="{{ vehiculo.codigo_vehiculo }}">
                           <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                         </form>
+                        
+                        <a href="{% url 'editar_vehiculo' codigo_vehiculo=vehiculo.codigo_vehiculo %}" class="btn btn-primary btn-sm">Editar</a>
                       </td>
                   </tr>
                   <!-- Repite filas similares para más datos -->
@@ -68,7 +79,4 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-{% endblock %}   
-
-
-
+{% endblock %}

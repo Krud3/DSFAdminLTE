@@ -1,0 +1,109 @@
+{% extends "adminlte/gerente/base_gerente.html" %}
+{% load static %}
+{% block body %}
+    <!-- Content Wrapper. Contains page content -->
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Visualizar/Eliminar/Modificar Repuestos</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Visualizar/Eliminar</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="card">
+            <!-- /.card-header -->
+            <div class="container mt-4 text-left">
+                <input class="form-control mb-3" id="buscador" type="text" placeholder="Buscar...">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" style="font-size: 12px;">
+                        <thead>
+                            <tr>
+                                <th>Código Repuesto</th>
+                                <th>ID Gerente</th>
+                                <th>Código Sucursal</th>
+                                <th>Número Factura</th>
+                                <th>Número Cotización</th>
+                                <th>Nombre Repuesto</th>
+                                <th>Tipo Repuesto</th>
+                                <th>Precio Repuesto</th>
+                                <th>Descripción Repuesto</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data rows -->
+                            {% for repuesto in repuestos %}
+                                <tr>
+                                    <td>{{ repuesto.codigo_repuesto }}</td>
+                                    <td>{{ repuesto.id_gerente }}</td>
+                                    <td>{{ repuesto.codigo_sucursal }}</td>
+                                    <td>{{ repuesto.numero_factura }}</td>
+                                    <td>{{ repuesto.numero_cotizacion }}</td>
+                                    <td><input type="text" name="nombre_repuesto" class="editableField form-control" value="{{ repuesto.nombre_repuesto }}" disabled></td>
+                                    <td><input type="text" name="tipo_repuesto" class="disabled form-control" value="{{ repuesto.tipo_repuesto }}" disabled></td>
+                                    <td><input type="text" name="precio_repuesto" class="editableField form-control" value="{{ repuesto.precio_repuesto }}" disabled></td>
+                                    <td><input type="text" name="descripcion_repuesto" class="editableField form-control" value="{{ repuesto.descripcion_repuesto }}" disabled></td>
+                                    <td>
+                                        <form action="{% url 'eliminar_repuesto' %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="codigo_repuesto" value="{{ repuesto.codigo_repuesto }}">
+                                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                        </form>
+                                        
+                                        
+                                        <a href= "{% url 'editar_repuesto' codigo_repuesto=repuesto.codigo_repuesto %}" class="btn btn-primary btn-sm">Editar</a>
+
+                                        
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Script for Buscador -->
+<script>
+    var buscador = document.getElementById('buscador');
+    buscador.addEventListener('input', function () {
+        var term = buscador.value.trim().toLowerCase();
+        var filas = document.querySelectorAll('.table tbody tr');
+
+        filas.forEach(function (fila) {
+            var coincide = false;
+            fila.querySelectorAll('td').forEach(function (celda) {
+                if (celda.textContent.toLowerCase().includes(term)) {
+                    coincide = true;
+                }
+            });
+
+            if (coincide) {
+                fila.style.display = ''; // Muestra la fila si hay coincidencia
+            } else {
+                fila.style.display = 'none'; // Oculta la fila si no hay coincidencia
+            }
+        });
+    });
+
+    
+</script>
+
+{% endblock %}

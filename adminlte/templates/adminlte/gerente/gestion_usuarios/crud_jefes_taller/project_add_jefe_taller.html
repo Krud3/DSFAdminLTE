@@ -8,12 +8,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Agregar Vendedor</h1>
+            <h1>Agregar Jefe Taller</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Agregar Vendedor</li>
+              <li class="breadcrumb-item active">Agregar Jefe Taller</li>
             </ol>
           </div>
         </div>
@@ -22,13 +22,13 @@
 
     <!-- Main content -->
     <section class="content">
-    <form action="{% url 'agregar_vendedor' %}" method="post">
+    <form action="{% url 'agregar_jefe_taller' %}" method="post">
       {% csrf_token %}
       <div class="row">
         <div class="col-md-6">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Vendedores</h3>
+              <h3 class="card-title">Jefes de Taller</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -38,12 +38,12 @@
             </div>
             <div class="card-body">
               <div class="form-group">
-                <label for="inputName">ID Vendedor</label>
-                <input type="text" id="id_vendedor" name="id_vendedor" class="form-control">
+                <label for="id_jefe_taller">ID Jefe Taller</label>
+                <input type="text" id="id_jefe_taller" name="id_jefe_taller" class="form-control" placeholder="ID Jefe Taller">
               </div>
               <div class="form-group">
                 <select id="id_gerente" name="id_gerente" class="form-control custom-select">
-                  <option selected disabled>Seleccione un gerente</option>
+                  <option selected disabled>Seleccione un ID Gerente</option>
                   {% for gerente in gerentes %}
                   <option value="{{ gerente.id_gerente }}">{{ gerente.id_gerente }}</option>
                   {% endfor %}
@@ -51,27 +51,27 @@
               </div>
               <div class="form-group">
                 <select id="codigo_sucursal" name="codigo_sucursal" class="form-control custom-select">
-                  <option selected disabled>Seleccione un código de sucursal</option>
+                  <option selected disabled>Seleccione un Código Sucursal</option>
                   {% for sucursal in sucursales %}
                   <option value="{{ sucursal.codigo_sucursal }}">{{ sucursal.codigo_sucursal }}</option>
                   {% endfor %}
                 </select>
               </div>
               <div class="form-group">
-                <label for="inputName">Nombre vendedor</label>
-                <input type="text" id="nombre_vendedor" name="nombre_vendedor" class="form-control">
+                <label for="nombre_jefe_taller">Nombre Jefe Taller</label>
+                <input type="text" id="nombre_jefe_taller" name="nombre_jefe_taller" class="form-control" placeholder="Nombre Jefe Taller">
               </div>
               <div class="form-group">
-                <label for="inputName">Email vendedor</label>
-                <input type="text" id="email_vendedor" name="email_vendedor" class="form-control">
+                <label for="telefono_jefe_taller">Teléfono Jefe Taller</label>
+                <input type="text" id="telefono_jefe_taller" name="telefono_jefe_taller" class="form-control" placeholder="Teléfono Jefe Taller">
               </div>
               <div class="form-group">
-                <label for="inputName">Teléfono vendedor</label>
-                <input type="num" id="telefono_vendedor" name="telefono_vendedor" class="form-control">
+                <label for="direccion_jefe_taller">Dirección Jefe Taller</label>
+                <input type="text" id="direccion_jefe_taller" name="direccion_jefe_taller" class="form-control" placeholder="Dirección Jefe Taller">
               </div>
               <div class="form-group">
-                <label for="inputName">Dirección vendedor</label>
-                <input type="text" id="direccion_vendedor" name="direccion_vendedor" class="form-control">
+                <label for="email_jefe_taller">Email Jefe Taller</label>
+                <input type="text" id="email_jefe_taller" name="email_jefe_taller" class="form-control" placeholder="Email Jefe Taller">
               </div>
             </div>
             <!-- /.card-body -->
@@ -81,12 +81,13 @@
         
       </div>
       <div class="row">
+        <button type="button" class="btn btn-tool"  title="Collapse">  
+        </button>
         <div class="col-12">
           <a href="#" class="btn btn-secondary">Cancelar</a>
-          <input type="submit" value="Agregar Nuevo Vendedor" class="btn btn-success float-right">
+          <input type="submit" value="Agregar Jefe Taller" class="btn btn-success float-right">
         </div>
       </div>
-    </form>
     </section>
     <!-- /.content -->
   </div>

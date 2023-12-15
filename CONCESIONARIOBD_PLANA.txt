@@ -253,3 +253,5 @@ VALUES ('OT0001', 'JT0001', 'CLI0001', 'VEH0001', 'FAC0001', '2023-11-01', '2023
        ('OT0009', 'JT0009', 'CLI0009', 'VEH0009', 'FAC0009', '2023-11-09', '2023-11-11', 'Completada', 'Cambio de bujías y cables de encendido.'),
        ('OT0010', 'JT0010', 'CLI0010', 'VEH0010', 'FAC0010', '2023-11-10', '2023-11-12', 'En proceso', 'Reparación de sistema de frenos ABS.');
 
+--clave web captcha 6LeiIzIpAAAAAEnn77KrXtg2-_6hSEQ6JqzSGqoJ
+--clave secreta captcha 6LeiIzIpAAAAAGdzTYY8sOwRKK08f2Y7vWDtyOT1

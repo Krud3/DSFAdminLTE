@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'adminlte_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'projecto3',
+        'NAME': 'dsf1',
         'USER': 'postgres',
         'PASSWORD': '123facil123',
         'HOST': 'localhost',

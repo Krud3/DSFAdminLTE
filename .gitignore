@@ -1,6 +1,6 @@
 venv/
 mientornovirtual/
-
+django_venv/
 adminlte/__pycache__/
 *.pyc
 *.pyo

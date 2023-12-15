@@ -42,19 +42,16 @@ urlpatterns = [ path('login/', views.login, name='login'),
                path('agregar_cliente_jefe_taller/', views.agregar_jefe_taller_cliente, name='agregar_cliente_jefe_taller'),
                path('eliminar_cliente_jefe_taller/', views.eliminar_cliente_jefe_taller, name='eliminar_cliente_jefe_taller'),
                path('vis_eli_cliente_jefe_taller/', views.vis_eli_jefe_taller_cliente, name='vis_eli_cliente_jefe_taller'),
+
                path('edit_jefe_taller_cliente/', views.edit_jefe_taller_cliente, name='edit_jefe_taller_cliente'),
                path('editar_jefe_taller_cliente/<str:id_cliente>/', views.editar_jefe_taller_cliente, name='editar_jefe_taller_cliente'),
-               
-              
+
                path('add_ordenes_trabajo/', views.add_ordenes_trabajo, name='add_ordenes_trabajo'),
                path('agregar_ordenes_trabajo/', views.agregar_ordenes_trabajo, name='agregar_ordenes_trabajo'),
                path('eliminar_ordenes_trabajo/', views.eliminar_ordenes_trabajo, name='eliminar_ordenes_trabajo'),
                path('vis_eli_ordenes_trabajo/', views.vis_eli_ordenes_trabajo, name='vis_eli_ordenes_trabajo'),
                path('edit_ordenes_trabajo/', views.edit_ordenes_trabajo, name='edit_ordenes_trabajo'),
                path('editar_ordenes_trabajo/<str:numero_orden_trabajo>/', views.editar_ordenes_trabajo, name='editar_ordenes_trabajo'),
-
-
-
                path('consultar_repuesto_jefe_taller/', views.consultar_repuesto_jefe_taller, name='consultar_repuesto_jefe_taller'),
                path('inventario_ordenes_trabajo/', views.inventario_ordenes_trabajo, name='inventario_ordenes_trabajo'),
                path('datos_grafico/', views.datos_grafico, name='datos_grafico'),
@@ -72,13 +69,11 @@ urlpatterns = [ path('login/', views.login, name='login'),
                path('editar_jefe_taller/<str:id_jefe_taller>/', views.editar_jefe_taller, name='editar_jefe_taller'),
                path('add_jefe_taller/', views.add_jefe_taller, name='add_jefe_taller'),
                path('vis_eli_jefe_taller/', views.vis_eli_jefe_taller, name='vis_eli_jefe_taller'),
-               path('edit_jefe_taller/', views.edit_jefe_taller, name='edit_jefe_taller'),
-               
-
+               path('edit_jefe_taller/', views.edit_jefe_taller, name='edit_jefe_taller'),              
                path('agregar_sucursales2/', views.agregar_sucursales2, name='agregar_sucursales2'),
-               path('generar_pdf_sucursal/<str:codigo_sucursal>/', views.generar_pdf_sucursal, name='generar_pdf_sucursal'),
-               
+               path('generar_pdf_sucursal/<str:codigo_sucursal>/', views.generar_pdf_sucursal, name='generar_pdf_sucursal'),              
                path('agregar_repuestos2/', views.agregar_repuestos2, name='agregar_repuestos2'),
                path('generar_pdf_repuesto/<str:codigo_sucursal>/', views.generar_pdf_repuesto, name='generar_pdf_repuesto'),
+
                
                ]

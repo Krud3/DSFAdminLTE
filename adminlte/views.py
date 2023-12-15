@@ -13,6 +13,8 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.shortcuts import get_object_or_404
+import requests
+
 
 # Create your views here.
 def index(request):
@@ -27,16 +29,46 @@ def login(request):
         username = request.POST.get("username")
         
         password = request.POST.get('password')
+        '''recaptcha_response = request.POST.get('g-recaptcha-response')
+
+        data = {
+            'secret': '6LeiIzIpAAAAAGdzTYY8sOwRKK08f2Y7vWDtyOT1',
+            'response': recaptcha_response
+        }
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        result = r.json()
+
+        if result['success']:'''
         try:
-            gerente = Gerente.objects.get(id_gerente=username)
-            if check_password(password, gerente.pass_field):
-                #request.session['user'] = gerente.id_gerente
-                return redirect(reverse('index2'))
-            else:
-                return render(request, 'adminlte/gestion_login/login.html', {'error': 'Contraseña incorrecta'})
+            if(username[0:2] == 'JT'):
+                jefe_taller = JefeTaller.objects.get(id_jefe_taller=username)
+                if check_password(password, jefe_taller.pass_field):
+                    
+                    return redirect(reverse('index2'))
+                else:
+                    return render(request, 'adminlte/gestion_login/login.html', {'error': 'Contraseña incorrecta'})
+                
+            elif(username[0:2] == 'GE'):
+                gerente = Gerente.objects.get(id_gerente=username)
+                if check_password(password, gerente.pass_field):
+                    #request.session['user'] = gerente.id_gerente
+                    return redirect(reverse('index'))
+                else:
+                    return render(request, 'adminlte/gestion_login/login.html', {'error': 'Contraseña incorrecta'})
+                
+            elif(username[0:2] == 'VE'):
+                vendedor = Vendedor.objects.get(id_vendedor=username)
+                if check_password(password, vendedor.pass_field):
+                    #request.session['user'] = vendedor.id_vendedor
+                    return redirect(reverse('index3'))
+                else:
+                    return render(request, 'adminlte/gestion_login/login.html', {'error': 'Contraseña incorrecta'})
             
         except Gerente.DoesNotExist:
             return render(request, 'adminlte/gestion_login/login.html', {'error': 'Usuario no existe'})
+        
+        '''else:
+            return render(request, 'adminlte/gestion_login/login.html', {'error': 'Por favor, comprueba que no eres un robot'})'''
         
     return render(request, 'adminlte/gestion_login/login.html')
 
@@ -512,7 +544,6 @@ def vis_eli_jefe_taller_cliente(request):
     context = {'clientes': clientes}    
     return render(request, 'adminlte/jefe_taller/Clientes/edit_delete_jefetaller.html', context)
 
-
 def edit_jefe_taller_cliente(request):
 
     clientes = Cliente.objects.all()
@@ -567,6 +598,115 @@ def editar_jefe_taller_cliente(request,id_cliente):
 
 
 
+
+
+def consultar_repuesto_jefe_taller(request):
+    if request.method == 'POST':
+        codigo_repuesto = request.POST.get('codigo_repuesto')
+        id_gerente = request.POST.get('id_gerente')
+        codigo_sucursal = request.POST.get('codigo_sucursal')
+        numero_factura = request.POST.get('numero_factura')
+        numero_cotizacion = request.POST.get('numero_cotizacion')
+        nombre_repuesto = request.POST.get('nombre_repuesto')
+        tipo_repuesto = request.POST.get('tipo_repuesto')
+        precio_repuesto = request.POST.get('precio_repuesto')
+        descripcion_repuesto = request.POST.get('descripcion_repuesto')
+
+        
+        nuevo_repuesto = Repuesto(
+                codigo_repuesto=codigo_repuesto,
+                id_gerente=Gerente.objects.get(id_gerente=id_gerente),
+                codigo_sucursal=Sucursal.objects.get(codigo_sucursal=codigo_sucursal),
+                numero_factura=Factura.objects.get(numero_factura=numero_factura),
+                numero_cotizacion=Cotizacion.objects.get( numero_cotizacion=numero_cotizacion),
+                nombre_repuesto=nombre_repuesto,
+                tipo_repuesto=tipo_repuesto,
+                precio_repuesto=precio_repuesto,
+                descripcion_repuesto=descripcion_repuesto
+            )
+        nuevo_repuesto.save()
+        messages.success(request, 'Repuesto agregado exitosamente')
+        return redirect('add_repuesto')  # Ajusta esto según tus necesidades
+       
+        
+    repuestos = Repuesto.objects.all()
+    context = {
+        'repuestos': repuestos,
+    }
+    print(Repuesto)
+    return render(request, 'adminlte/jefe_taller/Repuestos/consultar_repuestos.html', context)
+
+
+# View for rendering the form to add orders of work
+def add_ordenes_trabajo(request):
+    jefes = JefeTaller.objects.all()
+    clientes = Cliente.objects.all()
+    vehiculos = Vehiculo.objects.all()
+    facturas = Factura.objects.all()
+  
+    context = {
+        'jefes': jefes,
+        'clientes': clientes,
+        'vehiculos': vehiculos,
+        'facturas': facturas,
+    }
+    return render(request, 'adminlte/jefe_taller/Ordenes_trabajo/add_ordenes_trabajo.html', context)
+
+def agregar_ordenes_trabajo(request):
+    if request.method == 'POST':
+        # Extracting data from the POST request
+        numero_orden_trabajo = request.POST.get('numero_orden_trabajo')
+        id_jefe_taller = request.POST.get('id_jefe_taller')
+        id_cliente = request.POST.get('id_cliente')
+        codigo_vehiculo = request.POST.get('codigo_vehiculo')
+        numero_factura = request.POST.get('numero_factura')
+        fecha_inicio_orden_trabajo = request.POST.get('fecha_inicio_orden_trabajo')
+        fecha_final_orden_trabajo = request.POST.get('fecha_final_orden_trabajo')
+        estado_orden_trabajo = request.POST.get('estado_orden_trabajo')
+        descripcion_orden_trabajo = request.POST.get('descripcion_orden_trabajo')
+
+        # Creating a new OrdenTrabajo object
+        nueva_orden_trabajo = OrdenTrabajo(
+            numero_orden_trabajo=numero_orden_trabajo,
+            id_jefe_taller = JefeTaller.objects.get(id_jefe_taller=id_jefe_taller),
+            id_cliente=Cliente.objects.get(id_cliente=id_cliente),
+            codigo_vehiculo=Vehiculo.objects.get(codigo_vehiculo=codigo_vehiculo),
+            numero_factura=Factura.objects.get(numero_factura=numero_factura),
+            fecha_inicio_orden_trabajo=fecha_inicio_orden_trabajo,
+            fecha_final_orden_trabajo=fecha_final_orden_trabajo,
+            estado_orden_trabajo=estado_orden_trabajo,
+            descripcion_orden_trabajo=descripcion_orden_trabajo
+        )
+
+        # Saving the new OrdenTrabajo object to the database
+        nueva_orden_trabajo.save()
+
+        # Displaying a success message
+        messages.success(request, 'Orden de trabajo agregada exitosamente')
+
+        # Redirecting to a specified URL (adjust this based on your needs)
+        return redirect('add_ordenes_trabajo')
+
+    # If the request method is not POST, retrieve existing OrdenTrabajo objects
+    orden_trabajo = OrdenTrabajo.objects.all()
+    jefes = JefeTaller.objects.all()
+    clientes = Cliente.objects.all()
+    vehiculos = Vehiculo.objects.all()
+    facturas = Factura.objects.all()
+    
+    # Creating a context dictionary for rendering the template
+    context = {
+        
+        'jefes': jefes,
+        'clientes': clientes,
+        'vehiculos': vehiculos,
+        'facturas': facturas,
+    
+       'orden_trabajo': orden_trabajo
+    }
+
+    # Rendering the template with the context
+    return render(request, 'adminlte/jefe_taller/Ordenes_trabajo/edit_delete_ordenes_trabajo.html', context)
 
 
 def consultar_repuesto_jefe_taller(request):
@@ -739,7 +879,6 @@ def editar_ordenes_trabajo(request, numero_orden_trabajo):
 
     return render(request, 'adminlte/jefe_taller/Ordenes_trabajo/project_edit_orden_trabajo.html', context)
 
-
 def inventario_ordenes_trabajo(request):
     ordenes = OrdenTrabajo.objects.all()
 
@@ -755,11 +894,6 @@ def inventario_ordenes_trabajo(request):
     }
 
     return render(request, 'adminlte/jefe_taller/reportes_graficos/reporte_grafico_jefe_taller.html', context)
-
-
-
-
-
 
 # Vista para alimentar la gráfica con datos JSON
 def datos_grafico(request):
@@ -1231,3 +1365,4 @@ def agregar_repuestos2(request):
     sucursales = Sucursal.objects.all()
     print(sucursales)
     return render(request, 'adminlte/gerente/reportes_texto/reporte_texto_repuestos/reporte_repuestos.html', {'sucursales': sucursales})
+

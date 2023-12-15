@@ -15,6 +15,7 @@ from xhtml2pdf import pisa
 from django.shortcuts import get_object_or_404
 import requests
 
+
 # Create your views here.
 def index(request):
     return render(request, 'adminlte/gerente/index.html')
@@ -543,6 +544,170 @@ def vis_eli_jefe_taller_cliente(request):
     context = {'clientes': clientes}    
     return render(request, 'adminlte/jefe_taller/Clientes/edit_delete_jefetaller.html', context)
 
+def edit_jefe_taller_cliente(request):
+
+    clientes = Cliente.objects.all()
+    gerentes = Gerente.objects.all()
+    vendedores = Vendedor.objects.all()
+    jefes = JefeTaller.objects.all()
+
+    # Supongamos que estás trabajando con el primer cliente en la lista
+    cliente = clientes.first()
+
+    context = {
+        'clientes': clientes,
+        'gerentes': gerentes,
+        'vendedores': vendedores,
+        'jefes': jefes,
+        'cliente': cliente,  # Asegúrate de obtener el cliente correcto aquí
+    }
+    return render(request, 'adminlte/jefe_taller/Clientes/project_edit_jefe_taller.html', context)
+
+def editar_jefe_taller_cliente(request,id_cliente):
+    # Obtener el objeto del cliente basado en el id_cliente proporcionado
+    cliente = Cliente.objects.get(id_cliente=id_cliente)
+
+    context = {
+        'cliente': cliente,
+    }
+
+    if request.method == 'POST':
+        # Manejar los datos del formulario desde la solicitud POST
+        nombre_cliente = request.POST.get('nombre_cliente', '')
+        direccion_cliente = request.POST.get('direccion_cliente', '')
+        email_cliente = request.POST.get('email_cliente', '')
+        telefono_cliente = request.POST.get('telefono_cliente', '')
+
+        # Actualizar solo los campos proporcionados en el formulario
+        if nombre_cliente:
+            cliente.nombre_cliente = nombre_cliente
+        if direccion_cliente:
+            cliente.direccion_cliente = direccion_cliente
+        if email_cliente:
+            cliente.email_cliente = email_cliente
+        if telefono_cliente:
+            cliente.telefono_cliente = telefono_cliente
+
+        cliente.save()
+       
+        return redirect('vis_eli_cliente_jefe_taller')  
+
+    return render(request, 'adminlte/jefe_taller/Clientes/project_edit_jefe_taller.html',context)
+
+    
+
+
+
+
+
+def consultar_repuesto_jefe_taller(request):
+    if request.method == 'POST':
+        codigo_repuesto = request.POST.get('codigo_repuesto')
+        id_gerente = request.POST.get('id_gerente')
+        codigo_sucursal = request.POST.get('codigo_sucursal')
+        numero_factura = request.POST.get('numero_factura')
+        numero_cotizacion = request.POST.get('numero_cotizacion')
+        nombre_repuesto = request.POST.get('nombre_repuesto')
+        tipo_repuesto = request.POST.get('tipo_repuesto')
+        precio_repuesto = request.POST.get('precio_repuesto')
+        descripcion_repuesto = request.POST.get('descripcion_repuesto')
+
+        
+        nuevo_repuesto = Repuesto(
+                codigo_repuesto=codigo_repuesto,
+                id_gerente=Gerente.objects.get(id_gerente=id_gerente),
+                codigo_sucursal=Sucursal.objects.get(codigo_sucursal=codigo_sucursal),
+                numero_factura=Factura.objects.get(numero_factura=numero_factura),
+                numero_cotizacion=Cotizacion.objects.get( numero_cotizacion=numero_cotizacion),
+                nombre_repuesto=nombre_repuesto,
+                tipo_repuesto=tipo_repuesto,
+                precio_repuesto=precio_repuesto,
+                descripcion_repuesto=descripcion_repuesto
+            )
+        nuevo_repuesto.save()
+        messages.success(request, 'Repuesto agregado exitosamente')
+        return redirect('add_repuesto')  # Ajusta esto según tus necesidades
+       
+        
+    repuestos = Repuesto.objects.all()
+    context = {
+        'repuestos': repuestos,
+    }
+    print(Repuesto)
+    return render(request, 'adminlte/jefe_taller/Repuestos/consultar_repuestos.html', context)
+
+
+# View for rendering the form to add orders of work
+def add_ordenes_trabajo(request):
+    jefes = JefeTaller.objects.all()
+    clientes = Cliente.objects.all()
+    vehiculos = Vehiculo.objects.all()
+    facturas = Factura.objects.all()
+  
+    context = {
+        'jefes': jefes,
+        'clientes': clientes,
+        'vehiculos': vehiculos,
+        'facturas': facturas,
+    }
+    return render(request, 'adminlte/jefe_taller/Ordenes_trabajo/add_ordenes_trabajo.html', context)
+
+def agregar_ordenes_trabajo(request):
+    if request.method == 'POST':
+        # Extracting data from the POST request
+        numero_orden_trabajo = request.POST.get('numero_orden_trabajo')
+        id_jefe_taller = request.POST.get('id_jefe_taller')
+        id_cliente = request.POST.get('id_cliente')
+        codigo_vehiculo = request.POST.get('codigo_vehiculo')
+        numero_factura = request.POST.get('numero_factura')
+        fecha_inicio_orden_trabajo = request.POST.get('fecha_inicio_orden_trabajo')
+        fecha_final_orden_trabajo = request.POST.get('fecha_final_orden_trabajo')
+        estado_orden_trabajo = request.POST.get('estado_orden_trabajo')
+        descripcion_orden_trabajo = request.POST.get('descripcion_orden_trabajo')
+
+        # Creating a new OrdenTrabajo object
+        nueva_orden_trabajo = OrdenTrabajo(
+            numero_orden_trabajo=numero_orden_trabajo,
+            id_jefe_taller = JefeTaller.objects.get(id_jefe_taller=id_jefe_taller),
+            id_cliente=Cliente.objects.get(id_cliente=id_cliente),
+            codigo_vehiculo=Vehiculo.objects.get(codigo_vehiculo=codigo_vehiculo),
+            numero_factura=Factura.objects.get(numero_factura=numero_factura),
+            fecha_inicio_orden_trabajo=fecha_inicio_orden_trabajo,
+            fecha_final_orden_trabajo=fecha_final_orden_trabajo,
+            estado_orden_trabajo=estado_orden_trabajo,
+            descripcion_orden_trabajo=descripcion_orden_trabajo
+        )
+
+        # Saving the new OrdenTrabajo object to the database
+        nueva_orden_trabajo.save()
+
+        # Displaying a success message
+        messages.success(request, 'Orden de trabajo agregada exitosamente')
+
+        # Redirecting to a specified URL (adjust this based on your needs)
+        return redirect('add_ordenes_trabajo')
+
+    # If the request method is not POST, retrieve existing OrdenTrabajo objects
+    orden_trabajo = OrdenTrabajo.objects.all()
+    jefes = JefeTaller.objects.all()
+    clientes = Cliente.objects.all()
+    vehiculos = Vehiculo.objects.all()
+    facturas = Factura.objects.all()
+    
+    # Creating a context dictionary for rendering the template
+    context = {
+        
+        'jefes': jefes,
+        'clientes': clientes,
+        'vehiculos': vehiculos,
+        'facturas': facturas,
+    
+       'orden_trabajo': orden_trabajo
+    }
+
+    # Rendering the template with the context
+    return render(request, 'adminlte/jefe_taller/Ordenes_trabajo/edit_delete_ordenes_trabajo.html', context)
+
 
 def consultar_repuesto_jefe_taller(request):
     if request.method == 'POST':
@@ -666,6 +831,53 @@ def vis_eli_ordenes_trabajo(request):
     ordenes_trabajo = OrdenTrabajo.objects.all()
     print(ordenes_trabajo)
     return render(request, 'adminlte/jefe_taller/Ordenes_trabajo/edit_delete_ordenes_trabajo.html', {'ordenes_trabajo': ordenes_trabajo})
+
+def edit_ordenes_trabajo(request):
+    ordenes_trabajo = OrdenTrabajo.objects.all()
+    jefes_taller = JefeTaller.objects.all()
+    clientes = Cliente.objects.all()
+    vehiculos = Vehiculo.objects.all()
+    facturas = Factura.objects.all()
+
+    orden_trabajo = ordenes_trabajo.first()
+
+    context = {
+        'ordenes_trabajo': ordenes_trabajo,
+        'orden_trabajo': orden_trabajo,
+        'jefes_taller': jefes_taller,
+        'clientes': clientes,
+        'vehiculos': vehiculos,
+        'facturas': facturas,
+    }
+
+    return render(request, 'adminlte/jefe_taller/Ordenes_trabajo/project_edit_orden_trabajo.html', context)
+
+def editar_ordenes_trabajo(request, numero_orden_trabajo):
+    orden_trabajo = get_object_or_404(OrdenTrabajo, numero_orden_trabajo=numero_orden_trabajo)
+
+    context = {'orden_trabajo': orden_trabajo}
+
+    if request.method == 'POST':
+        fecha_inicio = request.POST.get('fecha_inicio_orden_trabajo')
+        fecha_final = request.POST.get('fecha_final_orden_trabajo')
+        estado = request.POST.get('estado_orden_trabajo')
+        descripcion = request.POST.get('descripcion_orden_trabajo')
+
+        # Actualiza solo los campos proporcionados en el formulario
+        if fecha_inicio:
+            orden_trabajo.fecha_inicio_orden_trabajo = fecha_inicio
+        if fecha_final:
+            orden_trabajo.fecha_final_orden_trabajo = fecha_final
+        if estado:
+            orden_trabajo.estado_orden_trabajo = estado
+        if descripcion:
+            orden_trabajo.descripcion_orden_trabajo = descripcion
+
+        orden_trabajo.save()
+        messages.success(request, 'Orden de Trabajo actualizada exitosamente')
+        return redirect('vis_eli_ordenes_trabajo')
+
+    return render(request, 'adminlte/jefe_taller/Ordenes_trabajo/project_edit_orden_trabajo.html', context)
 
 def inventario_ordenes_trabajo(request):
     ordenes = OrdenTrabajo.objects.all()
@@ -1130,3 +1342,27 @@ def agregar_sucursales2(request):
     sucursales = Sucursal.objects.all()
     print(sucursales)
     return render(request, 'adminlte/gerente/reportes_texto/reporte_texto_autos/reporte_autos.html', {'sucursales': sucursales})
+
+
+
+def render_pdf(html_content):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="reporte_repuestos.pdf"'
+    pisa.CreatePDF(html_content, dest=response)
+    return response
+
+def generar_pdf_repuesto(request, codigo_sucursal):
+    sucursal = get_object_or_404(Sucursal, codigo_sucursal=codigo_sucursal)
+    repuestos = Repuesto.objects.filter(codigo_sucursal=sucursal)
+
+    context = {'sucursal': sucursal, 'repuestos': repuestos}
+    template = get_template('adminlte/gerente/reportes_texto/reporte_texto_repuestos/reporte_repuestos_pdf.html')
+    html_content = template.render(context)
+
+    return render_pdf(html_content)
+
+def agregar_repuestos2(request):
+    sucursales = Sucursal.objects.all()
+    print(sucursales)
+    return render(request, 'adminlte/gerente/reportes_texto/reporte_texto_repuestos/reporte_repuestos.html', {'sucursales': sucursales})
+

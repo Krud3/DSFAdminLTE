@@ -321,13 +321,16 @@
             </ul>
           </li>
           <li class="nav-item">
+
             <a href="#" class="nav-link" id="reportes-graficos">
+              
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 Reportes en  gráficos
                 <i class="right fas fa-angle-left"></i>
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
+
                     <a href="{% url 'gra_repuestos' %}" class="nav-link" id="inventario-repuestos">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Inventario de Repuestos</p>
@@ -358,7 +361,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
+                <a href="{% url 'agregar_repuestos2' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Reporte repuestos</p>
                 </a>
@@ -382,6 +385,7 @@
               </li>
               <li class="nav-item">
                 <a href="{% url 'agregar_repuesto' %}" class="nav-link" id ="cme-repuesto">
+
                   <i class="far fa-circle nav-icon"></i>
                   <p>Consultar/Modificar/Editar Repuesto</p>
                 </a>

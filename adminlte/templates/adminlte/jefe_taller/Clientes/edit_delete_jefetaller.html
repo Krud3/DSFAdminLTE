@@ -42,7 +42,8 @@
                       <input type="hidden" name="id_cliente" value="{{ cliente.id_cliente }}">
                       <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
-                    <button class="editarFila btn-primary btn-sm" data-id="{{ cliente.id_cliente }}" style="font-size: 10px;">Editar</button>
+                    <a href="{% url 'editar_jefe_taller_cliente' id_cliente=cliente.id_cliente %}" class="btn btn-primary btn-sm">Editar</a>
+                
                   </td>
                 </tr>
                 {% endfor %}
@@ -51,6 +52,7 @@
           </div>
           <button class="btn btn-danger btn-sm" id="limpiarCampos">Limpiar campos</button>
           <button class="btn btn-primary btn-sm guardarCambios">Guardar cambios</button>
+
         </div>
         <!-- /.card-body -->
 

@@ -13,6 +13,7 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.shortcuts import get_object_or_404
+import requests
 
 # Create your views here.
 def index(request):
@@ -27,16 +28,46 @@ def login(request):
         username = request.POST.get("username")
         
         password = request.POST.get('password')
+        '''recaptcha_response = request.POST.get('g-recaptcha-response')
+
+        data = {
+            'secret': '6LeiIzIpAAAAAGdzTYY8sOwRKK08f2Y7vWDtyOT1',
+            'response': recaptcha_response
+        }
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        result = r.json()
+
+        if result['success']:'''
         try:
-            gerente = Gerente.objects.get(id_gerente=username)
-            if check_password(password, gerente.pass_field):
-                #request.session['user'] = gerente.id_gerente
-                return redirect(reverse('index'))
-            else:
-                return render(request, 'adminlte/gestion_login/login.html', {'error': 'Contraseña incorrecta'})
+            if(username[0:2] == 'JT'):
+                jefe_taller = JefeTaller.objects.get(id_jefe_taller=username)
+                if check_password(password, jefe_taller.pass_field):
+                    
+                    return redirect(reverse('index2'))
+                else:
+                    return render(request, 'adminlte/gestion_login/login.html', {'error': 'Contraseña incorrecta'})
+                
+            elif(username[0:2] == 'GE'):
+                gerente = Gerente.objects.get(id_gerente=username)
+                if check_password(password, gerente.pass_field):
+                    #request.session['user'] = gerente.id_gerente
+                    return redirect(reverse('index'))
+                else:
+                    return render(request, 'adminlte/gestion_login/login.html', {'error': 'Contraseña incorrecta'})
+                
+            elif(username[0:2] == 'VE'):
+                vendedor = Vendedor.objects.get(id_vendedor=username)
+                if check_password(password, vendedor.pass_field):
+                    #request.session['user'] = vendedor.id_vendedor
+                    return redirect(reverse('index3'))
+                else:
+                    return render(request, 'adminlte/gestion_login/login.html', {'error': 'Contraseña incorrecta'})
             
         except Gerente.DoesNotExist:
             return render(request, 'adminlte/gestion_login/login.html', {'error': 'Usuario no existe'})
+        
+        '''else:
+            return render(request, 'adminlte/gestion_login/login.html', {'error': 'Por favor, comprueba que no eres un robot'})'''
         
     return render(request, 'adminlte/gestion_login/login.html')
 

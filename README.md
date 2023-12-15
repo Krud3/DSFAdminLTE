@@ -12,3 +12,7 @@ Para instalar el postgres "pip install psycopg2"
 Para generar los models.py "py manage.py inspectdb > adminlte/models.py" (tener cuidado con el UTF-8) //////////// NO HAY QUE HACERLO
 Para migrar "py manage.py makemigrations", luego "py manage.py migrate"
 Para usar el shell de django "py manage.py shell"
+from adminlte.models import JefeTaller  
+jefe_taller = JefeTaller.objects.get(id_jefe_taller='JT0001')
+jefe_taller.pass_field = '123facil123'
+jefe_taller.save()

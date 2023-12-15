@@ -235,7 +235,7 @@
             </ul>
           </li>
           <!----------------------->
-          <li class="nav-item">
+          <li class="nav-item" id="gestion-usuarios">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
               <p>
@@ -254,7 +254,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{% url 'add_jefe_taller' %}" class="nav-link">
+                    <a href="{% url 'add_jefe_taller' %}" class="nav-link" id="agregar-jefe">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Agregar</p>
                     </a>
@@ -279,7 +279,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{% url 'add_vendedor' %}" class="nav-link">
+                    <a href="{% url 'add_vendedor' %}" class="nav-link" id="agregar-vendedor">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Agregar</p>
                     </a>
@@ -321,14 +321,14 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link" id="reportes-graficos">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 Reportes en  gráficos
                 <i class="right fas fa-angle-left"></i>
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{% url 'gra_repuestos' %}" class="nav-link">
+                    <a href="{% url 'gra_repuestos' %}" class="nav-link" id="inventario-repuestos">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Inventario de Repuestos</p>
                     </a>
@@ -381,7 +381,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'agregar_repuesto' %}" class="nav-link">
+                <a href="{% url 'agregar_repuesto' %}" class="nav-link" id ="cme-repuesto">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Consultar/Modificar/Editar Repuesto</p>
                 </a>
@@ -502,7 +502,7 @@
 <!-- AdminLTE App -->
 <script src="{% static 'dist/js/adminlte.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{% static 'dist/js/demo.js' %}"></script>
+<!--script src="{% static 'dist/js/demo.js' %}"></script-->
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{% static 'dist/js/pages/dashboard.js' %}"></script>
 </body>

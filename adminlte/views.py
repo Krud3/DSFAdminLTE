@@ -1077,4 +1077,25 @@ def editar_sucursal(request, codigo_sucursal):
     return render(request, 'adminlte/gerente/sucursales/project_edit_sucursal.html', context)
     
 
-    
+
+
+def render_pdf(html_content):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="reporte_autos.pdf"'
+    pisa.CreatePDF(html_content, dest=response)
+    return response
+
+def generar_pdf_sucursal(request, codigo_sucursal):
+    sucursal = get_object_or_404(Sucursal, codigo_sucursal=codigo_sucursal)
+    vehiculos = Vehiculo.objects.filter(codigo_sucursal=sucursal)
+
+    context = {'sucursal': sucursal, 'vehiculos': vehiculos}
+    template = get_template('adminlte/gerente/reportes_texto/reporte_texto_autos/reporte_autos_pdf.html')
+    html_content = template.render(context)
+
+    return render_pdf(html_content)
+
+def agregar_sucursales2(request):
+    sucursales = Sucursal.objects.all()
+    print(sucursales)
+    return render(request, 'adminlte/gerente/reportes_texto/reporte_texto_autos/reporte_autos.html', {'sucursales': sucursales})

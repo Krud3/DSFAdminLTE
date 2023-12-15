@@ -32,14 +32,12 @@ urlpatterns = [ path('login/', views.login, name='login'),
                path('vis_eli_repuesto/', views.vis_eli_repuesto, name='vis_eli_repuesto'),
                path('edit_repuesto/', views.edit_repuesto, name='edit_repuesto'),
                path('editar_repuesto/<str:codigo_repuesto>/', views.editar_repuesto, name='editar_repuesto'),
-
                path('add_sucursal/', views.add_sucursal, name='add_sucursal'),
                path('agregar_sucursal/', views.agregar_sucursal, name='agregar_sucursal'),
                path('eliminar_sucursal/', views.eliminar_sucursal, name='eliminar_sucursal'),
                path('vis_eli_sucursal/', views.vis_eli_sucursal, name='vis_eli_sucursal'),
                path('edit_sucursal/', views.edit_sucursal, name='edit_sucursal'),
                path('editar_sucursal/<str:codigo_sucursal>/', views.editar_sucursal, name='editar_sucursal'),
-
                path('add_jefetaller_cliente/',views.add_cliente_jefe_taller, name='add_jefetaller_cliente'),
                path('agregar_cliente_jefe_taller/', views.agregar_jefe_taller_cliente, name='agregar_cliente_jefe_taller'),
                path('eliminar_cliente_jefe_taller/', views.eliminar_cliente_jefe_taller, name='eliminar_cliente_jefe_taller'),
@@ -66,4 +64,10 @@ urlpatterns = [ path('login/', views.login, name='login'),
                path('add_jefe_taller/', views.add_jefe_taller, name='add_jefe_taller'),
                path('vis_eli_jefe_taller/', views.vis_eli_jefe_taller, name='vis_eli_jefe_taller'),
                path('edit_jefe_taller/', views.edit_jefe_taller, name='edit_jefe_taller'),
+               
+
+               path('agregar_sucursales2/', views.agregar_sucursales2, name='agregar_sucursales2'),
+               path('generar_pdf_sucursal/<str:codigo_sucursal>/', views.generar_pdf_sucursal, name='generar_pdf_sucursal'),
+
+               
                ]
